@@ -2,12 +2,24 @@
   <div class="wrapper">
     <div class="content">
       <div class="links-wrapper">
-        <div>Logo</div>
-        <div>Features</div>
-        <div>Tools</div>
-        <div>Resume AI</div>
-        <div>About Us</div>
-        <div>Blog</div>
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuLink :class="navigationMenuTriggerStyle()">Logo</NavigationMenuLink>
+              <NavigationMenuLink :class="navigationMenuTriggerStyle()">
+                Features
+              </NavigationMenuLink>
+              <NavigationMenuLink :class="navigationMenuTriggerStyle()"> Tools </NavigationMenuLink>
+              <NavigationMenuLink :class="navigationMenuTriggerStyle()">
+                Resume AI
+              </NavigationMenuLink>
+              <NavigationMenuLink :class="navigationMenuTriggerStyle()">
+                About Us
+              </NavigationMenuLink>
+              <NavigationMenuLink :class="navigationMenuTriggerStyle()"> Blog </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
       </div>
 
       <div class="account-wrapper">
@@ -19,13 +31,20 @@
 </template>
 
 <script setup lang="ts">
-//
+import {
+  NavigationMenu,
+  // NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  // NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from '@/components/ui/navigation-menu'
 </script>
 
 <style scoped lang="scss">
 .wrapper {
   height: 7.5vh;
-  // filter: drop-shadow(5px 5px);
   box-shadow:
     0 2px 2px rgba(0, 0, 0, 0.1),
     0 4px 4px rgba(0, 0, 0, 0.1);
