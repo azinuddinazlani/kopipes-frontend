@@ -5,7 +5,9 @@
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuLink :class="navigationMenuTriggerStyle()">Logo</NavigationMenuLink>
+              <NavigationMenuLink href="/" :class="navigationMenuTriggerStyle()"
+                >Logo</NavigationMenuLink
+              >
               <NavigationMenuLink :class="navigationMenuTriggerStyle()">
                 Features
               </NavigationMenuLink>
