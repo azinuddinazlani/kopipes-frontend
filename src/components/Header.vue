@@ -25,8 +25,22 @@
       </div>
 
       <div class="account-wrapper">
-        <div class="login-btn">Sign In</div>
-        <div class="register-btn">Join Now</div>
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                href="/signup"
+                :class="navigationMenuTriggerStyle()"
+                class="login-btn"
+              >
+                Sign In
+              </NavigationMenuLink>
+              <NavigationMenuLink :class="navigationMenuTriggerStyle()" class="register-btn">
+                Join Now
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
       </div>
     </div>
   </div>
@@ -78,6 +92,7 @@ import {
         background-color: #000;
         color: #fff;
         font-weight: 700;
+        cursor: pointer;
       }
     }
   }
