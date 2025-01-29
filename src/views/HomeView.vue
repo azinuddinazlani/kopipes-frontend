@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import Footer from '@/components/Footer.vue'
 </script>
 
 <template>
@@ -143,6 +144,7 @@ import { ref } from 'vue'
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
