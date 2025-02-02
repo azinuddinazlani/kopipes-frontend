@@ -1,11 +1,11 @@
 <template>
   <div class="wrapper">
-    <AssessmentProgress />
+    <StartTest />
   </div>
 </template>
 
 <script setup>
-import AssessmentProgress from '@/components/AssessmentProgress.vue'
+import StartTest from '@/components/StartTest.vue'
 </script>
 
 <style lang="scss"></style>
