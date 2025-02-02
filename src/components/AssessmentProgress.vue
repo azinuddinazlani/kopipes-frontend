@@ -56,7 +56,8 @@ onBeforeUnmount(() => {
 <style lang="scss" scoped>
 .wrapper {
   //   background-color: #fff;
-  padding: 1rem;
+  // padding: 1rem;
+  margin: 0 0 1.25rem 0 !important;
   border-radius: 10px;
 
   .content-wrapper {
