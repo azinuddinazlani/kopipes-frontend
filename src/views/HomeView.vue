@@ -29,46 +29,84 @@ import Footer from '@/components/Footer.vue'
 
     <div class="solution-wrapper">
       <div class="solution-title section-title">How We're Fixing The Job Space</div>
+
       <div class="solution-desc">
         In order to fulfill our mission, we are led by these value props.
       </div>
-      <div class="solution-card-wrapper grid grid-cols-2">
-        <div class="solution-card">
-          <div class="solution-card-img"><img src="@/img/card-personalization.svg" /></div>
-          <div class="solution-card-title">Meaningful personalization</div>
-          <div class="solution-card-desc">
-            We will prioritize what matter most to you based on your background and preferences.
-            Only consider job opportunities that match your goals and for which you are well
-            qualified.
+
+      <div class="flip-wrapper grid grid-cols-2">
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <!-- Front Side -->
+            <div class="flip-card-front">
+              <img src="@/img/card-personalization.svg" />
+              <span>Meaningful</span>
+              <span>personalization</span>
+            </div>
+            <!-- Back Side -->
+            <div class="flip-card-back">
+              <p>
+                We will prioritize what matter most to you based on your background and preferences.
+                Only consider job opportunities that match your goals and for which you are well
+                qualified.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div class="solution-card">
-          <div class="solution-card-img"><img src="@/img/card-coach.svg" /></div>
-          <div class="solution-card-title">Guided coaching</div>
-          <div class="solution-card-desc">
-            We want to support each step of your job search journey, from refining your resume to
-            offering referral support and optimizing your applications. We will provide you with
-            relevant and actionable feedback as you progress through the job process.
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <!-- Front Side -->
+            <div class="flip-card-front">
+              <img src="@/img/card-coach.svg" />
+              <span>Guided</span>
+              <span>coaching</span>
+            </div>
+            <!-- Back Side -->
+            <div class="flip-card-back">
+              <p>
+                We want to support each step of your job search journey, from refining your resume
+                to offering referral support and optimizing your applications. We will provide you
+                with relevant and actionable feedback as you progress through the job process.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div class="solution-card">
-          <div class="solution-card-img"><img src="@/img/card-automate.svg" /></div>
-          <div class="solution-card-title">Automate burdensome work</div>
-          <div class="solution-card-desc">
-            Finding a job can be draining. We want to take away the pain of repetitive and stressful
-            tasks.
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <!-- Front Side -->
+            <div class="flip-card-front">
+              <img src="@/img/card-automate.svg" />
+              <span>Automate</span>
+              <span>burdensome work</span>
+            </div>
+            <!-- Back Side -->
+            <div class="flip-card-back">
+              <p>
+                Finding a job can be draining. We want to take away the pain of repetitive and
+                stressful tasks.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div class="solution-card">
-          <div class="solution-card-img"><img src="@/img/card-coverage.svg" /></div>
-          <div class="solution-card-title">Job coverage and reach</div>
-          <div class="solution-card-desc">
-            Finally, we want to be the only destination for finding your dream opportunity.
-            Providing extensive coverage allows us to confidently show you the newest and
-            never-seen-before jobs.
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <!-- Front Side -->
+            <div class="flip-card-front">
+              <img src="@/img/card-coverage.svg" />
+              <span>Job coverage</span>
+              <span>& reach</span>
+            </div>
+            <!-- Back Side -->
+            <div class="flip-card-back">
+              <p>
+                Finally, we want to be the only destination for finding your dream opportunity.
+                Providing extensive coverage allows us to confidently show you the newest and
+                never-seen-before jobs.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -209,29 +247,55 @@ import Footer from '@/components/Footer.vue'
     text-align: center;
     padding: 0 10rem;
 
-    .solution-card {
-      font-size: 1rem;
-      font-weight: 400;
-      color: #000;
-      padding: 2rem;
-      background-color: #f2f4f5;
-      border-radius: 10px;
-      margin: 1rem;
+    .flip-wrapper {
+      gap: 20px; // Adjust spacing between cards
+      width: 80vw;
+      height: 80vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
 
-      .solution-card-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #000;
-        padding: 1rem 0;
-        text-align: start;
+    .flip-card {
+      width: 100%;
+      height: 100%;
+      perspective: 1000px;
+
+      .flip-card-inner {
+        width: 100%;
+        height: 100%;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+
+        .flip-card-front,
+        .flip-card-back {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          backface-visibility: hidden;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 10px;
+          font-size: 2vw; // Responsive font size
+          font-weight: bold;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .flip-card-front {
+          background-color: #f2f4f5;
+          // color: white;
+        }
+
+        .flip-card-back {
+          background-color: #f2f4f5;
+          // color: white;
+          transform: rotateY(180deg);
+        }
       }
 
-      .solution-card-desc {
-        font-size: 1rem;
-        font-weight: 400;
-        color: #000;
-        padding: 0 2rem 4rem 0;
-        text-align: start;
+      &:hover .flip-card-inner {
+        transform: rotateY(180deg);
       }
     }
   }
