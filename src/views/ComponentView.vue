@@ -4,9 +4,11 @@
     <!-- <AssessmentProgress /> -->
     <!-- <Question /> -->
     <!-- <UserProfile /> -->
-    <div class="upload-wrapper">
+    <!-- <div class="upload-wrapper">
       <UploadResume class="uploadResume" />
-    </div>
+    </div> -->
+
+    <PersonalDetailForm />
   </div>
 </template>
 
@@ -15,21 +17,22 @@
 // import AssessmentProgress from '@/components/AssessmentProgress.vue'
 // import Question from '@/components/Question.vue'
 // import UserProfile from '@/components/UserProfile.vue'
-import UploadResume from '@/components/UploadResume.vue'
+// import UploadResume from '@/components/UploadResume.vue'
+import PersonalDetailForm from '@/components/PersonalDetailForm.vue'
 </script>
 
 <style lang="scss" scoped>
 // render upload resume start
-.wrapper {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+// .wrapper {
+//   height: 100vh;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
 
-.upload-wrapper {
-  width: 90%;
-}
+// .upload-wrapper {
+//   width: 90%;
+// }
 // render upload resume end
 
 .test {

@@ -1,7 +1,7 @@
 <template>
-  <div>Submit Resume</div>
+  <PersonalDetailForm />
 </template>
 
 <script setup lang="ts">
-//
+import PersonalDetailForm from '@/components/PersonalDetailForm.vue'
 </script>

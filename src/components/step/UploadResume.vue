@@ -44,7 +44,7 @@
       </CardContent>
 
       <CardFooter class="card-footer">
-        <Button>Next <ChevronRight /> </Button>
+        <Button @click="handleNext">Next <ChevronRight /> </Button>
       </CardFooter>
     </Card>
   </div>
@@ -59,13 +59,28 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import Button from './ui/button/Button.vue'
+import Button from '@/components/ui/button/Button.vue'
 import { ChevronRight } from 'lucide-vue-next'
 
 // ant
-import { ref } from 'vue'
+import { ref, reactive, watch } from 'vue'
+
 // import { InboxOutlined } from '@ant-design/icons-vue'
 import { message } from 'ant-design-vue'
+
+const props = defineProps<{
+  formData: FormData
+}>()
+
+const emit = defineEmits(['update:formData', 'next'])
+
+const localFormData = reactive({ ...props.formData })
+
+interface FormData {
+  firstName: string
+  lastName: string
+  [key: string]: any
+}
 
 const fileList = ref([])
 
@@ -84,19 +99,28 @@ const handleChange = (info) => {
 function handleDrop(e) {
   console.log(e)
 }
+
+watch(localFormData, (newValue) => {
+  emit('update:formData', newValue)
+})
+
+const handleNext = () => {
+  emit('next')
+}
 </script>
 
 <style lang="scss" scoped>
 .wrapper {
   .card-wrapper {
     width: 100%;
+
     .img-wrapper {
       display: flex;
       justify-content: center;
 
       .img-circle {
-        width: 25rem;
-        height: 25rem;
+        width: 20rem;
+        height: 20rem;
         border-radius: 50%;
         background-color: #f4f4f4;
         display: flex;
