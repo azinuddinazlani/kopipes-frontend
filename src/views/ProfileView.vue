@@ -1,22 +1,39 @@
 <template>
-  <div class="p-6 bg-gray-100 min-h-screen">
-    <div class="max-w-6xl mx-auto grid grid-cols-3 gap-6">
+  <div class="bg-gray-100 min-h-screen p-6">
+    <!-- Header Column -->
+    <div class="header-profile-wrapper bg-white">
+      <div class="text-left mb-8">
+        <h1 class="text-3xl font-bold">Jane Smith</h1>
+        <p class="text-gray-600">Engineer at BB Agency</p>
+        <div class="flex items-center spcae-x-1">
+          <span>San Francisco, CA</span>
+        </div>
+        <div class="flex items-center spcae-x-1">
+          <span>San Francisco, CA</span>
+        </div>
+        <div>Image</div>
+      </div>
+    </div>
+
+    <div class="content max-w-6xl mx-auto grid grid-cols-3 gap-6">
       <!-- Left Column -->
       <div class="col-span-2 space-y-6">
         <!-- Resume Overview -->
-        <div class="bg-white p-6 rounded-lg shadow">
+        <div class="resume-content-wrapper bg-white p-6 rounded-lg shadow">
           <h2 class="text-lg font-semibold">Resume Overview</h2>
-          <div class="mt-4">
-            <h3 class="font-medium">Experience</h3>
+          <div class="mt-6">
+            <div class="icon">
+              <h3 class="font-medium"><img src="@\img\bag-checked.svg" />Experience</h3>
+            </div>
             <ul class="mt-2 space-y-2">
-              <li>
+              <li class="border-left">
                 <p class="font-semibold">Senior UX Designer - Apple Inc.</p>
                 <p class="text-gray-500">2023 - Present</p>
                 <p class="text-gray-600">
                   Led design initiatives for iOS applications and conducted user research studies.
                 </p>
               </li>
-              <li>
+              <li class="border-left">
                 <p class="font-semibold">UX Designer - Google</p>
                 <p class="text-gray-500">2020 - 2023</p>
                 <p class="text-gray-600">
@@ -25,23 +42,27 @@
               </li>
             </ul>
           </div>
-          <div class="mt-4">
+          <div class="mt-6">
             <div class="icon">
-              <h2 class="font-medium"><img src="@\img\school.svg" />Education</h2>
+              <h3 class="font-medium"><img src="@\img\school.svg" />Education</h3>
             </div>
-            <p class="font-semibold">Master in Human-Computer Interaction</p>
-            <p class="text-gray-500">Stanford University, 2020</p>
+            <ul class="mt-2 space-y-2">
+              <li class="border-left">
+                <p class="font-semibold">Master in Human-Computer Interaction</p>
+                <p class="text-gray-500">Stanford University, 2020</p>
+              </li>
+            </ul>
           </div>
-          <div class="mt-4">
+          <div class="mt-6">
             <div class="icon">
               <h3 class="font-medium"><img src="@\img\star-shooting.svg" />Skills</h3>
             </div>
             <div class="flex space-x-2 mt-2 flex-wrap">
-              <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">UI Design</span>
-              <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">User Research</span>
-              <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Figma</span>
-              <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Sketch</span>
-              <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Adobe XD</span>
+              <span class="bg-blue-200 px-3 py-1 rounded-full text-sm">UI Design</span>
+              <span class="bg-blue-200 px-3 py-1 rounded-full text-sm">User Research</span>
+              <span class="bg-blue-200 px-3 py-1 rounded-full text-sm">Figma</span>
+              <span class="bg-blue-200 px-3 py-1 rounded-full text-sm">Sketch</span>
+              <span class="bg-blue-200 px-3 py-1 rounded-full text-sm">Adobe XD</span>
             </div>
           </div>
         </div>
@@ -98,8 +119,8 @@
 
 <style lang="scss" scoped>
 .border-left {
-  border-left: 5px solid rgb(76, 124, 213);
-  padding: 1rem;
+  border-left: 3px solid rgb(76, 124, 213);
+  padding: 0.5rem;
 }
 
 .icon {
