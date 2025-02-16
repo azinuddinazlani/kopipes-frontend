@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
-    <div class="card-wrapper test grid grid-cols-2">
-      <div class="left-card test">
+    <div class="card-wrapper grid grid-cols-2">
+      <div class="left-card">
         <div class="logo-wrapper">
           <!-- <img src="../../assets/logo.png" alt="logo" /> -->
           Kopipes
@@ -13,21 +13,21 @@
         </div>
 
         <div class="perk-wrapper">
-          <div class="perk test">
+          <div class="perk">
             <img src="@/img/signup-job.svg" class="perk-img" /><strong>2X</strong> More Qualified
             Job Matches
           </div>
-          <div class="perk test">
+          <div class="perk">
             <img src="@/img/signup-time.svg" class="perk-img" /><strong>60%</strong> Time Savings in
             Job Searches
           </div>
-          <div class="perk test">
+          <div class="perk">
             <img src="@/img/signup-chat.svg" class="perk-img" /><strong>50%</strong> More Interview
             Invites
           </div>
         </div>
       </div>
-      <div class="right-card test">
+      <div class="right-card">
         <div class="title-wrapper">Welcome to <strong>Kopipes</strong></div>
 
         <div class="form-wrapper">
@@ -76,6 +76,10 @@ import Button from '@/components/ui/button/Button.vue'
     width: 85%;
     height: 85%;
     border-radius: 2rem;
+    background-image: url('@/img/login-gradient.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    // background-position: center;
 
     .left-card {
       padding: 3rem 0 2rem 3rem;
@@ -94,7 +98,12 @@ import Button from '@/components/ui/button/Button.vue'
       .perk-wrapper {
         margin: 4rem 0;
         .perk {
-          border: 1px solid red;
+          background: linear-gradient(
+            to left,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.5) 25%,
+            rgba(255, 255, 255, 1) 50%
+          );
           border-radius: 25px;
           width: max-content;
           margin: 1rem 0;
