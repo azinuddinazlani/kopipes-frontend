@@ -1,388 +1,236 @@
 <script setup>
-import { ref } from 'vue'
-import Footer from '@/components/Footer.vue'
+import { Search } from 'lucide-vue-next'
+import Button from '@/components/ui/button/Button.vue'
 </script>
 
 <template>
   <div class="wrapper">
-    <div class="top-search-wrapper">
-      <div class="top-search">
-        <div class="search-prefix">The Future Of</div>
-        <div class="search">Job Search</div>
-      </div>
-    </div>
-
-    <div class="mission-wrapper">
-      <div>
-        <div class="mission-title section-title">Our Mission</div>
-        <div class="mission-subtxt">
-          We empower you with equal opportunities to build your dream career.
+    <div class="landing-view-wrapper">
+      <div class="landing-view flex gird-cols-3">
+        <div class="landing-graphics">
+          <img src="@/img/homepage-left.svg" />
         </div>
-        <div class="mission-desc">
-          Applying to numerous jobs without a clear strategy won't lead you to your ideal role.
-          Using jobright's AI job search copilot will effectively connect you to the best, most
-          promising possibilities. Then, we will guide you every step of the way so the offer you
-          deserve can come sooner. Welcome to Jobright.
-        </div>
-      </div>
-    </div>
 
-    <div class="solution-wrapper">
-      <div class="solution-title section-title">How We're Fixing The Job Space</div>
-
-      <div class="solution-desc">
-        In order to fulfill our mission, we are led by these value props.
-      </div>
-
-      <div class="flip-wrapper grid grid-cols-2">
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <!-- Front Side -->
-            <div class="flip-card-front">
-              <img src="@/img/card-personalization.svg" />
-              <span>Meaningful</span>
-              <span>personalization</span>
-            </div>
-            <!-- Back Side -->
-            <div class="flip-card-back">
-              <p>
-                We will prioritize what matter most to you based on your background and preferences.
-                Only consider job opportunities that match your goals and for which you are well
-                qualified.
-              </p>
+        <div class="landing-text">
+          <div class="text-prefix">The Future Of</div>
+          <div class="text-suffix">
+            <div>Job Search</div>
+            <div class="search-icon">
+              <Search />
             </div>
           </div>
         </div>
 
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <!-- Front Side -->
-            <div class="flip-card-front">
-              <img src="@/img/card-coach.svg" />
-              <span>Guided</span>
-              <span>coaching</span>
-            </div>
-            <!-- Back Side -->
-            <div class="flip-card-back">
-              <p>
-                We want to support each step of your job search journey, from refining your resume
-                to offering referral support and optimizing your applications. We will provide you
-                with relevant and actionable feedback as you progress through the job process.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <!-- Front Side -->
-            <div class="flip-card-front">
-              <img src="@/img/card-automate.svg" />
-              <span>Automate</span>
-              <span>burdensome work</span>
-            </div>
-            <!-- Back Side -->
-            <div class="flip-card-back">
-              <p>
-                Finding a job can be draining. We want to take away the pain of repetitive and
-                stressful tasks.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <!-- Front Side -->
-            <div class="flip-card-front">
-              <img src="@/img/card-coverage.svg" />
-              <span>Job coverage</span>
-              <span>& reach</span>
-            </div>
-            <!-- Back Side -->
-            <div class="flip-card-back">
-              <p>
-                Finally, we want to be the only destination for finding your dream opportunity.
-                Providing extensive coverage allows us to confidently show you the newest and
-                never-seen-before jobs.
-              </p>
-            </div>
-          </div>
+        <div class="landing-graphics">
+          <img src="@/img/homepage-right.svg" />
         </div>
       </div>
     </div>
 
-    <div class="aboutUs-wrapper">
-      <div class="aboutUs-title section-title">Why We Started Kopipes</div>
-      <div class="aboutUs-desc-wrapper">
-        <div class="double-quote top-quote">“</div>
-        <div class="aboutUs-desc">
-          In 2021, Jobright's founder, Eric, took an extended trip during his gap year. He traveled
-          to many small and medium-sized cities seeking inspiration for his next venture. Along the
-          way, Eric met over 100 talented young people and, quite unexpectedly, helped 10 of them
-          secure their dream jobs. This experience opened Eric's eyes: Many talented people lacked
-          fulfilling careers not due to a lack of skill or excellence, but because they didn't have
-          the same access to information and opportunity as those residing in city centers. Simply
-          put, they lacked access to industry experts and career mentors, leading to a glaring
-          inequality in career opportunities.
-        </div>
-
-        <div class="aboutUs-desc">
-          This insight deeply resonated with Eric. When he discussed it with his Co-Founder Ethan
-          Zheng, an AI expert, Ethan immediately recognized the potential of recent breakthroughs in
-          AI to bridge this gap.
-        </div>
-
-        <div class="aboutUs-desc">
-          Jobright was created shortly after with a mission: Use AI to empower every professional so
-          that they would have equal opportunities for building their dream careers. Jobright is
-          more than a tool— it is your partner, ensuring a faster and more effective path to your
-          next career move.
-        </div>
-
-        <div class="double-quote bottom-quote">”</div>
+    <div class="stats-wrapper flex grid-cols-3 justify-evenly">
+      <div class="stats">
+        <div class="stats-percent">91%</div>
+        <div class="stats-title">Skills Aligned</div>
+        <div class="stats-text">Many job seekers match their skills to the right jobs.</div>
+      </div>
+      <div class="stats stats-separator">
+        <div class="stats-percent">90%</div>
+        <div class="stats-title">Fast and Efficient</div>
+        <div class="stats-text">Company data filtering is quick and efficient.</div>
+      </div>
+      <div class="stats">
+        <div class="stats-percent">89%</div>
+        <div class="stats-title">Wide Range</div>
+        <div class="stats-text">Top employers interacting with many job seekers.</div>
       </div>
     </div>
 
-    <div class="value-wrapper">
-      <div class="value-title section-title">Our Values</div>
-      <div class="value-desc">These core values guide the way our team works</div>
-      <div class="value-card-wrapper grid grid-cols-2">
-        <div class="value-card">
-          <div>Jobseeker first</div>
+    <div class="top-company-wrapper">
+      <div class="title-wrapper">
+        <div class="small-title">Top Company</div>
+        <div class="large-title">Best Companies for</div>
+        <div class="large-title">Employees 2024</div>
+      </div>
+
+      <div>Carousel here</div>
+
+      <div class="button-wrapper"><Button class="button">Show More</Button></div>
+    </div>
+
+    <div class="example-wrapper">
+      <div class="title-wrapper">
+        <div class="small-title">Simple Process</div>
+        <div class="large-title">Effortless Process,</div>
+        <div class="large-title">Optimal Results</div>
+      </div>
+
+      <div class="examples flex grid-cols-2">
+        <div class="example-left example-both">
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+          <div>4</div>
+        </div>
+
+        <div class="example-right example-both">
           <div>
-            We prioritize your needs and outcomes above all else. To ensure we stay close to
-            evolving needs, we speak with jobseekers on a daily basis. When you’re successful, so
-            are we.
+            <div>Complete Your Profile</div>
+            <p>Complete your profile so that recruiters can see information of you</p>
           </div>
-        </div>
-
-        <div class="value-card">
-          <div>Job transparency</div>
           <div>
-            We know you want clear and honest information about jobs and companies. We will continue
-            to provide as much relevant information as possible to help you make informed decisions.
+            <div>Directly Portfolio Upload</div>
+            <p>You can upload your resume or CV, and recruiters will reviewed</p>
           </div>
-        </div>
-
-        <div class="value-card">
-          <div>Deep user empathy</div>
           <div>
-            Looking for a job can be a difficult time. We want to make this experience easy,
-            effective, and empowering for you.
+            <div>Scheduling Interview</div>
+            <p>You can schedule your interview with the recruiters</p>
           </div>
-        </div>
-
-        <div class="value-card">
-          <div>Integrity</div>
           <div>
-            We appreciate you putting your trust in us. We conduct our business with honesty and
-            high ethical standards, especially when it comes to handling data and privacy.
+            <div>Selected Candidate</div>
+            <p>Selected candidate can entry the company for interview with recruiters</p>
           </div>
         </div>
       </div>
     </div>
-    <Footer />
   </div>
 </template>
 
 <style scoped lang="scss">
 .wrapper {
-  .top-search-wrapper {
-    display: flex;
-    height: 30vh;
-    align-items: center;
-    justify-content: center;
-    .top-search {
-      width: 80%;
-      border-radius: 20px;
-      height: max-content;
-      align-items: center;
-      justify-content: center;
-      display: flex;
-      padding: 3rem;
-      background-color: lime;
+  margin: 0 3rem;
 
-      .search-prefix {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #000;
-        padding: 1rem 2rem;
-        border-radius: 40px;
-        background-color: #fff;
-      }
+  .title-wrapper {
+    text-align: center;
+    .small-title {
+    }
 
-      .search {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #000;
-        padding: 1rem 15rem 1rem 1rem;
-        border-radius: 40px;
-        background-color: #000;
-        color: #fff;
-      }
+    .large-title {
+      font-size: xx-large;
     }
   }
 
-  .mission-wrapper {
-    text-align: center;
-    height: 30vh;
+  .landing-view-wrapper {
+    height: 60vh;
 
-    .mission-subtxt {
-      font-size: 1.5rem;
-      font-weight: 300;
-      color: #000;
-      // padding: 1rem 2rem;
-    }
-
-    .mission-desc {
-      font-size: 1rem;
-      font-weight: 400;
-      color: #000;
-      padding: 1rem 12rem;
-    }
-  }
-
-  .solution-wrapper {
-    text-align: center;
-    padding: 0 10rem;
-
-    .flip-wrapper {
-      gap: 20px; // Adjust spacing between cards
-      width: 80vw;
-      height: 80vh;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    .flip-card {
-      width: 100%;
+    .landing-view {
       height: 100%;
-      perspective: 1000px;
-
-      .flip-card-inner {
-        width: 100%;
-        height: 100%;
-        transition: transform 0.6s;
-        transform-style: preserve-3d;
-
-        .flip-card-front,
-        .flip-card-back {
-          width: 100%;
-          height: 100%;
-          position: absolute;
-          backface-visibility: hidden;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: 10px;
-          font-size: 2vw; // Responsive font size
-          font-weight: bold;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .flip-card-front {
-          background-color: #f2f4f5;
-          // color: white;
-        }
-
-        .flip-card-back {
-          background-color: #f2f4f5;
-          // color: white;
-          transform: rotateY(180deg);
-        }
-      }
-
-      &:hover .flip-card-inner {
-        transform: rotateY(180deg);
-      }
-    }
-  }
-
-  .aboutUs-wrapper {
-    text-align: center;
-    margin: 5rem 11rem;
-    background-color: #00f0a01e;
-    border-radius: 1rem;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .aboutUs-desc-wrapper {
-      text-align: start;
-      background-color: #fff;
-      width: 96%;
       border-radius: 20px;
-      margin: 1rem 0;
-      // padding: 2rem 0;
+      background: radial-gradient(circle, #ffb5e9 0%, #fee4dc 100%);
 
-      .double-quote {
-        font-size: 3rem;
-        font-weight: 700;
-        color: #000;
-        position: relative;
-        display: inline-block;
+      .landing-text {
+        width: 80%;
+        // height: 100%;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+
+        .text-prefix {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: #000;
+          padding: 1rem 2rem;
+          border-radius: 40px;
+          background-color: #fff;
+        }
+
+        .text-suffix {
+          font-size: 1.5rem;
+          font-weight: 700;
+          width: 40%;
+          color: #000;
+          padding: 1rem 2rem;
+          gap: 1rem;
+          border-radius: 40px;
+          background-color: #000;
+          color: #fff;
+          display: flex;
+          justify-content: space-between;
+
+          .search-icon {
+            background-color: #fff;
+            color: #000;
+            border-radius: 50%;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
       }
 
-      .top-quote {
-        top: -1.5rem;
-      }
-
-      .bottom-quote {
-        bottom: -2.5rem;
-        text-align: end;
-        width: 100%;
-      }
-
-      .aboutUs-desc {
-        font-size: 1rem;
-        font-weight: 400;
-        color: #000;
-        padding: 1rem 2rem;
-        text-align: start;
-      }
-    }
-  }
-
-  .value-wrapper {
-    text-align: center;
-    padding: 0 10rem;
-
-    .value-card {
-      font-size: 1rem;
-      font-weight: 400;
-      color: #000;
-      padding: 1rem;
-      border: 1px solid #f2f4f5;
-      border-radius: 10px;
-      margin: 1rem;
-
-      div {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #000;
-        padding: 1rem 0;
-        text-align: start;
-      }
-
-      div:last-child {
-        font-size: 1rem;
-        font-weight: 400;
-        color: #000;
-        // padding: 0 2rem 4rem 0;
-        // padding: 0 1rem;
-        text-align: start;
+      .landing-graphics {
+        width: 20%;
+        justify-content: end !important;
+        display: flex;
+        align-items: end !important;
       }
     }
   }
 
-  .section-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #000;
-    padding: 1rem 2rem;
+  .stats-wrapper {
+    margin: 3rem 0;
+    .stats-separator {
+      border-left: 1px solid rgb(213, 213, 213);
+      border-right: 1px solid rgb(213, 213, 213);
+      width: 30% !important;
+    }
+
+    .stats {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 25%;
+      .stats-percent {
+        font-size: x-large;
+        font-weight: bolder;
+      }
+
+      .stats-title {
+        font-size: large;
+      }
+
+      .stats-text {
+        text-align: center;
+      }
+    }
+
+    // .stats > *:not(:last-child) {
+    //   border-right: 2px solid green;
+    //   padding-right: 1rem;
+    // }
+  }
+
+  .top-company-wrapper {
+    .button-wrapper {
+      display: flex;
+      justify-content: center;
+      .button {
+        border-radius: 30px;
+      }
+    }
+  }
+
+  .example-wrapper {
+    .examples {
+      border: 1px solid red;
+
+      .example-left {
+        border: 1px solid blue;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .example-right {
+        border: 1px solid green;
+      }
+
+      .example-both {
+        width: 50%;
+      }
+    }
   }
 }
 
