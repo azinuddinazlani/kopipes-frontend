@@ -16,9 +16,7 @@
 // import StartTest from '@/components/StartTest.vue'
 // import AssessmentProgress from '@/components/AssessmentProgress.vue'
 // import Question from '@/components/Question.vue'
-// import UserProfile from '@/components/UserProfile.vue'
-// import UploadResume from '@/components/UploadResume.vue'
-import PersonalDetailForm from '@/components/PersonalDetailForm.vue'
+import UserProfile from '@/components/ResumeOverview.vue'
 </script>
 
 <style lang="scss" scoped>
