@@ -14,7 +14,6 @@
             <MapPin />
             <p>Kuala Lumpur, MY</p>
           </div>
-
           <div class="location">
             <img class="img-test" src="@\img\joblist-mail.svg" />
             <p>sarah@gmail.com</p>
@@ -104,10 +103,19 @@
           <!-- Assessment Tests -->
           <div class="bg-white p-6 rounded-lg shadow">
             <h2 class="text-lg font-semibold">Assessment Tests</h2>
-            <div class="mt-2 space-y-2">
-              <p>UI/UX Design Assessment: <span class="font-semibold">92%</span></p>
-              <p>Problem Solving: <span class="font-semibold">85%</span></p>
-              <p>Design Tools Proficiency: <span class="font-semibold">95%</span></p>
+            <div class="assessment-bar-wrapper mt-2 space-y-4">
+              <div v-for="assessment in assessments" :key="assessment.name">
+                <p>
+                  {{ assessment.name }}: <span class="font-semibold">{{ assessment.score }}%</span>
+                </p>
+                <div class="test1">
+                  <Progress
+                    class="h-2 bg-gray-200 [&>div]:bg-pink-500"
+                    :model-value="assessment.score"
+                  />
+                  <p class="text-sm text-gray-600 mt-2 ml-2">{{ assessment.score }}%</p>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -115,10 +123,12 @@
           <div class="bg-white p-6 rounded-lg shadow">
             <h2 class="text-lg font-semibold">Profile Completion</h2>
             <p class="mt-2">Complete your profile to increase visibility to recruiters</p>
-            <div class="mt-2 bg-gray-200 w-full rounded-full h-2">
-              <div class="bg-blue-500 h-2 rounded-full" style="width: 90%"></div>
+            <div class="progress-bar">
+              <div class="mt-2 bg-gray-200 w-full rounded-full h-2">
+                <div class="bg-blue-500 h-2 rounded-full" style="width: 90%"></div>
+              </div>
+              <p class="text-sm text-gray-600 mt-2 ml-2">90%</p>
             </div>
-            <p class="text-sm text-gray-600 mt-2">90%</p>
           </div>
         </div>
       </div>
@@ -129,59 +139,73 @@
 <script setup>
 import { MapPin } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue'
+import Progress from '@/components/ui/progress/Progress.vue'
 
-// No additional script logic needed for now
+const assessments = [
+  { name: 'UI/UX Design Assessment', score: 70 },
+  { name: 'Problem Solving', score: 85 },
+  { name: 'Design Tools Proficiency', score: 95 },
+  { name: 'Communication Skills', score: 80 }, // New assessment
+]
 </script>
 
 <style lang="scss" scoped>
 .wrapper {
   padding: 1rem 0;
-}
 
-.border-left {
-  border-left: 3px solid rgb(76, 124, 213);
-  padding: 0.5rem;
-}
-.content-wrapper {
-  margin: 0 3rem;
-}
+  .content-wrapper {
+    margin: 0 3rem;
 
-.header-wrapper {
-  .profile-name {
-    font-size: 1.75rem;
-    font-weight: 600;
-  }
-  .top-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+    .header-wrapper {
+      .profile-name {
+        font-size: 1.75rem;
+        font-weight: 600;
+      }
+      .top-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-  .location-wrapper {
-    margin-block: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+      .location-wrapper {
+        margin-block: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
 
-  .location {
-    display: flex;
-    gap: 0.5rem;
-  }
-}
+      .location {
+        display: flex;
+        gap: 0.5rem;
+      }
+    }
 
-.icon-wrapper {
-  display: flex;
-  gap: 0.5rem;
+    .border-left {
+      border-left: 3px solid rgb(76, 124, 213);
+      padding: 0.5rem;
+    }
 
-  .icon {
-    width: 2rem;
-    color: red;
-  }
+    .icon-wrapper {
+      display: flex;
+      gap: 0.5rem;
 
-  .icon-desc {
-    display: flex;
-    align-items: center;
+      .icon {
+        width: 2rem;
+        color: red;
+      }
+
+      .icon-desc {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .progress-bar,
+    .test1 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 }
 
