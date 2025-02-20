@@ -44,6 +44,11 @@ const router = createRouter({
       name: 'job-listing',
       component: () => import('../views/JobListingView.vue'),
     },
+    {
+      path: '/adminjobform',
+      name: 'adminjobform',
+      component: () => import('../views/AdminJobFormView.vue'),
+    },
   ],
 })
 
