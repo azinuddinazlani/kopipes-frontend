@@ -1,6 +1,8 @@
 <script setup>
 import { Search } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue'
+import HomepageCarousel from '@/components/HomepageCarousel.vue'
+import { NotepadText, FileUp, CircleUserRound } from 'lucide-vue-next'
 </script>
 
 <template>
@@ -52,42 +54,48 @@ import Button from '@/components/ui/button/Button.vue'
         <div class="large-title">Employees 2024</div>
       </div>
 
-      <div>Carousel here</div>
+      <HomepageCarousel />
 
       <div class="button-wrapper"><Button class="button">Show More</Button></div>
     </div>
 
-    <div class="example-wrapper">
+    <div class="result-wrapper">
       <div class="title-wrapper">
         <div class="small-title">Simple Process</div>
         <div class="large-title">Effortless Process,</div>
         <div class="large-title">Optimal Results</div>
       </div>
 
-      <div class="examples flex grid-cols-2">
-        <div class="example-left example-both">
-          <div>1</div>
-          <div>2</div>
-          <div>3</div>
-          <div>4</div>
+      <div class="example-wrapper flex grid-cols-2">
+        <div class="left-example">
+          <img src="@/img/homepage-graphic1.svg" />
+          <img src="@/img/homepage-graphic2.svg" />
+          <img src="@/img/homepage-graphic3.svg" />
         </div>
 
-        <div class="example-right example-both">
-          <div>
-            <div>Complete Your Profile</div>
-            <p>Complete your profile so that recruiters can see information of you</p>
+        <div class="right-example">
+          <div class="example-desc">
+            <NotepadText />
+            <div class="desc-title">Complete Your Profile</div>
+            <p class="desc-text">
+              Complete your profile so that recruiters can see information of you
+            </p>
           </div>
-          <div>
-            <div>Directly Portfolio Upload</div>
-            <p>You can upload your resume or CV, and recruiters will reviewed</p>
+
+          <div class="line-space"></div>
+
+          <div class="example-desc">
+            <FileUp />
+            <div class="desc-title">Directly Portfolio Upload</div>
+            <p class="desc-text">You can upload your resume or CV, and recruiters will reviewed</p>
           </div>
-          <div>
-            <div>Scheduling Interview</div>
-            <p>You can schedule your interview with the recruiters</p>
-          </div>
-          <div>
-            <div>Selected Candidate</div>
-            <p>Selected candidate can entry the company for interview with recruiters</p>
+
+          <div class="line-space"></div>
+
+          <div class="example-desc">
+            <CircleUserRound />
+            <div class="desc-title">Scheduling Interview</div>
+            <p class="desc-text">You can schedule your interview with the recruiters</p>
           </div>
         </div>
       </div>
@@ -195,11 +203,6 @@ import Button from '@/components/ui/button/Button.vue'
         text-align: center;
       }
     }
-
-    // .stats > *:not(:last-child) {
-    //   border-right: 2px solid green;
-    //   padding-right: 1rem;
-    // }
   }
 
   .top-company-wrapper {
@@ -212,23 +215,48 @@ import Button from '@/components/ui/button/Button.vue'
     }
   }
 
-  .example-wrapper {
-    .examples {
-      border: 1px solid red;
+  .result-wrapper {
+    margin: 3rem 0;
+    .example-wrapper {
+      margin-top: 3rem;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      .left-example {
+        img {
+          border-radius: 30px;
+          margin-bottom: 3rem;
+          height: 30rem;
+          width: 30rem;
+        }
+      }
 
-      .example-left {
-        border: 1px solid blue;
+      .right-example {
         display: flex;
-        justify-content: center;
         flex-direction: column;
-      }
+        margin-top: 12rem;
+        .line-space {
+          border-left: 1px solid rgb(213, 213, 213);
+          height: 22rem;
+          margin: 1rem;
+        }
 
-      .example-right {
-        border: 1px solid green;
-      }
+        .example-desc {
+          width: 20rem;
+          .lucide {
+            width: 3rem;
+            height: 3rem;
+          }
 
-      .example-both {
-        width: 50%;
+          .desc-title {
+            font-size: x-large;
+            font-weight: bolder;
+          }
+
+          .desc-text {
+            font-size: large;
+          }
+        }
       }
     }
   }
