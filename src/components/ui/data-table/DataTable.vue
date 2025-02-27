@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="TData, TValue">
-import type { ColumnDef } from '@tanstack/vue-table'
+import type { ColumnDef, SortingState, ColumnFiltersState } from '@tanstack/vue-table'
 import {
   Table,
   TableBody,
@@ -8,18 +8,26 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-
+import { Input } from '../input'
+import { h, ref } from 'vue'
 import {
   FlexRender,
   getCoreRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
+  getFilteredRowModel,
   useVueTable,
 } from '@tanstack/vue-table'
+import { valueUpdater } from '@/lib/utils'
 
 const props = defineProps<{
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }>()
+
+const sorting = ref<SortingState>([])
+const columnFilters = ref<ColumnFiltersState>([])
+const filterPosition = ref('') // Store filter input
 
 const table = useVueTable({
   get data() {
@@ -30,10 +38,35 @@ const table = useVueTable({
   },
   getCoreRowModel: getCoreRowModel(),
   getPaginationRowModel: getPaginationRowModel(),
+  getSortedRowModel: getSortedRowModel(),
+  getFilteredRowModel: getFilteredRowModel(),
+  onSortingChange: (updaterOrValue) => valueUpdater(updaterOrValue, sorting),
+  onColumnFiltersChange: (updaterOrValue) => valueUpdater(updaterOrValue, columnFilters),
+  state: {
+    get sorting() {
+      return sorting.value
+    },
+    get columnFilters() {
+      return columnFilters.value
+    },
+  },
 })
+
+const updateFilter = () => {
+  table.getColumn('position')?.setFilterValue(filterPosition.value.trim() || undefined)
+}
 </script>
 
 <template>
+  <div class="flex items-center space-x-4 py-4">
+    <Input
+      class="max-w-sm"
+      placeholder="Filter by position..."
+      v-model="filterPosition"
+      @input="updateFilter"
+    />
+  </div>
+
   <div class="border rounded-md">
     <Table>
       <TableHeader>
@@ -49,11 +82,7 @@ const table = useVueTable({
       </TableHeader>
       <TableBody>
         <template v-if="table.getRowModel().rows?.length">
-          <TableRow
-            v-for="row in table.getRowModel().rows"
-            :key="row.id"
-            :data-state="row.getIsSelected() ? 'selected' : undefined"
-          >
+          <TableRow v-for="row in table.getRowModel().rows" :key="row.id">
             <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
               <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
             </TableCell>
@@ -61,7 +90,9 @@ const table = useVueTable({
         </template>
         <template v-else>
           <TableRow>
-            <TableCell :colspan="columns.length" class="h-24 text-center"> No results. </TableCell>
+            <TableCell :colspan="columns.length" class="h-24 text-center">
+              No results found.
+            </TableCell>
           </TableRow>
         </template>
       </TableBody>
