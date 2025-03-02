@@ -3,6 +3,29 @@ import { Search } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue'
 import HomepageCarousel from '@/components/HomepageCarousel.vue'
 import { NotepadText, FileUp, CircleUserRound } from 'lucide-vue-next'
+import Typewriter from 'typewriter-effect/dist/core'
+import { onMounted, ref } from 'vue'
+
+// Reference for the target HTML element
+const typewriterElement = ref(null)
+
+onMounted(() => {
+  new Typewriter(typewriterElement.value, {
+    loop: true,
+    delay: 75, // Typing speed
+    deleteSpeed: 50, // Deleting speed
+  })
+    .typeString('Recruitment')
+    .pauseFor(1000)
+    .deleteAll()
+    .typeString('Hiring')
+    .pauseFor(1000)
+    .deleteAll()
+    .typeString('Skill Assessment')
+    .pauseFor(1000)
+    .deleteAll()
+    .start()
+})
 </script>
 
 <template>
@@ -16,7 +39,7 @@ import { NotepadText, FileUp, CircleUserRound } from 'lucide-vue-next'
         <div class="landing-text">
           <div class="text-prefix">The Future Of</div>
           <div class="text-suffix">
-            <div>Job Search</div>
+            <div ref="typewriterElement"></div>
             <div class="search-icon">
               <Search />
             </div>
