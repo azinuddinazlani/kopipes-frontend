@@ -5,13 +5,13 @@
       <h1 class="title">Frontend Developer Technical Test</h1>
       <p class="instructions">Please read the instructions carefully before starting</p>
       <div class="info">
-
         <div class="info-item">
           <img src="@\img\startTest-list.svg" />
           <div class="info-item-content">
             <h2 class="info-title">Number of Questions</h2>
-            <p class="info-text">This test consists of 25 questions covering HTML,
-              CSS, JavaScript, and React</p>
+            <p class="info-text">
+              This test consists of 25 questions covering HTML, CSS, JavaScript, and React
+            </p>
           </div>
         </div>
 
@@ -27,11 +27,12 @@
           <img src="@\img\startTest-info.svg" />
           <div class="info-item-content">
             <h2 class="info-title">Instructions</h2>
-            <p class="info-text">Once you start the test, you cannot pause it. Make sure you have a stable internet
-              connection</p>
+            <p class="info-text">
+              Once you start the test, you cannot pause it. Make sure you have a stable internet
+              connection
+            </p>
           </div>
         </div>
-
       </div>
 
       <div class="actions">
@@ -46,12 +47,19 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue'
 
-const agreed = ref(false);
+const emit = defineEmits(['startTest'])
+const agreed = ref(false)
 
-function startTest() {
-  alert("Test started!");
+// function startTest() {
+//   alert('Test started!')
+// }
+
+const startTest = () => {
+  // emit('startTest', !agreed.value)
+  // console.log('agree value', agreed.value)
+  emit('startTest')
 }
 </script>
 
@@ -74,8 +82,6 @@ function startTest() {
   }
 }
 
-
-
 .title {
   font-size: 1.5rem;
   color: #333;
@@ -96,10 +102,9 @@ function startTest() {
   margin-bottom: 1rem;
   padding: 1rem;
   border-radius: 8px;
-  background-color: #F9FAFB;
+  background-color: #f9fafb;
   text-align: left;
   display: flex;
-
 }
 
 .info-item-content {

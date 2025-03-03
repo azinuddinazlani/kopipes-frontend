@@ -31,8 +31,8 @@
         <div class="title-wrapper">Welcome to <strong>Kopipes</strong></div>
 
         <div class="form-wrapper">
-          <Input placeholder="Email" />
-          <Input placeholder="Password" type="password" />
+          <Input placeholder="Email" v-model="userData.email" />
+          <Input placeholder="Password" type="password" v-model="userData.password" />
 
           <div class="flex items-center space-x-2">
             <Checkbox id="terms" />
@@ -44,7 +44,7 @@
             </label>
           </div>
 
-          <Button>Sign Up</Button>
+          <Button @click="registerUser">Sign Up</Button>
 
           <div class="text-center">By continuing, you agree to the Kopipes</div>
           <div class="text-center">
@@ -58,10 +58,33 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import Input from '@/components/ui/input/Input.vue'
 import { Checkbox } from '@/components/ui/checkbox'
 import Button from '@/components/ui/button/Button.vue'
+import { ref } from 'vue'
+import api from '@/api/index'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/useUserStore'
+
+const router = useRouter()
+const userData = ref({
+  email: '',
+  password: '',
+})
+const userStore = useUserStore()
+
+const registerUser = async () => {
+  try {
+    const response = await api.userRegister(userData.value)
+    console.log('User registered successfully!')
+    console.log('API Response:', response)
+    userStore.setEmail(userData.value.email)
+    router.push('/userType')
+  } catch (error) {
+    console.error('Error:', error)
+  }
+}
 </script>
 
 <style lang="scss" scoped>

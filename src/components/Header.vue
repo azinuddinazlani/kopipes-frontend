@@ -8,24 +8,35 @@
               <NavigationMenuLink href="/" :class="navigationMenuTriggerStyle()"
                 >Logo</NavigationMenuLink
               >
-              <NavigationMenuLink :class="navigationMenuTriggerStyle()">
-                Features
+              <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/job-listing">
+                Jobs
               </NavigationMenuLink>
-              <NavigationMenuLink :class="navigationMenuTriggerStyle()"> Tools </NavigationMenuLink>
-              <NavigationMenuLink :class="navigationMenuTriggerStyle()">
-                Resume AI
+              <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/test">
+                Test
               </NavigationMenuLink>
-              <NavigationMenuLink :class="navigationMenuTriggerStyle()">
-                About Us
+              <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/submit">
+                Upload Resume
               </NavigationMenuLink>
-              <NavigationMenuLink :class="navigationMenuTriggerStyle()"> Blog </NavigationMenuLink>
+              <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/admindashboard">
+                Admin Dashboard
+              </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
       </div>
 
       <div class="account-wrapper">
-        <NavigationMenu>
+        <NavigationMenu v-if="userStore.email">
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuLink href="/profile" :class="navigationMenuTriggerStyle()">
+                Hi, {{ userStore.email }}
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+
+        <NavigationMenu v-else>
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuLink
@@ -46,7 +57,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import {
   NavigationMenu,
   // NavigationMenuContent,
@@ -56,6 +67,14 @@ import {
   // NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
+import { useUserStore } from '@/stores/useUserStore'
+import { onMounted } from 'vue'
+
+const userStore = useUserStore()
+
+onMounted(() => {
+  console.log('this is my name', userStore.email)
+})
 </script>
 
 <style scoped lang="scss">
