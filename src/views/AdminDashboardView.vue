@@ -1,3 +1,47 @@
+<template>
+  <div class="background">
+    <div class="container py-10 mx-auto">
+      <h1 class="dashboard-title font-bold mb-4">Admin Dashboard</h1>
+
+      <div class="cards-container">
+        <div
+          class="card test"
+          v-for="card in cards"
+          :key="card.title"
+          :style="{ borderColor: card.color }"
+        >
+          <div class="card-icon" :style="{ backgroundColor: card.color }">{{ card.icon }}</div>
+          <div class="card-content">
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.count }}</p>
+          </div>
+        </div>
+      </div>
+
+      <DataTable :columns="columns" :data="data" />
+
+      <div class="flex items-center justify-end py-4 space-x-2">
+        <Button
+          variant="outline"
+          size="sm"
+          :disabled="!table.getCanPreviousPage()"
+          @click="table.previousPage()"
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          :disabled="!table.getCanNextPage()"
+          @click="table.nextPage()"
+        >
+          Next
+        </Button>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { ref, onMounted, h } from 'vue'
 import {
@@ -10,6 +54,14 @@ import {
 import DataTable from '@/components/ui/data-table/DataTable.vue'
 import { ArrowUpDown } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue'
+import { reactive } from 'vue'
+
+const cards = reactive([
+  { title: 'Total Applicants', count: 248, icon: '👥', color: '#4A90E2' },
+  { title: 'Shortlisted', count: 42, icon: '✅', color: '#6FCF97' },
+  { title: 'Pending Review', count: 85, icon: '⏳', color: '#F2C94C' },
+  { title: 'Rejected', count: 121, icon: '❌', color: '#EB5757' },
+])
 
 const data = ref<Candidate[]>([])
 const sorting = ref<SortingState>([])
@@ -140,34 +192,57 @@ interface Candidate {
 }
 </script>
 
-<template>
-  <div class="container py-10 mx-auto">
-    <h1 class="dashboard-title font-bold mb-4">Admin Dashboard</h1>
-    <DataTable :columns="columns" :data="data" />
+<style lang="scss" scoped>
+.background {
+  width: 100%;
+  height: 100vh; // Full viewport height
+  background: radial-gradient(circle at top left, #ffedfb, #ffffff, #d4f9ff);
+}
 
-    <div class="flex items-center justify-end py-4 space-x-2">
-      <Button
-        variant="outline"
-        size="sm"
-        :disabled="!table.getCanPreviousPage()"
-        @click="table.previousPage()"
-      >
-        Previous
-      </Button>
-      <Button
-        variant="outline"
-        size="sm"
-        :disabled="!table.getCanNextPage()"
-        @click="table.nextPage()"
-      >
-        Next
-      </Button>
-    </div>
-  </div>
-</template>
+.cards-container {
+  display: flex;
+  justify-content: space-between;
 
-<style lang="css">
+  .card {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    border: 2px solid;
+    width: 20rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+      margin-right: 15px;
+
+      .card-content h3 {
+        font-size: 16px;
+        margin: 0;
+      }
+
+      .card-content p {
+        font-size: 22px;
+        font-weight: bold;
+        margin: 0;
+      }
+    }
+  }
+}
+
 .dashboard-title {
   font-size: 25px;
+}
+
+.test {
+  border: red solid 1px;
 }
 </style>
