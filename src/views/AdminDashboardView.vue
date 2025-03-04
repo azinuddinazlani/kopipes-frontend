@@ -55,6 +55,7 @@ import DataTable from '@/components/ui/data-table/DataTable.vue'
 import { ArrowUpDown } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue'
 import { reactive } from 'vue'
+import Badge from '@/components/ui/badge/Badge.vue'
 
 const cards = reactive([
   { title: 'Total Applicants', count: 248, icon: '👥', color: '#4A90E2' },
@@ -163,7 +164,17 @@ const columns: ColumnDef<Candidate>[] = [
   {
     accessorKey: 'personality_score',
     header: () => h('div', {}, 'Personality Score'),
-    cell: ({ row }) => row.getValue('personality_score'),
+    cell: ({ row }) => {
+      const score = row.getValue('personality_score')
+      const colorVariant =
+        score === 'High'
+          ? 'bg-green-500 text-white'
+          : score === 'Medium'
+            ? 'bg-orange-500 text-white'
+            : 'bg-red-500 text-white'
+
+      return h(Badge, { class: `${colorVariant} px-2 py-1 rounded-md` }, () => score)
+    },
   },
   {
     accessorKey: 'overall_score',
