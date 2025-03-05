@@ -106,14 +106,14 @@
             <div class="assessment-bar-wrapper mt-2 space-y-4">
               <div v-for="assessment in assessments" :key="assessment.name">
                 <p>
-                  {{ assessment.name }}: <span class="font-semibold">{{ assessment.score }}%</span>
+                  {{ assessment.name }}
                 </p>
-                <div class="test1">
+                <div class="score-bar">
                   <Progress
                     class="h-2 bg-gray-200 [&>div]:bg-pink-500"
                     :model-value="assessment.score"
                   />
-                  <p class="text-sm text-gray-600 mt-2 ml-2">{{ assessment.score }}%</p>
+                  <p class="text-sm text-gray-600 ml-3">{{ assessment.score }}%</p>
                 </div>
               </div>
             </div>
@@ -201,7 +201,7 @@ const assessments = [
     }
 
     .progress-bar,
-    .test1 {
+    .score-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
