@@ -1,16 +1,18 @@
 <template>
   <div class="background">
     <div class="container py-10 mx-auto">
-      <h1 class="dashboard-title font-bold mb-4">Admin Dashboard</h1>
+      <!-- <h1 class="dashboard-title font-bold mb-4">Admin Dashboard</h1> -->
 
       <div class="cards-container">
         <div
-          class="card test"
+          class="card"
           v-for="card in cards"
           :key="card.title"
           :style="{ borderColor: card.color }"
         >
-          <div class="card-icon" :style="{ backgroundColor: card.color }">{{ card.icon }}</div>
+          <div class="card-icon" :style="{ backgroundColor: card.color }">
+            <component :is="card.icon" class="w-6 h-6 text-white" />
+          </div>
           <div class="card-content">
             <h3>{{ card.title }}</h3>
             <p>{{ card.count }}</p>
@@ -56,12 +58,13 @@ import { ArrowUpDown } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue'
 import { reactive } from 'vue'
 import Badge from '@/components/ui/badge/Badge.vue'
+import { UserRoundCheck, Clock, XCircle, CheckCircle } from 'lucide-vue-next'
 
 const cards = reactive([
-  { title: 'Total Applicants', count: 248, icon: '👥', color: '#4A90E2' },
-  { title: 'Shortlisted', count: 42, icon: '✅', color: '#6FCF97' },
-  { title: 'Pending Review', count: 85, icon: '⏳', color: '#F2C94C' },
-  { title: 'Rejected', count: 121, icon: '❌', color: '#EB5757' },
+  { title: 'Total Applicants', count: 248, icon: UserRoundCheck, color: '#4A90E2' },
+  { title: 'Shortlisted', count: 42, icon: CheckCircle, color: '#6FCF97' },
+  { title: 'Pending Review', count: 85, icon: Clock, color: '#F2C94C' },
+  { title: 'Rejected', count: 121, icon: XCircle, color: '#EB5757' },
 ])
 
 const data = ref<Candidate[]>([])
@@ -158,9 +161,20 @@ const columns: ColumnDef<Candidate>[] = [
   },
   {
     accessorKey: 'skill_match',
-    header: () => h('div', {}, 'Skill Match (%)'),
-    cell: ({ row }) => row.getValue('skill_match') + '%',
+    header: ({ column }) =>
+      h(
+        Button,
+        { variant: 'ghost', onClick: () => column.toggleSorting(column.getIsSorted() === 'asc') },
+        () => ['Skill Match (%)', h(ArrowUpDown, { class: 'h-4 w-4' })],
+      ),
+    cell: ({ row }) => h('div', { class: 'ml-4' }, `${row.getValue('skill_match')}%`),
+    sortingFn: (rowA, rowB) => {
+      const a = parseFloat(rowA.getValue('skill_match')) || 0
+      const b = parseFloat(rowB.getValue('skill_match')) || 0
+      return a - b
+    },
   },
+
   {
     accessorKey: 'personality_score',
     header: () => h('div', {}, 'Personality Score'),
@@ -178,8 +192,13 @@ const columns: ColumnDef<Candidate>[] = [
   },
   {
     accessorKey: 'overall_score',
-    header: () => h('div', {}, 'Overall Score'),
-    cell: ({ row }) => row.getValue('overall_score'),
+    header: ({ column }) =>
+      h(
+        Button,
+        { variant: 'ghost', onClick: () => column.toggleSorting(column.getIsSorted() === 'asc') },
+        () => ['Overall Score (%)', h(ArrowUpDown, { class: 'h-4 w-4' })],
+      ),
+    cell: ({ row }) => h('div', { class: 'ml-4' }, row.getValue('overall_score')),
   },
 ]
 
@@ -206,7 +225,7 @@ interface Candidate {
 <style lang="scss" scoped>
 .background {
   width: 100%;
-  height: 100vh; // Full viewport height
+  height: 100%; // Full viewport height
   background: radial-gradient(circle at top left, #ffedfb, #ffffff, #d4f9ff);
 }
 

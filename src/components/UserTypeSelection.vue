@@ -25,42 +25,45 @@
 </template>
 
 <script setup>
-// import api from '@/api'
-// import { useUserStore } from '@/stores/useUserStore'
-// import { onMounted } from 'vue'
-
-// const userStore = useUserStore()
-
-// const handleUserTypeSelection = async (userType) => {
-//   try {
-//     const userEmail = userStore.email
-//     const userData = {
-//       type: userType,
-//     }
-//     const response = await api.userDetailUpdate(userEmail, userData)
-//     console.log('User type selected successfully!')
-//     console.log('API Response:', response)
-
-//     // if (userType === 'employer') {
-//     //   console.log('Redirecting to the employer dashboard...')
-//     // } else {
-//     //   console.log('Redirecting to the candidate dashboard...')
-//     // }
-//   } catch (error) {
-//     console.error('Error:', error)
-//   }
-// }
-
-// onMounted(() => {
-//   console.log('this is my email', userStore.email)
-// })
-
+import api from '@/api'
+import { useUserStore } from '@/stores/useUserStore'
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 
-const handleUserTypeSelection = () => {
-  router.push('/')
+const userStore = useUserStore()
+
+const handleUserTypeSelection = async (userType) => {
+  try {
+    const userEmail = userStore.email
+    const userData = {
+      type: userType,
+    }
+    const response = await api.userDetailUpdate(userEmail, userData)
+    console.log('User type selected successfully!')
+    console.log('API Response:', response)
+    router.push('/')
+
+    // if (userType === 'employer') {
+    //   console.log('Redirecting to the employer dashboard...')
+    // } else {
+    //   console.log('Redirecting to the candidate dashboard...')
+    // }
+  } catch (error) {
+    console.error('Error:', error)
+  }
 }
+
+onMounted(() => {
+  console.log('this is my email', userStore.email)
+})
+
+// import { useRouter } from 'vue-router'
+// const router = useRouter()
+
+// const handleUserTypeSelection = () => {
+//   router.push('/')
+// }
 </script>
 
 <style lang="scss" scoped>

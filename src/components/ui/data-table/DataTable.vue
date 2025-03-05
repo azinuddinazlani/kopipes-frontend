@@ -19,6 +19,7 @@ import {
   useVueTable,
 } from '@tanstack/vue-table'
 import { valueUpdater } from '@/lib/utils'
+import { LucideSearch } from 'lucide-vue-next'
 
 const props = defineProps<{
   columns: ColumnDef<TData, TValue>[]
@@ -27,7 +28,8 @@ const props = defineProps<{
 
 const sorting = ref<SortingState>([])
 const columnFilters = ref<ColumnFiltersState>([])
-const filterPosition = ref('') // Store filter input
+
+const filterQuery = ref('')
 
 const table = useVueTable({
   get data() {
@@ -53,21 +55,25 @@ const table = useVueTable({
 })
 
 const updateFilter = () => {
-  table.getColumn('position')?.setFilterValue(filterPosition.value.trim() || undefined)
+  const query = filterQuery.value.trim().toLowerCase()
+  table.setGlobalFilter(query || undefined) // Apply global filter
 }
 </script>
 
 <template>
-  <div class="flex items-center space-x-4 py-4">
-    <Input
-      class="max-w-sm"
-      placeholder="Filter by position..."
-      v-model="filterPosition"
-      @input="updateFilter"
-    />
+  <div class="flex w-full justify-end py-4">
+    <div class="relative max-w-sm w-full">
+      <Input
+        class="w-full pr-10"
+        placeholder="Search"
+        v-model="filterQuery"
+        @input="updateFilter"
+      />
+      <LucideSearch class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+    </div>
   </div>
 
-  <div class="border rounded-md">
+  <div class="border rounded-md bg-white">
     <Table>
       <TableHeader>
         <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
@@ -99,3 +105,9 @@ const updateFilter = () => {
     </Table>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.test {
+  border: red solid 1px;
+}
+</style>

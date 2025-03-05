@@ -128,7 +128,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .wrapper {
-  margin: 0 3rem;
+  margin: 1rem 3rem;
 
   .title-wrapper {
     text-align: center;
