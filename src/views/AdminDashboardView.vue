@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, h } from 'vue'
+import { ref, onMounted, h, reactive } from 'vue'
 import {
   ColumnDef,
   getCoreRowModel,
@@ -54,14 +54,12 @@ import {
   useVueTable,
 } from '@tanstack/vue-table'
 import DataTable from '@/components/ui/data-table/DataTable.vue'
-import { ArrowUpDown } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue'
-import { reactive } from 'vue'
 import Badge from '@/components/ui/badge/Badge.vue'
-import { UserRoundCheck, Clock, XCircle, CheckCircle } from 'lucide-vue-next'
+import { CircleUserRound, Clock, XCircle, CheckCircle, ArrowUpDown } from 'lucide-vue-next'
 
 const cards = reactive([
-  { title: 'Total Applicants', count: 248, icon: UserRoundCheck, color: '#4A90E2' },
+  { title: 'Total Applicants', count: 248, icon: CircleUserRound, color: '#4A90E2' },
   { title: 'Shortlisted', count: 42, icon: CheckCircle, color: '#6FCF97' },
   { title: 'Pending Review', count: 85, icon: Clock, color: '#F2C94C' },
   { title: 'Rejected', count: 121, icon: XCircle, color: '#EB5757' },
