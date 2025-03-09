@@ -40,23 +40,23 @@ const router = createRouter({
       component: () => import('../views/ProfileView.vue'),
     },
     {
-      path: '/job-listing',
-      name: 'job-listing',
-      component: () => import('../views/JobListingView.vue'),
+      path: '/job-desc',
+      name: 'job-desc',
+      component: () => import('../views/JobDescView.vue'),
     },
     {
-      path: '/adminjobform',
-      name: 'adminjobform',
+      path: '/admin/job-form',
+      name: 'admin.job-form',
       component: () => import('../views/AdminJobFormView.vue'),
     },
     {
-      path: '/admindashboard',
-      name: 'admindashboard',
+      path: '/admin/dashboard',
+      name: 'admin.dashboard',
       component: () => import('../views/AdminDashboardView.vue'),
     },
     {
-      path: '/userType',
-      name: 'userType',
+      path: '/user-type',
+      name: 'user-type',
       component: () => import('../views/UserTypeSelectionView.vue'),
     },
     {

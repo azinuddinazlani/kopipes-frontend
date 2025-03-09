@@ -80,7 +80,7 @@ const registerUser = async () => {
     console.log('User registered successfully!')
     console.log('API Response:', response)
     userStore.setEmail(userData.value.email)
-    router.push('/userType')
+    router.push('/user-type')
   } catch (error) {
     console.error('Error:', error)
   }

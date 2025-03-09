@@ -17,7 +17,7 @@
               <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/submit">
                 Upload Resume
               </NavigationMenuLink>
-              <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/admindashboard">
+              <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/admin/dashboard">
                 Admin Dashboard
               </NavigationMenuLink>
             </NavigationMenuItem>
