@@ -1,29 +1,38 @@
 <template>
-  <div class="wrapper bg-gray-100">
+  <div class="wrapper">
     <div class="content-wrapper">
-      <!-- Header Column -->
-      <div class="header-wrapper">
-        <div class="top-wrapper">
-          <span class="profile-name">Sarah Anderson</span>
-          <Button>+ Upload Resume</Button>
+      <!-- Horizontal Card for Sarah Anderson to Upload Resume -->
+      <div class="upload-resume-card bg-white p-6 rounded-3xl shadow flex items-center space-x-6">
+        <!-- Profile Information (Name & Job Title) -->
+        <div class="profile-info flex items-center space-x-6">
+          <div class="flex flex-col space-y-1">
+            <p class="profile-name">Sarah Anderson</p>
+            <p class="jobtitle text-lg font-medium">Senior UX Designer</p>
+          </div>
         </div>
-        <p class="jobtitle">Senior UX Designer</p>
 
-        <div class="location-wrapper">
-          <div class="location">
-            <MapPin />
-            <p>Kuala Lumpur, MY</p>
-          </div>
-          <div class="location">
-            <img class="img-test" src="@\img\joblist-mail.svg" />
-            <p>sarah@gmail.com</p>
+        <!-- Location and Email Information -->
+        <div class="job-info space-y-2">
+          <div class="location-wrapper flex flex-col space-y-2">
+            <div class="location flex items-center space-x-2">
+              <MapPin />
+              <p>Kuala Lumpur, MY</p>
+            </div>
+            <div class="location flex items-center space-x-2">
+              <img class="img-test w-5 h-5" src="@/img/joblist-mail.svg" />
+              <p>sarah@gmail.com</p>
+            </div>
           </div>
         </div>
+
+        <!-- Upload Resume Button -->
+        <div></div>
+        <Button>+ Upload Resume</Button>
       </div>
 
-      <div class="content mx-auto grid grid-cols-3 gap-6">
+      <div class="mt-3 content mx-auto grid grid-cols-3 gap-3">
         <!-- Left Column -->
-        <div class="col-span-2 space-y-6">
+        <div class="col-span-2 space-y-3">
           <!-- Resume Overview -->
           <div class="resume-content-wrapper bg-white p-6 rounded-lg shadow">
             <h2 class="text-lg font-semibold">Resume Overview</h2>
@@ -99,7 +108,24 @@
         </div>
 
         <!-- Right Column -->
-        <div class="space-y-6">
+        <div class="space-y-3">
+          <!-- Performance Card (Bigger) -->
+          <div class="bg-white p-6 rounded-lg shadow h-auto">
+            <h2 class="text-lg font-semibold">Performance</h2>
+            <div class="mt-4 space-y-4">
+              <div>
+                <p class="font-medium">Work Quality</p>
+                <Progress class="h-2 bg-gray-200" :model-value="85" />
+                <p class="text-sm text-gray-600 ml-3">85%</p>
+              </div>
+              <div>
+                <p class="font-medium">Productivity</p>
+                <Progress class="h-2 bg-gray-200" :model-value="90" />
+                <p class="text-sm text-gray-600 ml-3">90%</p>
+              </div>
+            </div>
+          </div>
+
           <!-- Assessment Tests -->
           <div class="bg-white p-6 rounded-lg shadow">
             <h2 class="text-lg font-semibold">Assessment Tests</h2>
@@ -119,8 +145,8 @@
             </div>
           </div>
 
-          <!-- Profile Completion -->
-          <div class="bg-white p-6 rounded-lg shadow">
+          <!-- Profile Completion (Aligned with Applied Jobs) -->
+          <div class="bg-white p-6 rounded-lg shadow col-span-2">
             <h2 class="text-lg font-semibold">Profile Completion</h2>
             <p class="mt-2">Complete your profile to increase visibility to recruiters</p>
             <div class="progress-bar">
@@ -137,24 +163,74 @@
 </template>
 
 <script setup>
-import { MapPin } from 'lucide-vue-next'
+import { MapPin, SeparatorVertical } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue'
 import Progress from '@/components/ui/progress/Progress.vue'
+import Separator from '@/components/ui/separator/Separator.vue'
 
 const assessments = [
   { name: 'UI/UX Design Assessment', score: 70 },
   { name: 'Problem Solving', score: 85 },
   { name: 'Design Tools Proficiency', score: 95 },
-  { name: 'Communication Skills', score: 80 }, // New assessment
+  { name: 'Communication Skills', score: 80 },
 ]
 </script>
 
 <style lang="scss" scoped>
 .wrapper {
   padding: 1rem 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: radial-gradient(circle at top left, #ffedfb, #ffffff, #d4f9ff);
+  overflow-x: hidden;
+  padding: 24px 0;
 
   .content-wrapper {
-    margin: 0 3rem;
+    margin: 0 5rem;
+
+    .upload-resume-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+
+      .profile-name {
+        font-size: 1.5rem;
+        font-weight: 800;
+      }
+    }
+
+    .job-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-name {
+      font-size: 1.25rem;
+    }
+
+    .location-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .location {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .img-test {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
 
     .header-wrapper {
       .profile-name {
@@ -211,9 +287,5 @@ const assessments = [
 
 .test {
   border: 1px solid red;
-}
-
-img {
-  stroke: red;
 }
 </style>
