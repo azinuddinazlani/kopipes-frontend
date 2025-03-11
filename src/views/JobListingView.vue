@@ -12,29 +12,30 @@ import JobList from '@/components/JobList.vue'
 
 <style scoped>
 .landing-page {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   background: radial-gradient(circle at top left, #ffedfb, #ffffff, #d4f9ff);
-  overflow-x: hidden;
-  padding: 24px 0;
+  padding: 1.5rem 0;
+
+  /* width: 100%; */
+  /* min-height: 100vh; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+  /* overflow-x: hidden; */
 }
 
 /* Reset default styles */
-:root {
+/* :root {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+} */
 
-body {
+/* body {
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
     'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+} */
 </style>

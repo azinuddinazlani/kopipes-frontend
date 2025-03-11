@@ -20,6 +20,9 @@
               <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/admin/dashboard">
                 Admin Dashboard
               </NavigationMenuLink>
+              <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/job-listing">
+                Job Listing
+              </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>

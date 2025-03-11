@@ -7,11 +7,7 @@
           <div class="content-wrapper">
             <!-- Company Logo -->
             <div class="company-logo">
-              <img
-                :src="job.companyLogo"
-                class="company-logo-img"
-                alt="Company logo"
-              />
+              <img :src="job.companyLogo" class="company-logo-img" alt="Company logo" />
             </div>
 
             <!-- Job Details -->
@@ -19,9 +15,7 @@
               <!-- Status Chips -->
               <div class="status-chips">
                 <span class="chip posted-time">{{ job.postedTime }}</span>
-                <span class="chip application-status">{{
-                  job.applicationStatus
-                }}</span>
+                <span class="chip application-status">{{ job.applicationStatus }}</span>
               </div>
 
               <!-- Job Title -->
@@ -41,27 +35,15 @@
               <div class="job-specs">
                 <div class="specs-container">
                   <div class="spec-item">
-                    <svg
-                      class="spec-icon"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                    >
-                      <path
-                        d="M12 21c4-4 8-7 8-12a8 8 0 1 0-16 0c0 5 4 8 8 12z"
-                      />
+                    <svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M12 21c4-4 8-7 8-12a8 8 0 1 0-16 0c0 5 4 8 8 12z" />
                       <circle cx="12" cy="9" r="2" />
                     </svg>
                     <span>{{ job.location }}</span>
                   </div>
                   <div class="separator"></div>
                   <div class="spec-item">
-                    <svg
-                      class="spec-icon"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                    >
+                    <svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <circle cx="12" cy="12" r="10" />
                       <path d="M12 6v6l4 2" />
                     </svg>
@@ -69,12 +51,7 @@
                   </div>
                   <div class="separator"></div>
                   <div class="spec-item">
-                    <svg
-                      class="spec-icon"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                    >
+                    <svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <rect x="2" y="3" width="20" height="14" rx="2" />
                       <path d="M2 7h20" />
                       <path d="M6 11h4" />
@@ -84,12 +61,7 @@
                   </div>
                   <div class="separator"></div>
                   <div class="spec-item">
-                    <svg
-                      class="spec-icon"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                    >
+                    <svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path d="M23 6l-9.5 9.5-5-5L1 18" />
                       <path d="M17 6h6v6" />
                     </svg>
@@ -97,12 +69,7 @@
                   </div>
                   <div class="separator"></div>
                   <div class="spec-item">
-                    <svg
-                      class="spec-icon"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                    >
+                    <svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
                       <path d="M16 2v4" />
                       <path d="M8 2v4" />
@@ -159,47 +126,47 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed } from 'vue'
 
 const props = defineProps({
   job: {
     type: Object,
     required: true,
     default: () => ({
-      companyLogo: "@/assets/logo.png",
-      postedTime: "1 hour ago",
-      applicationStatus: "Be an early applicant",
-      title: "Security Analyst III (Strategy/Risk Management)",
-      companyName: "RemoteWorker CA",
-      companyInfo: "Staffing & Recruiting · Early Stage",
-      location: "Deerfield, IL",
-      type: "Full-time",
-      workMode: "Remote",
-      level: "Entry, Mid Level",
-      experience: "2+ years exp",
+      companyLogo: '@/assets/logo.png',
+      postedTime: '1 hour ago',
+      applicationStatus: 'Be an early applicant',
+      title: 'Security Analyst III (Strategy/Risk Management)',
+      companyName: 'RemoteWorker CA',
+      companyInfo: 'Staffing & Recruiting · Early Stage',
+      location: 'Deerfield, IL',
+      type: 'Full-time',
+      workMode: 'Remote',
+      level: 'Entry, Mid Level',
+      experience: '2+ years exp',
       matchScore: 67,
-      matchLabel: "FAIR MATCH",
+      matchLabel: 'FAIR MATCH',
     }),
   },
-});
+})
 
 // Calculate progress circle values
-const circumference = computed(() => 2 * Math.PI * 32);
+const circumference = computed(() => 2 * Math.PI * 32)
 const dashOffset = computed(() => {
-  const progress = (100 - props.job.matchScore) / 100;
-  return circumference.value * progress;
-});
+  const progress = (100 - props.job.matchScore) / 100
+  return circumference.value * progress
+})
 
 const handleApply = () => {
-  console.log("Applied to job");
-};
+  console.log('Applied to job')
+}
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .job-card-container {
-  max-width: 1440px;
-  width: 60%;
-  margin: 0 auto;
+  // max-width: 1440px;
+  width: 80%;
+  margin: 3rem auto 0 auto;
   padding: 0;
 }
 
@@ -427,5 +394,9 @@ const handleApply = () => {
 .apply-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 15px rgba(20, 200, 240, 0.4);
+}
+
+.test {
+  border: 1px solid red;
 }
 </style>
