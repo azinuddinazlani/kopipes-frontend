@@ -4,15 +4,28 @@
       <!-- Horizontal Card for Sarah Anderson to Upload Resume -->
       <div class="upload-resume-card bg-white p-6 rounded-3xl shadow flex items-center space-x-6">
         <!-- Profile Information (Name & Job Title) -->
-        <div class="profile-info flex items-center space-x-6">
+        <div class="profile-info items-center">
           <div class="flex flex-col space-y-1">
             <p class="profile-name">Sarah Anderson</p>
-            <p class="jobtitle text-lg font-medium">Senior UX Designer</p>
+          </div>
+          <div class="details flex flex-row mt-2">
+            <div class="location flex items-center">
+              <BriefcaseBusiness />
+              <p>Senior UX Designer</p>
+            </div>
+            <div class="location flex items-center">
+              <Navigation2 />
+              <p>Kuala Lumpur, MY</p>
+            </div>
+            <div class="location flex items-center">
+              <MailCheck />
+              <p>sarah@gmail.com</p>
+            </div>
           </div>
         </div>
 
         <!-- Location and Email Information -->
-        <div class="job-info space-y-2">
+        <!-- <div class="job-info space-y-2 test">
           <div class="location-wrapper flex flex-col space-y-2">
             <div class="location flex items-center space-x-2">
               <MapPin />
@@ -23,7 +36,7 @@
               <p>sarah@gmail.com</p>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Upload Resume Button -->
         <div></div>
@@ -112,17 +125,8 @@
           <!-- Performance Card (Bigger) -->
           <div class="bg-white p-6 rounded-lg shadow h-auto">
             <h2 class="text-lg font-semibold">Performance</h2>
-            <div class="mt-4 space-y-4">
-              <div>
-                <p class="font-medium">Work Quality</p>
-                <Progress class="h-2 bg-gray-200" :model-value="85" />
-                <p class="text-sm text-gray-600 ml-3">85%</p>
-              </div>
-              <div>
-                <p class="font-medium">Productivity</p>
-                <Progress class="h-2 bg-gray-200" :model-value="90" />
-                <p class="text-sm text-gray-600 ml-3">90%</p>
-              </div>
+            <div>
+              <Radar :data="data" :options="options" />
             </div>
           </div>
 
@@ -163,10 +167,25 @@
 </template>
 
 <script setup>
-import { MapPin, SeparatorVertical } from 'lucide-vue-next'
+import { MapPin, BriefcaseBusiness, Navigation2, MailCheck } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue'
 import Progress from '@/components/ui/progress/Progress.vue'
 import Separator from '@/components/ui/separator/Separator.vue'
+import {
+  Chart as ChartJS,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend,
+} from 'chart.js'
+import { Radar } from 'vue-chartjs'
+import * as chartConfig from '@/data/chartConfig.js'
+
+ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend)
+
+const { data, options } = chartConfig
 
 const assessments = [
   { name: 'UI/UX Design Assessment', score: 70 },
@@ -198,8 +217,8 @@ const assessments = [
     }
 
     .profile-info {
-      display: flex;
-      align-items: center;
+      // display: flex;
+      // align-items: center;
 
       .profile-name {
         font-size: 1.5rem;
@@ -225,6 +244,7 @@ const assessments = [
     .location {
       display: flex;
       gap: 0.5rem;
+      margin-right: 2rem;
     }
 
     .img-test {
