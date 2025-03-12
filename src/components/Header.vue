@@ -5,9 +5,13 @@
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuLink href="/" :class="navigationMenuTriggerStyle()"
-                >Logo</NavigationMenuLink
-              >
+              <NavigationMenuLink href="/" :class="navigationMenuTriggerStyle()">
+                <div class="logo-wrapper">
+                  <img src="@/assets/logo.svg" class="kopipes-logo" />
+                </div>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
               <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/job-listing">
                 Jobs
               </NavigationMenuLink>
@@ -32,9 +36,33 @@
         <NavigationMenu v-if="userStore.email">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuLink href="/profile" :class="navigationMenuTriggerStyle()">
+              <!-- <NavigationMenuLink href="/profile" :class="navigationMenuTriggerStyle()">
                 Hi, {{ userStore.email }}
-              </NavigationMenuLink>
+              </NavigationMenuLink> -->
+              <NavigationMenuTrigger> Hi, {{ userStore.email }} </NavigationMenuTrigger>
+              <NavigationMenuContent class="navigation-content">
+                <ul class="grid w-[218px] gap-3 p-4">
+                  <li>
+                    <NavigationMenuLink as-child>
+                      <a
+                        href="/profile"
+                        class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      >
+                        <div class="text-sm font-medium leading-none">Profile</div>
+                      </a>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink as-child>
+                      <a
+                        class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      >
+                        <div class="text-sm font-medium leading-none">Sign Out</div>
+                      </a>
+                    </NavigationMenuLink>
+                  </li>
+                </ul>
+              </NavigationMenuContent>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
@@ -67,11 +95,11 @@
 <script setup>
 import {
   NavigationMenu,
-  // NavigationMenuContent,
+  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  // NavigationMenuTrigger,
+  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 import { useUserStore } from '@/stores/useUserStore'
@@ -101,6 +129,10 @@ onMounted(() => {
       display: flex;
       gap: 2rem;
       align-items: center;
+
+      .logo-wrapper {
+        width: 3rem;
+      }
     }
 
     .account-wrapper {
