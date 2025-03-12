@@ -57,7 +57,7 @@
                       <a
                         class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                       >
-                        <div class="text-sm font-medium leading-none">Sign Out</div>
+                        <div class="text-sm font-medium leading-none" @click="logout">Sign Out</div>
                       </a>
                     </NavigationMenuLink>
                   </li>
@@ -106,6 +106,11 @@ import { useUserStore } from '@/stores/useUserStore'
 import { onMounted } from 'vue'
 
 const userStore = useUserStore()
+
+const logout = () => {
+  localStorage.clear() // Clears all stored items
+  window.location.href = '/' // Redirects to home page
+}
 
 onMounted(() => {
   console.log('this is my name', userStore.email)
