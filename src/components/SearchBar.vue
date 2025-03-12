@@ -8,8 +8,15 @@
             <i class="fa-regular fa-calendar"></i>
           </div>
           <div class="input-content">
-            <label>Date</label>
-            <input type="text" placeholder="Select date" />
+            <!-- <label>Experience</label> -->
+            <NumberField id="exp" :default-value="0" :min="0">
+              <Label for="exp">Experience (Years)</Label>
+              <NumberFieldContent>
+                <NumberFieldDecrement />
+                <NumberFieldInput />
+                <NumberFieldIncrement />
+              </NumberFieldContent>
+            </NumberField>
           </div>
         </div>
 
@@ -54,15 +61,21 @@
 </template>
 
 <script setup>
-// Using script setup syntax for better Vue 3 compatibility
+import {
+  NumberField,
+  NumberFieldContent,
+  NumberFieldDecrement,
+  NumberFieldIncrement,
+  NumberFieldInput,
+} from '@/components/ui/number-field'
 </script>
 
 <style scoped>
 .search-container {
-  max-width: 1440px;
+  /* max-width: 1440px; */
   margin: 0 auto;
   padding: 0;
-  width: 100%;
+  width: 80%;
 }
 
 .search-bar {

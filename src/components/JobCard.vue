@@ -166,7 +166,7 @@ const handleApply = () => {
 .job-card-container {
   // max-width: 1440px;
   width: 80%;
-  margin: 3rem auto 0 auto;
+  margin: 1.25rem auto 0 auto;
   padding: 0;
 }
 
