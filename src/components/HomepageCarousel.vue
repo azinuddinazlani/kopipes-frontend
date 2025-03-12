@@ -27,37 +27,42 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import Badge from '@/components/ui/badge/Badge.vue'
+import googleLogo from '@/img/companyLogo/google.svg'
+import microsoftLogo from '@/img/companyLogo/microsoft.svg'
+import metaLogo from '@/img/companyLogo/meta.svg'
+import appleLogo from '@/img/companyLogo/apple.svg'
+import amazonLogo from '@/img/companyLogo/amazon.svg'
 
 const companies = ref([
   {
-    image: 'src/img/companyLogo/google.svg',
+    image: googleLogo,
     name: 'Google',
     description: 'A global leader in search engines, cloud computing, and AI-driven technologies.',
     tags: ['Search Engine', 'Cloud Computing', 'AI', 'Software Development'],
   },
   {
-    image: 'src/img/companyLogo/microsoft.svg',
+    image: microsoftLogo,
     name: 'Microsoft',
     description: 'A pioneer in software, cloud services, and enterprise solutions.',
     tags: ['Operating Systems', 'Cloud Computing', 'Enterprise Software', 'AI'],
   },
   {
-    image: 'src/img/companyLogo/meta.svg',
+    image: metaLogo,
     name: 'Meta',
     description:
       'The company behind Facebook, Instagram, and WhatsApp, focusing on social media and the metaverse.',
     tags: ['Social Media', 'Virtual Reality', 'AI', 'Advertising'],
   },
   {
-    image: 'src/img/companyLogo/apple.svg',
+    image: appleLogo,
     name: 'Apple',
     description: 'An innovative tech giant known for its hardware, software, and ecosystem.',
     tags: ['Consumer Electronics', 'Mobile Devices', 'Software', 'AI'],
   },
   {
-    image: 'src/img/companyLogo/amazon.svg',
+    image: amazonLogo,
     name: 'Amazon',
     description: 'A global leader in e-commerce, cloud computing, and AI-driven logistics.',
     tags: ['E-commerce', 'Cloud Computing', 'AI', 'Logistics'],
