@@ -43,13 +43,17 @@
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuLink
-                href="/signup"
+                href="/login"
                 :class="navigationMenuTriggerStyle()"
                 class="login-btn"
               >
                 Sign In
               </NavigationMenuLink>
-              <NavigationMenuLink :class="navigationMenuTriggerStyle()" class="register-btn">
+              <NavigationMenuLink
+                href="/signup"
+                :class="navigationMenuTriggerStyle()"
+                class="register-btn"
+              >
                 Join Now
               </NavigationMenuLink>
             </NavigationMenuItem>

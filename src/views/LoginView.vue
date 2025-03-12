@@ -36,7 +36,11 @@
 
           <Button @click="loginUser">Log In</Button>
 
-          <Button variant="outline">Don't have an account? Sign up now</Button>
+          <RouterLink to="/signup">
+            <Button variant="outline" class="reroute-btn">
+              Don't have an account? Sign up now
+            </Button>
+          </RouterLink>
         </div>
       </div>
     </div>
@@ -137,6 +141,10 @@ const loginUser = async () => {
         display: flex;
         flex-direction: column;
         gap: 1rem;
+
+        .reroute-btn {
+          width: 100%;
+        }
       }
     }
   }

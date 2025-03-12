@@ -51,7 +51,9 @@
             <strong>Terms of Service</strong> and <strong>Privacy Policy</strong>
           </div>
 
-          <Button variant="outline">Already a member? Sign in now</Button>
+          <RouterLink to="/login">
+            <Button variant="outline" class="reroute-btn"> Already a member? Sign in now </Button>
+          </RouterLink>
         </div>
       </div>
     </div>
@@ -154,6 +156,10 @@ const registerUser = async () => {
         display: flex;
         flex-direction: column;
         gap: 1rem;
+
+        .reroute-btn {
+          width: 100%;
+        }
       }
     }
   }
