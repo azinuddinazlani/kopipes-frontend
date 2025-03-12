@@ -10,9 +10,9 @@ const apiClient = axios.create({
 
 export default {
   // Generic POST request function
-  async postData(endpoint, data) {
+  async postData(endpoint, data, headers = {}) {
     try {
-      const response = await apiClient.post(endpoint, data)
+      const response = await apiClient.post(endpoint, data, { headers })
       return response.data
     } catch (error) {
       console.error('API POST Error:', error)
@@ -38,5 +38,22 @@ export default {
 
   async userDetailUpdate(email, data) {
     return await this.postData(`/users/${email}/update`, data)
+  },
+
+  async userUploadResume(email, file) {
+    const formData = new FormData()
+    formData.append('file', file) // Send only the file
+
+    try {
+      const response = await apiClient.post(`/users/${email}/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      return response.data
+    } catch (error) {
+      console.error('File Upload Error:', error)
+      throw error
+    }
   },
 }
