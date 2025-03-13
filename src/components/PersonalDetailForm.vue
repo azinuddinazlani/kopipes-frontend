@@ -154,11 +154,12 @@ const steps = [
 
       <div v-if="currentStep === 3">
         <!-- Add your personality test component here -->
-        <PersonalityTest :questions="personalityQuestions" @update:answers="handleAnswers" />
-        <div class="flex justify-between mt-4">
-          <button @click="prevStep" class="px-4 py-2 bg-gray-200 rounded">Previous</button>
-          <button @click="nextStep" class="px-4 py-2 bg-blue-500 text-white rounded">Next</button>
-        </div>
+        <PersonalityTest
+          :questions="personalityQuestions"
+          @update:answers="handleAnswers"
+          @next="nextStep"
+          @prev="prevStep"
+        />
       </div>
 
       <ReviewSubmit

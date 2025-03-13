@@ -43,13 +43,19 @@
           </div>
         </div>
       </CardContent>
+      <CardFooter class="flex justify-between">
+        <Button @click="$emit('prev')"> <ChevronLeft /> Previous </Button>
+        <Button @click="$emit('next')"> Next <ChevronRight /></Button>
+      </CardFooter>
     </Card>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, defineProps, defineEmits } from 'vue'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
+import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
+import Button from '../ui/button/Button.vue'
 
 interface Question {
   trait: string
@@ -61,7 +67,7 @@ defineProps<{
   questions: Question[]
 }>()
 
-const emit = defineEmits(['update:answers'])
+const emit = defineEmits(['update:answers', 'next', 'prev'])
 const answers = ref(Array(5).fill(''))
 
 const getWordCount = (text: string): number => {
@@ -70,6 +76,14 @@ const getWordCount = (text: string): number => {
 
 const emitAnswers = () => {
   emit('update:answers', answers.value)
+}
+
+const goToNext = () => {
+  emit('next') // Emits 'next' event to parent
+}
+
+const goToPrev = () => {
+  emit('prev') // Emits 'prev' event to parent
 }
 </script>
 
@@ -129,7 +143,7 @@ const emitAnswers = () => {
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 200px;
+      // height: 100%;
     }
 
     .decoration-rectangle {
@@ -237,5 +251,9 @@ const emitAnswers = () => {
       }
     }
   }
+}
+
+.test {
+  border: 1px solid red;
 }
 </style>
