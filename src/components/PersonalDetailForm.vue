@@ -13,6 +13,40 @@ import UploadResume from './step/UploadResume.vue'
 import RateSkill from './step/RateSkill.vue'
 import ReviewSubmit from './step/ReviewSubmit.vue'
 import { Upload, Check, BookHeart, Star } from 'lucide-vue-next'
+import PersonalityTest from './step/PersonalityTest.vue'
+
+const personalityQuestions = [
+  {
+    trait: 'Openness to Experience',
+    text: 'Describe a situation where you had to think outside the box. How did you approach it?',
+    placeholder: 'Share your experience...',
+  },
+  {
+    trait: 'Conscientiousness',
+    text: 'How do you typically organize your daily tasks and responsibilities?',
+    placeholder: 'Describe your organization method...',
+  },
+  {
+    trait: 'Extraversion',
+    text: 'Tell us about a time when you had to work in a team. How did you contribute to the group dynamic?',
+    placeholder: 'Describe your team experience...',
+  },
+  {
+    trait: 'Agreeableness',
+    text: 'How do you handle conflicts or disagreements with others? Give an example.',
+    placeholder: 'Share how you manage conflicts...',
+  },
+  {
+    trait: 'Emotional Stability',
+    text: 'Describe how you cope with stressful situations at work or in your personal life.',
+    placeholder: 'Explain your stress management approach...',
+  },
+]
+
+const handleAnswers = (newAnswers: string[]) => {
+  console.log('Updated answers:', newAnswers)
+  // Handle the answers as needed
+}
 
 const currentStep = ref(1)
 
@@ -120,6 +154,7 @@ const steps = [
 
       <div v-if="currentStep === 3">
         <!-- Add your personality test component here -->
+        <PersonalityTest :questions="personalityQuestions" @update:answers="handleAnswers" />
         <div class="flex justify-between mt-4">
           <button @click="prevStep" class="px-4 py-2 bg-gray-200 rounded">Previous</button>
           <button @click="nextStep" class="px-4 py-2 bg-blue-500 text-white rounded">Next</button>
