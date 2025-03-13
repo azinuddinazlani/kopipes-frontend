@@ -5,28 +5,29 @@
         <!-- Date Input -->
         <div class="input-group">
           <div class="icon">
-            <i class="fa-regular fa-calendar"></i>
+            <Keyboard />
           </div>
           <div class="input-content">
             <!-- <label>Experience</label> -->
-            <NumberField id="exp" :default-value="0" :min="0">
-              <Label for="exp">Experience (Years)</Label>
-              <NumberFieldContent>
+            <!-- <NumberField id="exp" :default-value="0" :min="0"> -->
+
+            <input type="text" placeholder="Any Keywords.." />
+            <!-- <NumberFieldContent>
                 <NumberFieldDecrement />
                 <NumberFieldInput />
                 <NumberFieldIncrement />
               </NumberFieldContent>
-            </NumberField>
+            </NumberField> -->
           </div>
         </div>
 
         <!-- Location Input -->
         <div class="input-group">
           <div class="icon">
-            <i class="fa-solid fa-location-dot"></i>
+            <Map />
+            <!-- <i class="fa-solid fa-location-dot"></i> -->
           </div>
           <div class="input-content">
-            <label>Location</label>
             <input type="text" placeholder="Select location" />
           </div>
         </div>
@@ -34,10 +35,9 @@
         <!-- Job Type Input -->
         <div class="input-group">
           <div class="icon">
-            <i class="fa-solid fa-suitcase"></i>
+            <Briefcase />
           </div>
           <div class="input-content">
-            <label>Job Type</label>
             <input type="text" placeholder="Select job type" />
           </div>
         </div>
@@ -68,6 +68,7 @@ import {
   NumberFieldIncrement,
   NumberFieldInput,
 } from '@/components/ui/number-field'
+import { Briefcase, Map, Keyboard } from 'lucide-vue-next'
 </script>
 
 <style scoped>
@@ -81,15 +82,14 @@ import {
 .search-bar {
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 40px;
-  padding: 24px 32px;
+  border-radius: 35px;
+  padding: 10px 30px; /* Reduce padding from 24px 32px */
   width: 100%;
 }
 
 .search-inputs {
   display: flex;
   align-items: center;
-  gap: 32px;
 }
 
 .input-group {
@@ -135,18 +135,18 @@ input::placeholder {
   color: white;
   border: none;
   border-radius: 40px;
-  padding: 16px 48px;
-  font-size: 15px;
+  padding: 12px 20px; /* Reduced padding */
+  font-size: 14px; /* Slightly smaller font */
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin-left: 32px;
-  min-width: 240px;
+  gap: 10px; /* Adjusted gap */
+  margin-left: 24px; /* Slightly reduced margin */
+  min-width: 180px; /* Reduced width */
   transition: all 0.2s ease;
-  height: 56px;
+  height: 44px; /* Shorter height */
 }
 
 .search-btn i {
@@ -204,5 +204,9 @@ input::placeholder {
 .outline-btn:nth-child(4),
 .outline-btn:nth-child(5) {
   min-width: 182px;
+}
+
+.test {
+  border: solid 1px red;
 }
 </style>
