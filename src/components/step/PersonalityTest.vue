@@ -27,13 +27,16 @@
                   {{ question.text }}
                 </p>
                 <div class="textarea-container">
-                  <textarea
-                    v-model="answers[index]"
-                    :placeholder="question.placeholder"
-                    class="answer-textarea"
-                    rows="5"
-                    @input="emitAnswers"
-                  />
+                  <div class="textarea-wrapper">
+                    <textarea
+                      v-model="answers[index]"
+                      :placeholder="question.placeholder"
+                      class="answer-textarea"
+                      rows="5"
+                      @input="emitAnswers"
+                    />
+                    <div class="word-count">{{ getWordCount(answers[index]) }}/500 words</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -61,6 +64,10 @@ defineProps<{
 const emit = defineEmits(['update:answers'])
 const answers = ref(Array(5).fill(''))
 
+const getWordCount = (text: string): number => {
+  return text ? text.trim().split(/\s+/).length : 0
+}
+
 const emitAnswers = () => {
   emit('update:answers', answers.value)
 }
@@ -69,7 +76,6 @@ const emitAnswers = () => {
 <style lang="scss" scoped>
 .wrapper {
   min-height: 100vh;
-  //   padding: 2rem;
 
   .card-wrapper {
     width: 100%;
@@ -79,7 +85,7 @@ const emitAnswers = () => {
       max-height: calc(100vh - 12rem);
       overflow-y: auto;
       padding-right: 1rem;
-      width: 100%; // Added width
+      width: 100%;
 
       &::-webkit-scrollbar {
         width: 8px;
@@ -112,7 +118,7 @@ const emitAnswers = () => {
       display: grid;
       grid-template-columns: 1fr;
       gap: 1.5rem;
-      width: 100%; // Added width
+      width: 100%;
 
       @media (min-width: 768px) {
         grid-template-columns: 1fr 2fr;
@@ -186,12 +192,29 @@ const emitAnswers = () => {
 
     .textarea-container {
       height: 140px;
+
+      .textarea-wrapper {
+        position: relative;
+        height: 100%;
+      }
+
+      .word-count {
+        position: absolute;
+        bottom: 0.75rem;
+        right: 0.75rem;
+        font-size: 0.75rem;
+        color: #94a3b8;
+        background-color: white;
+        padding: 0.25rem;
+        pointer-events: none;
+      }
     }
 
     .answer-textarea {
       width: 100%;
       height: 100%;
       padding: 0.75rem;
+      padding-bottom: 2rem;
       border: 1px solid #e2e8f0;
       border-radius: 0.5rem;
       font-size: 1rem;
