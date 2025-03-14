@@ -45,18 +45,20 @@
       </CardContent>
       <CardFooter class="flex justify-between">
         <Button @click="$emit('prev')"> <ChevronLeft /> Previous </Button>
-        <Button @click="$emit('next')"> Next <ChevronRight /></Button>
+        <Button @click="goToNext()"> Next <ChevronRight /></Button>
       </CardFooter>
     </Card>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import Button from '../ui/button/Button.vue'
 import { Textarea } from '@/components/ui/textarea'
+import { useUserStore } from '@/stores/useUserStore'
+import api from '@/api'
 
 interface Question {
   trait: string
@@ -70,6 +72,45 @@ defineProps<{
 
 const emit = defineEmits(['update:answers', 'next', 'prev'])
 const answers = ref(Array(5).fill(''))
+const userStore = useUserStore()
+const email = userStore.email
+
+const fetchData = computed(() => ({
+  responses: [
+    {
+      question:
+        'Describe a situation where you had to think outside the box. How did you approach it?',
+      response: answers.value[0],
+    },
+    {
+      question: 'How do you typically organize your daily tasks and responsibilities?',
+      response: answers.value[1],
+    },
+    {
+      question:
+        'Tell us about a time when you had to work in a team. How did you contribute to the group dynamic?',
+      response: answers.value[2],
+    },
+    {
+      question: 'How do you handle conflicts or disagreements with others? Give an example.',
+      response: answers.value[3],
+    },
+    {
+      question: 'Describe how you cope with stressful situations at work or in your personal life.',
+      response: answers.value[4],
+    },
+  ],
+}))
+
+const submitPersonalityTest = async () => {
+  try {
+    const response = await api.userPersonalityTest(email, fetchData.value)
+    console.log('User registered successfully!')
+    console.log('API Response:', response)
+  } catch (error) {
+    console.error('Error:', error)
+  }
+}
 
 const getWordCount = (text: string): number => {
   return text ? text.trim().split(/\s+/).length : 0
@@ -81,6 +122,7 @@ const emitAnswers = () => {
 
 const goToNext = () => {
   emit('next') // Emits 'next' event to parent
+  submitPersonalityTest()
 }
 
 const goToPrev = () => {

@@ -40,6 +40,10 @@ export default {
     return await this.postData(`/users/${email}/update`, data)
   },
 
+  async userPersonalityTest(email, data) {
+    return await this.postData(`/users/${email}/evaluate`, data)
+  },
+
   async userUploadResume(email, file) {
     const formData = new FormData()
     formData.append('file', file) // Send only the file
