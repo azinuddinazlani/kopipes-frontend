@@ -20,7 +20,7 @@
                   <h3 class="question-title">{{ question.trait }}</h3>
                   <div class="question-counter">
                     Question
-                    <span class="counter-current">{{ index + 1 }}/{{ questions.length }}</span>
+                    <span class="counter-current">{{ index + 1 }}</span>
                   </div>
                 </div>
                 <p class="question-text">
@@ -28,7 +28,7 @@
                 </p>
                 <div class="textarea-container">
                   <div class="textarea-wrapper">
-                    <textarea
+                    <Textarea
                       v-model="answers[index]"
                       :placeholder="question.placeholder"
                       class="answer-textarea"
@@ -45,17 +45,20 @@
       </CardContent>
       <CardFooter class="flex justify-between">
         <Button @click="$emit('prev')"> <ChevronLeft /> Previous </Button>
-        <Button @click="$emit('next')"> Next <ChevronRight /></Button>
+        <Button @click="goToNext()"> Next <ChevronRight /></Button>
       </CardFooter>
     </Card>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, defineEmits } from 'vue'
+import { ref, computed } from 'vue'
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import Button from '../ui/button/Button.vue'
+import { Textarea } from '@/components/ui/textarea'
+import { useUserStore } from '@/stores/useUserStore'
+import api from '@/api'
 
 interface Question {
   trait: string
@@ -69,6 +72,45 @@ defineProps<{
 
 const emit = defineEmits(['update:answers', 'next', 'prev'])
 const answers = ref(Array(5).fill(''))
+const userStore = useUserStore()
+const email = userStore.email
+
+const fetchData = computed(() => ({
+  responses: [
+    {
+      question:
+        'Describe a situation where you had to think outside the box. How did you approach it?',
+      response: answers.value[0],
+    },
+    {
+      question: 'How do you typically organize your daily tasks and responsibilities?',
+      response: answers.value[1],
+    },
+    {
+      question:
+        'Tell us about a time when you had to work in a team. How did you contribute to the group dynamic?',
+      response: answers.value[2],
+    },
+    {
+      question: 'How do you handle conflicts or disagreements with others? Give an example.',
+      response: answers.value[3],
+    },
+    {
+      question: 'Describe how you cope with stressful situations at work or in your personal life.',
+      response: answers.value[4],
+    },
+  ],
+}))
+
+const submitPersonalityTest = async () => {
+  try {
+    const response = await api.userPersonalityTest(email, fetchData.value)
+    console.log('User registered successfully!')
+    console.log('API Response:', response)
+  } catch (error) {
+    console.error('Error:', error)
+  }
+}
 
 const getWordCount = (text: string): number => {
   return text ? text.trim().split(/\s+/).length : 0
@@ -80,6 +122,7 @@ const emitAnswers = () => {
 
 const goToNext = () => {
   emit('next') // Emits 'next' event to parent
+  submitPersonalityTest()
 }
 
 const goToPrev = () => {
@@ -153,7 +196,8 @@ const goToPrev = () => {
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+      // background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+      background: radial-gradient(circle, #ffb5e9 0%, #fee4dc 100%);
       box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
       transition: transform 0.2s;
 
@@ -192,7 +236,7 @@ const goToPrev = () => {
       color: #64748b;
 
       .counter-current {
-        color: #4f46e5;
+        // color: #4f46e5;
         font-weight: 600;
       }
     }
@@ -232,23 +276,23 @@ const goToPrev = () => {
       border: 1px solid #e2e8f0;
       border-radius: 0.5rem;
       font-size: 1rem;
-      color: #1e293b;
+      // color: #1e293b;
       resize: none;
       transition: all 0.2s;
 
-      &::placeholder {
-        color: #94a3b8;
-      }
+      // &::placeholder {
+      //   color: #94a3b8;
+      // }
 
-      &:hover {
-        border-color: #cbd5e1;
-      }
+      // &:hover {
+      //   border-color: #cbd5e1;
+      // }
 
-      &:focus {
-        outline: none;
-        border-color: #4f46e5;
-        box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
-      }
+      // &:focus {
+      //   outline: none;
+      //   border-color: #4f46e5;
+      //   box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+      // }
     }
   }
 }

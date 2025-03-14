@@ -486,13 +486,20 @@
           </div>
         </div>
       </CardContent>
+
+      <CardFooter class="flex justify-between">
+        <Button @click="$emit('prev')"> <ChevronLeft /> Previous </Button>
+        <Button @click="$emit('submit')">Submit<SendHorizontal /></Button>
+      </CardFooter>
     </Card>
   </div>
 </template>
 
 <script setup>
 import { ref, reactive } from 'vue'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
+import Button from '../ui/button/Button.vue'
+import { ChevronLeft, SendHorizontal } from 'lucide-vue-next'
 
 const personalInfo = reactive({
   fullName: '',
