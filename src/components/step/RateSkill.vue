@@ -55,11 +55,9 @@ import { Button } from '@/components/ui/button'
           <div class="mb-6">
             <div class="flex gap-4 mb-4">
               <div class="flex-1">
-                <input
-                  v-model="newSkill"
-                  type="text"
+                <Input
                   placeholder="Add a skill (e.g., JavaScript, Python, React)"
-                  class="w-full p-2 border rounded"
+                  v-model="newSkill"
                 />
               </div>
               <div class="flex items-center gap-2">
@@ -74,13 +72,13 @@ import { Button } from '@/components/ui/button'
                     ★
                   </button>
                 </div>
-                <button
+                <Button
                   @click="addSkill"
                   class="px-4 py-2 bg-primary text-white rounded"
                   :disabled="!newSkill"
                 >
                   Add Skill
-                </button>
+                </Button>
               </div>
             </div>
 
@@ -138,11 +136,7 @@ import { Button } from '@/components/ui/button'
           >
             <div class="bg-white p-6 rounded-lg w-96">
               <h3 class="text-lg font-bold mb-4">Edit Skill</h3>
-              <input
-                v-model="editingSkillData.name"
-                type="text"
-                class="w-full p-2 border rounded mb-4"
-              />
+              <Input v-model="editingSkillData.name" class="w-full p-2 border rounded mb-4" />
               <div class="flex justify-center mb-4">
                 <button
                   v-for="star in 5"
@@ -155,10 +149,8 @@ import { Button } from '@/components/ui/button'
                 </button>
               </div>
               <div class="flex justify-end gap-2">
-                <button @click="cancelEdit" class="px-4 py-2 bg-gray-200 rounded">Cancel</button>
-                <button @click="saveEdit" class="px-4 py-2 bg-primary text-white rounded">
-                  Save
-                </button>
+                <Button @click="cancelEdit" variant="secondary"> Cancel </Button>
+                <Button @click="saveEdit"> Save </Button>
               </div>
             </div>
           </div>
@@ -188,6 +180,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import Input from '@/components/ui/input/Input.vue'
 import Button from '@/components/ui/button/Button.vue'
 import { ChevronRight, ChevronLeft, Trash2, PenLine } from 'lucide-vue-next'
 
