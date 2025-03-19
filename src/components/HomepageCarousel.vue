@@ -146,7 +146,7 @@ onUnmounted(stopAutoplay)
   position: relative;
   margin: 3rem auto;
   width: 1000px;
-  height: 500px;
+  height: 550px;
 
   .carousel {
     display: flex;
@@ -167,13 +167,13 @@ onUnmounted(stopAutoplay)
       .card {
         width: 400px;
         height: 400px;
-        background: rgb(233, 233, 233);
+        background: radial-gradient(circle at top left, #ffedfb, #ffffff, #d4f9ff);
         border-radius: 20px;
         display: flex;
         flex-direction: column;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         transition: all 0.5s ease;
-        border: 4px solid white;
+        border: 1px solid white;
 
         .card-top {
           margin: 2rem;
