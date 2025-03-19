@@ -1,8 +1,9 @@
 <template>
   <div class="wrapper">
     <Card class="card-wrapper">
-      <CardHeader>
+      <CardHeader class="flex flex-row justify-between">
         <CardTitle>Personality Assessment</CardTitle>
+        <img class="ai-logo" src="@/img/ai-logo.svg" alt="Personality Test" />
       </CardHeader>
 
       <CardContent>
@@ -137,6 +138,10 @@ const goToPrev = () => {
   .card-wrapper {
     width: 100%;
     margin: 0 auto;
+
+    .ai-logo {
+      width: 2rem;
+    }
 
     .questions-scroll-container {
       max-height: calc(100vh - 12rem);
