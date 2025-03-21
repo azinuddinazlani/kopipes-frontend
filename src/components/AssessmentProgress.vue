@@ -2,7 +2,7 @@
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import 'ant-design-vue/dist/reset.css' // For Ant Design Vue 3
+// import 'ant-design-vue/dist/reset.css'
 import { Statistic } from 'ant-design-vue'
 const { Countdown } = Statistic
 
@@ -62,9 +62,9 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
+    <!-- <Progress :model-value="33" /> -->
+    <!-- <Progress v-model="progress" class="bar" /> -->
     <div class="progress-bar">
-      <!-- <Progress :model-value="33" /> -->
-      <!-- <Progress v-model="progress" class="bar" /> -->
       <Progress v-model="progress" class="bar" />
     </div>
   </div>

@@ -32,8 +32,8 @@ export default {
     return await this.postData('/users/login', data)
   },
 
-  async userDetail(email, data) {
-    return await this.postData(`/users/${email}`, data)
+  async userDetail(email) {
+    return await this.postData(`/users/${email}`)
   },
 
   async userDetailUpdate(email, data) {
