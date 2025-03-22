@@ -28,8 +28,8 @@
 import api from '@/api'
 import { useUserStore } from '@/stores/useUserStore'
 import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-const router = useRouter()
+// import { useRouter } from 'vue-router'
+// const router = useRouter()
 
 const userStore = useUserStore()
 
@@ -42,7 +42,9 @@ const handleUserTypeSelection = async (userType) => {
     const response = await api.userDetailUpdate(userEmail, userData)
     console.log('User type selected successfully!')
     console.log('API Response:', response)
-    router.push('/')
+    userStore.setUserType(userType)
+    // router.push('/')
+    window.location.href = '/'
 
     // if (userType === 'employer') {
     //   console.log('Redirecting to the employer dashboard...')

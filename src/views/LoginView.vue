@@ -67,7 +67,14 @@ const loginUser = async () => {
     console.log('User registered successfully!')
     console.log('API Response:', response)
     userStore.setEmail(userData.value.email)
-    router.push('/')
+
+    const userDetailRes = await api.userDetail(userData.value.email)
+    console.log('User detail fetched successfully!')
+    console.log('API Response:', userDetailRes)
+    userStore.setUserDetails(userDetailRes)
+
+    // router.push('/')
+    window.location.href = '/'
   } catch (error) {
     console.error('Error:', error)
   }

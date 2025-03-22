@@ -40,7 +40,18 @@
               <NavigationMenuContent class="navigation-content">
                 <ul class="grid w-[218px] gap-3 p-4">
                   <li>
-                    <NavigationMenuLink as-child>
+                    <NavigationMenuLink
+                      as-child
+                      v-if="userType === 'seeker' || userType === 'Pending'"
+                    >
+                      <a
+                        href="/profile"
+                        class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      >
+                        <div class="text-sm font-medium leading-none">Profile</div>
+                      </a>
+                    </NavigationMenuLink>
+                    <NavigationMenuLink as-child v-else-if="userType === 'employer'">
                       <a
                         href="/profile"
                         class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
@@ -100,17 +111,33 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 import { useUserStore } from '@/stores/useUserStore'
-import { onMounted } from 'vue'
+import { onBeforeMount } from 'vue'
+// import api from '@/api'
 
 const userStore = useUserStore()
+
+// const email = userStore.email
+const userType = userStore.type
 
 const logout = () => {
   localStorage.clear() // Clears all stored items
   window.location.href = '/' // Redirects to home page
 }
 
-onMounted(() => {
-  console.log('this is my name', userStore.email)
+// const fetchUserDetail = async () => {
+//   try {
+//     const response = await api.userDetail(email)
+//     console.log('User detail fetched successfully!')
+//     console.log('API Response:', response[0].type)
+//     userType.value = response[0].type
+//   } catch (error) {
+//     console.error('Error:', error)
+//   }
+// }
+
+onBeforeMount(() => {
+  // fetchUserDetail()
+  console.log('User Type:', userType)
 })
 </script>
 
