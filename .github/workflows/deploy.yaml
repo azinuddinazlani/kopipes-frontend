@@ -1,0 +1,34 @@
+name: Deploy to Preview Channel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_preview:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@master
+      - name: Installing project dependencies
+        working-directory: ./
+        run: npm install
+      - name: Building the project
+        working-directory: ./
+        run: npm run build
+
+      - run: npm install -g firebase-tools
+
+      - name: 'Authenticate with Google Cloud'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+
+      - run: firebase use gaia-capstone04-prd
+      - run: firebase deploy --only hosting
