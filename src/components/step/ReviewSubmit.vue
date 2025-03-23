@@ -55,17 +55,14 @@
             <div class="space-y-6 pb-8 border-b border-gray-200">
               <div class="flex justify-between items-center">
                 <h2 class="text-xl font-semibold">Education History</h2>
-                <button
-                  @click="showAddEducationModal = true"
-                  class="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2"
-                >
+                <Button @click="showAddEducationModal = true">
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
                     />
                   </svg>
                   <span>Add Education</span>
-                </button>
+                </Button>
               </div>
 
               <div class="bg-white rounded-lg overflow-hidden">
@@ -125,17 +122,14 @@
             <div class="space-y-6 pb-8 border-b border-gray-200">
               <div class="flex justify-between items-center">
                 <h2 class="text-xl font-semibold">Skills Rating</h2>
-                <button
-                  @click="showAddSkillModal = true"
-                  class="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2"
-                >
+                <Button @click="showAddSkillModal = true">
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
                     />
                   </svg>
                   <span>Add Skill</span>
-                </button>
+                </Button>
               </div>
 
               <div class="bg-white rounded-lg overflow-hidden">
@@ -209,17 +203,14 @@
             <div class="space-y-6 pb-8 border-b border-gray-200">
               <div class="flex justify-between items-center">
                 <h2 class="text-xl font-semibold">Work Experience</h2>
-                <button
-                  @click="showAddWorkModal = true"
-                  class="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2"
-                >
+                <Button @click="showAddWorkModal = true">
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
                     />
                   </svg>
                   <span>Add Work Experience</span>
-                </button>
+                </Button>
               </div>
 
               <div class="bg-white rounded-lg overflow-hidden">
@@ -274,7 +265,7 @@
             </div>
 
             <!-- Personality Assessment Section -->
-            <div class="space-y-6">
+            <!-- <div class="space-y-6">
               <h2 class="text-xl font-semibold">Personality Assessment</h2>
               <div class="space-y-6">
                 <div
@@ -291,7 +282,7 @@
                   ></textarea>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
 
           <!-- Add/Edit Education Modal -->
@@ -343,19 +334,12 @@
                   </div>
                 </div>
                 <div class="mt-6 flex justify-end space-x-3">
-                  <button
-                    type="button"
-                    @click="showAddEducationModal = false"
-                    class="px-4 py-2 text-gray-600 hover:text-gray-800"
-                  >
+                  <Button type="button" @click="showAddEducationModal = false" variant="secondary">
                     Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                  >
+                  </Button>
+                  <Button type="submit">
                     {{ editIndex === null ? 'Add' : 'Save' }}
-                  </button>
+                  </Button>
                 </div>
               </form>
             </div>
@@ -401,19 +385,12 @@
                   </div>
                 </div>
                 <div class="mt-6 flex justify-end space-x-3">
-                  <button
-                    type="button"
-                    @click="showAddWorkModal = false"
-                    class="px-4 py-2 text-gray-600 hover:text-gray-800"
-                  >
+                  <Button type="button" @click="showAddWorkModal = false" variant="secondary">
                     Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                  >
+                  </Button>
+                  <Button type="submit">
                     {{ editWorkIndex === null ? 'Add' : 'Save' }}
-                  </button>
+                  </Button>
                 </div>
               </form>
             </div>
@@ -467,19 +444,12 @@
                   </div>
                 </div>
                 <div class="mt-6 flex justify-end space-x-3">
-                  <button
-                    type="button"
-                    @click="showAddSkillModal = false"
-                    class="px-4 py-2 text-gray-600 hover:text-gray-800"
-                  >
+                  <Button type="button" @click="showAddSkillModal = false" variant="secondary">
                     Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                  >
+                  </Button>
+                  <Button type="submit">
                     {{ editSkillIndex === null ? 'Add' : 'Save' }}
-                  </button>
+                  </Button>
                 </div>
               </form>
             </div>
@@ -535,33 +505,33 @@ const newWork = reactive({
   duration: '',
 })
 
-const personalityQuestions = ref([
-  {
-    text: 'How would you describe your communication style?',
-    placeholder: 'Describe how you typically communicate with others...',
-    answer: '',
-  },
-  {
-    text: 'What are your strengths in a team environment?',
-    placeholder: 'Share your key strengths when working in teams...',
-    answer: '',
-  },
-  {
-    text: 'How do you handle stress and pressure?',
-    placeholder: 'Explain your approach to managing stress...',
-    answer: '',
-  },
-  {
-    text: 'What motivates you in your work?',
-    placeholder: 'Describe what drives you professionally...',
-    answer: '',
-  },
-  {
-    text: 'How do you approach problem-solving?',
-    placeholder: 'Share your problem-solving methodology...',
-    answer: '',
-  },
-])
+// const personalityQuestions = ref([
+//   {
+//     text: 'How would you describe your communication style?',
+//     placeholder: 'Describe how you typically communicate with others...',
+//     answer: '',
+//   },
+//   {
+//     text: 'What are your strengths in a team environment?',
+//     placeholder: 'Share your key strengths when working in teams...',
+//     answer: '',
+//   },
+//   {
+//     text: 'How do you handle stress and pressure?',
+//     placeholder: 'Explain your approach to managing stress...',
+//     answer: '',
+//   },
+//   {
+//     text: 'What motivates you in your work?',
+//     placeholder: 'Describe what drives you professionally...',
+//     answer: '',
+//   },
+//   {
+//     text: 'How do you approach problem-solving?',
+//     placeholder: 'Share your problem-solving methodology...',
+//     answer: '',
+//   },
+// ])
 
 const skillsList = ref([
   {
