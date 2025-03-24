@@ -15,9 +15,9 @@
               <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/job-listing">
                 Jobs
               </NavigationMenuLink>
-              <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/test">
+              <!-- <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/test">
                 Test
-              </NavigationMenuLink>
+              </NavigationMenuLink> -->
               <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/submit">
                 Upload Resume
               </NavigationMenuLink>

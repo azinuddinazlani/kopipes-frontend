@@ -1,5 +1,14 @@
 <template>
+
+<!-- <div class="wrapper">
+  <div v-if="isLoading" class="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+</div> -->
   <div class="wrapper">
+  <div v-if="isLoading" class="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
     <div class="content-wrapper">
       <!-- Horizontal Card for Sarah Anderson to Upload Resume -->
       <div class="upload-resume-card bg-white p-6 rounded-3xl shadow flex items-center space-x-6">
@@ -119,8 +128,9 @@
                 <h2 class="text-lg font-semibold">Applied Jobs</h2>
                 <div class="mt-2 space-y-2">
                   <div v-for="job in appliedJobs" :key="job.company" class="bg-gray-50 p-3 rounded">
-                    <p class="font-semibold">{{ job.title }} - {{ job.company }}</p>
-                    <p class="text-gray-500">Applied on {{ job.date }}</p>
+                    <p class="font-semibold"><a :href="`/job-desc?id=${job.id}`">{{ job.title }}</a></p>
+                    <p class="text-gray-500">{{ job.company }}</p>
+                    <!-- <p class="text-gray-500">Applied on {{ job.date }}</p> -->
                     <span
                       :class="[
                         'px-2 py-1 rounded text-sm',
@@ -159,7 +169,7 @@
               </div>
 
               <!-- Assessment Tests -->
-              <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
+              <!--div class="bg-white p-6 rounded-lg shadow border border-gray-200">
                 <h2 class="text-lg font-semibold">Assessment Tests</h2>
                 <div class="mt-4 space-y-4">
                   <div v-for="assessment in assessments" :key="assessment.name">
@@ -173,7 +183,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div-->
 
               <!-- Profile Completion -->
               <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
@@ -251,14 +261,34 @@ import api from '@/api/index'
 
 const userStore = useUserStore()
 
+
+
+const appliedJobs = ref([
+  // {
+  //   title: 'Senior Product Designer',
+  //   company: 'Microsoft',
+  //   date: 'Jan 15, 2025',
+  //   status: 'In Review',
+  // },
+  // {
+  //   title: 'UX Design Lead',
+  //   company: 'Netflix',
+  //   date: 'Jan 10, 2025',
+  //   status: 'In Review',
+  // },
+])
+
+const isLoading = ref(false)
 onMounted(async () => {
   const userDetailRes = await api.userDetail(userStore.email)
   userStore.setUserDetails(userDetailRes)
-  console.log(userStore.experience)
+  // console.log(userStore.experience)
 
-  console.log(userDetailRes)
+  // console.log(userDetailRes)
+  isLoading.value = true;
 
   if (userDetailRes.about[0]) {
+    isLoading.value = false;
     personality.value['qs'] = userDetailRes.about[0].question || ''
     personality.value['ans'] = userDetailRes.about[0].answer || ''
     personality.value['score'] = userDetailRes.about[0].score || 0
@@ -272,7 +302,25 @@ onMounted(async () => {
     personality.value['improvement'] = userDetailRes.about[0].areas_for_improvement || []
     personality.value['feedback'] = userDetailRes.about[0].feedback || ''
     personality.value['traits'] = userDetailRes.about[0].personality_traits || []
+
+    if (userDetailRes.employer_jobs) {
+      appliedJobs.value = userDetailRes.employer_jobs.map((job) => ({
+        id: job.employer_jobs_id,
+        title: job.jobs.name,
+        company: job.jobs.employer.name,
+        date: new Date().toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        }),
+        status: 'In Review',
+      }))
+    }
   }
+
+  // console.log(userDetailRes.employer_jobs)
+
+
 })
 
 const name = userStore.name ?? ''
@@ -301,26 +349,11 @@ const personality = ref({
 const tabs = [
   { id: 'overview', name: 'Overview' },
   { id: 'performance', name: 'Performance' },
-  { id: 'assessment', name: 'Assessment' },
+  // { id: 'assessment', name: 'Assessment' },
   { id: 'jobs', name: 'Jobs' },
 ]
 
 const activeTab = ref('overview')
-
-const appliedJobs = [
-  {
-    title: 'Senior Product Designer',
-    company: 'Microsoft',
-    date: 'Jan 15, 2025',
-    status: 'In Review',
-  },
-  {
-    title: 'UX Design Lead',
-    company: 'Netflix',
-    date: 'Jan 10, 2025',
-    status: 'Interview Scheduled',
-  },
-]
 </script>
 
 <style lang="scss" scoped>
@@ -439,4 +472,36 @@ const appliedJobs = [
 .test {
   border: 1px solid red;
 }
+</style>
+
+
+<style lang="scss" scoped>
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ... existing styles ... */
 </style>

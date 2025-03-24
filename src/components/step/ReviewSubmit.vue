@@ -540,6 +540,7 @@ onMounted(async () => {
       position: exp.title
     }))
   }
+  console.log(userStore)
 
   if (userStore.about[0]?.answer) {
     personalityQuestions.value[0].answer = userStore.about[0].answer

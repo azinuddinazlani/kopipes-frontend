@@ -1,4 +1,10 @@
 <template>
+  <div class="wrapper">
+  <!-- Loading Overlay -->
+  <div v-if="isLoading" class="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+</div>
   <div class="container-wrapper">
     <div class="job-header-wrapper">
       <div class="wrapper">
@@ -7,10 +13,32 @@
       </div>
       <p class="company">{{ company }}</p>
       <p class="location"><MapPin />{{ location }}</p>
-      <p class="email"><img src="@\img\joblist-mail.svg" />{{ email }}</p>
+      <!-- <p class="email"><img src="@\img\joblist-mail.svg" />{{ email }}</p> -->
     </div>
 
     <div class="content-wrapper">
+      <div class="cv-match-section">
+        <div class="score-circle">
+          <span class="score">{{ overall_score }}%</span>
+        </div>
+        <div class="matching-details">
+          <h3>How well is your CV matching?</h3>
+          <div class="matching-criteria">
+            <div class="criteria-item">
+              <span class="icon-success">✓</span>
+              <span>{{ skill_score }}% skills matching</span>
+            </div>
+            <div class="criteria-item">
+              <span class="icon-success">✓</span>
+              <span>{{ experience_score }}% experience matching</span>
+            </div>
+            <div class="criteria-item">
+              <span class="icon-success">✓</span>
+              <span>{{ education_score }}% education matching</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="content-role">
         <h3>About the Role</h3>
         <div class="description">{{ jobDescription }}</div>
@@ -51,16 +79,83 @@ import { ref, onMounted } from 'vue'
 import { MapPin } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue'
 import { useUserStore } from '@/stores/useUserStore'
+import { useRoute, useRouter } from 'vue-router'  // Add this
 
 import api from '@/api/index'
 const userStore = useUserStore()
+const route = useRoute()  // Add this line
+const router = useRouter()  // Add this
+const isLoading = ref(false)
 
+if (!route.query.id) { router.push('/job-listing') }
+
+// onMounted(async () => {
+//   const email = userStore.email || ''
+//   const jobList = await api.jobDesc(route.query.id, email)
+
+//   if (jobList[0]) {
+//     const jobdesc = jobList[0]
+
+//     jobTitle.value = jobdesc.name
+//     company.value = jobdesc.employer.name
+//     location.value = jobdesc.location || 'Malaysia'
+//     jobDescription.value = jobdesc.description
+//     responsibilities.value = jobdesc.responsibilities
+//     requirements.value = jobdesc.skills
+//     preferredQualifications.value = [jobdesc.qualifications]
+//   }
+// })
+
+const jobTitle = ref('')
+const company = ref('')
+const location = ref('')
+// const email = ref('sarah.anderson@email.com')
+
+const jobDescription = ref(
+  // 'We are looking for a Junior Malware Analyst to join our cybersecurity team. You will play a crucial role in analyzing malicious software, investigating security incidents, and strengthening our organizations defenses against cyber threats. If you have a passion for cybersecurity, problem-solving, and hands-on malware analysis, we want to hear from you!',
+)
+
+const responsibilities = ref([
+  // 'Analyze and reverse engineer malware, including PE files and scripts.',
+  // 'Investigate security incidents involving phishing, malware, and APTs.',
+  // 'Utilize tools such as IDA Pro, Ghidra, Wireshark, and YARA to analyze threats.',
+  // 'Develop and implement detection rules using SIEM platforms like Splunk.',
+  // 'Research emerging malware trends to improve threat intelligence.',
+  // 'Collaborate with the security team to recommend mitigation strategies.',
+  // 'Document findings and create detailed reports on malware behavior.',
+])
+
+const requirements = ref([
+  // "Bachelor's degree in Computer Science, Cybersecurity, or related field.",
+  // '1+ years of experience in malware analysis or digital forensics.',
+  // 'Understanding of malware analysis techniques (static, dynamic, behavioral).',
+  // 'Familiarity with programming languages (Python, C, Assembly preferred).',
+  // 'Knowledge of Windows and Linux internals.',
+  // 'Experience with network analysis and forensic tools.',
+])
+
+const preferredQualifications = ref([
+  // 'Certifications such as GREM, OSCP, or CEH.',
+  // 'Experience with sandboxing environments.',
+  // 'Prior experience analyzing email-based threats.',
+])
+
+// const email = userStore.email || ''
+const skill_score = ref(0)
+const experience_score = ref(0)
+const education_score = ref(0)
+const overall_score = ref(0)
 onMounted(async () => {
-  const email = userStore.email || ''
-  const jobList = await api.jobDesc(95, email)
 
+  isLoading.value = true
+api.jobDesc(route.query.id, userStore.email || '').then(jobList => {
+
+  // console.log(jobList)
+
+  isLoading.value = false
   if (jobList[0]) {
     const jobdesc = jobList[0]
+    console.log(jobdesc)
 
     jobTitle.value = jobdesc.name
     company.value = jobdesc.employer.name
@@ -69,42 +164,14 @@ onMounted(async () => {
     responsibilities.value = jobdesc.responsibilities
     requirements.value = jobdesc.skills
     preferredQualifications.value = [jobdesc.qualifications]
+
+    skill_score.value = jobdesc.user_application.match_json.match_analysis.skills_match.score
+    experience_score.value = jobdesc.user_application.match_json.match_analysis.experience_match.score
+    education_score.value = jobdesc.user_application.match_json.match_analysis.education_match.score
+    overall_score.value = jobdesc.user_application.match_json.match_analysis.overall_match_score
   }
 })
-
-const jobTitle = ref('Security Operation (Kulai, Johor)')
-const company = ref('Gamuda Sdn Bhd')
-const location = ref('San Francisco, CA')
-const email = ref('sarah.anderson@email.com')
-
-const jobDescription = ref(
-  'We are looking for a Junior Malware Analyst to join our cybersecurity team. You will play a crucial role in analyzing malicious software, investigating security incidents, and strengthening our organizations defenses against cyber threats. If you have a passion for cybersecurity, problem-solving, and hands-on malware analysis, we want to hear from you!',
-)
-
-const responsibilities = ref([
-  'Analyze and reverse engineer malware, including PE files and scripts.',
-  'Investigate security incidents involving phishing, malware, and APTs.',
-  'Utilize tools such as IDA Pro, Ghidra, Wireshark, and YARA to analyze threats.',
-  'Develop and implement detection rules using SIEM platforms like Splunk.',
-  'Research emerging malware trends to improve threat intelligence.',
-  'Collaborate with the security team to recommend mitigation strategies.',
-  'Document findings and create detailed reports on malware behavior.',
-])
-
-const requirements = ref([
-  "Bachelor's degree in Computer Science, Cybersecurity, or related field.",
-  '1+ years of experience in malware analysis or digital forensics.',
-  'Understanding of malware analysis techniques (static, dynamic, behavioral).',
-  'Familiarity with programming languages (Python, C, Assembly preferred).',
-  'Knowledge of Windows and Linux internals.',
-  'Experience with network analysis and forensic tools.',
-])
-
-const preferredQualifications = ref([
-  'Certifications such as GREM, OSCP, or CEH.',
-  'Experience with sandboxing environments.',
-  'Prior experience analyzing email-based threats.',
-])
+});
 </script>
 
 <style lang="scss" scoped>
@@ -156,6 +223,71 @@ $background: #f9f9f9;
   }
 
   .content-wrapper {
+    .cv-match-section {
+      background: #f5f5f5;
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+      display: flex;
+      gap: 10rem;
+      align-items: flex-start;
+
+      .score-circle {
+        background: #e8f5f0;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1rem;
+        margin-left: 1rem;
+
+        .score {
+          font-size: 2.5rem;
+          font-weight: 600;
+          color: #333;
+        }
+
+        .match-text {
+          font-size: 0.9rem;
+          color: #555;
+        }
+      }
+
+      .matching-details {
+        flex: 1;
+
+        h3 {
+          margin-top: 0;
+          margin-bottom: 1.5rem;
+        }
+
+        .matching-criteria {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          margin-bottom: 1.5rem;
+
+          .criteria-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+            color: #333;
+
+            .icon-success {
+              color: #4CAF50;
+            }
+
+            .icon-error {
+              color: #f44336;
+            }
+          }
+        }
+      }
+    }
     h3 {
       margin-top: 1.5rem;
       font-size: 1.25rem;
@@ -175,4 +307,36 @@ $background: #f9f9f9;
     }
   }
 }
+</style>
+
+
+<style lang="scss" scoped>
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ... existing styles ... */
 </style>

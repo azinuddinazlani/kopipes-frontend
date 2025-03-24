@@ -64,8 +64,9 @@ export default {
 
   //
 
-  async jobListing() {
-    return await this.postData('/jobs/')
+  async jobListing(email = '') {
+    const endpoint = (email) ? `/jobs/?email=${email}` : '/jobs/'
+    return await this.postData(endpoint)
   },
 
   async jobDesc(id, email = '') {
@@ -79,7 +80,7 @@ export default {
   },
 
   async jobListingAdmin() {
-    return await this.postData(`/jobs/?employer_id=30`)
+    return await this.postData(`/jobs/?employer_id=7`)
   },
 
   async skillGetQuestions(email) {

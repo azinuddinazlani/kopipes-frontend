@@ -1,4 +1,10 @@
 <template>
+  <div class="wrapper">
+  <!-- Loading Overlay -->
+  <div v-if="isLoading" class="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+</div>
   <div class="job-card-container">
     <div class="job-card">
       <div class="card-content">
@@ -19,7 +25,7 @@
               </div>
 
               <!-- Job Title -->
-              <h2 class="job-title">{{ job.title }}</h2>
+              <h2 class="job-title"><a :href="`/job-desc?id=${job.id}`">{{ job.title }}</a></h2>
 
               <!-- Company Info -->
               <div class="company-info">
@@ -126,11 +132,12 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useUserStore } from '@/stores/useUserStore'
 import api from '@/api'
 
 const userStore = useUserStore()
+const isLoading = ref(false)
 
 const props = defineProps({
   job: {
@@ -162,12 +169,20 @@ const dashOffset = computed(() => {
   return circumference.value * progress
 })
 
+const emit = defineEmits(['updateScore'])
 const handleApply = (jobId) => {
 
+  isLoading.value = true
   const userEmail = userStore.email
   api.jobApply(userEmail, jobId).then((response) => {
     // console.log(response)
-    console.log(response.match_analysis.overall_match_score)
+    emit('updateScore', {
+      jobId: jobId,
+      score: response.match_analysis.overall_match_score
+    })
+
+    isLoading.value = false
+    // console.log(response.match_analysis.overall_match_score)
   })
   console.log('Applied to job', jobId, userEmail)
 
@@ -411,4 +426,35 @@ const handleApply = (jobId) => {
 .test {
   border: 1px solid red;
 }
+</style>
+
+<style lang="scss" scoped>
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ... existing styles ... */
 </style>

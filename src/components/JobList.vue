@@ -1,6 +1,16 @@
 <template>
+    <div class="wrapper">
+    <!-- Loading Overlay -->
+    <div v-if="isLoading" class="loading-overlay">
+      <div class="loading-spinner"></div>
+    </div>
+  </div>
   <div class="job-list">
-    <JobCard v-for="job in jobs" :key="job.id" :job="job" class="job-card-wrapper" />
+    <JobCard v-for="job in jobs" :key="job.id" :job="job" class="job-card-wrapper" @update-score="(data) => {
+    if (job.id === data.jobId) {
+      job.matchScore = data.score
+    }
+  }" />
   </div>
 </template>
 
@@ -8,12 +18,17 @@
 import JobCard from './JobCard.vue'
 import api from '@/api/index'
 import { ref, onMounted } from 'vue'
+import { useUserStore } from '@/stores/useUserStore'
+
+const userStore = useUserStore()
+const jobs = ref([])
+const isLoading = ref(false)
 
 onMounted(async () => {
-  const jobList = await api.jobListing()
-
+  isLoading.value = true
+  const jobList = await api.jobListing(userStore.email)
+  // console.log(jobList)
   if (jobList) {
-    console.log(jobList)
     jobs.value = jobList.map((job) => ({
       id: job.id,
       companyLogo: job.employer.logo,
@@ -27,13 +42,13 @@ onMounted(async () => {
       workMode: job.workmode,
       level: job.level,
       experience: job.experienceyear <= 0 || job.experienceyear == '' ? 'Fresh' : `${job.experienceyear || '1'} ${(job.experienceyear || 1) === 1 ? 'year' : 'years'}`,
-      matchScore: 0,
+      matchScore: job.user_application == "" ? 0 : job.user_application.match_json.match_analysis.overall_match_score,
       matchLabel: '',
     }))
+
+    isLoading.value = false
   }
 })
-
-const jobs = ref([])
 
 // const jobs = [
 //   {
@@ -190,4 +205,34 @@ const jobs = ref([])
 .job-card-wrapper:last-child {
   margin-bottom: 0;
 } */
+</style>
+<style lang="scss" scoped>
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ... existing styles ... */
 </style>

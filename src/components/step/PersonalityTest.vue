@@ -72,7 +72,7 @@ defineProps<{
 }>()
 
 const emit = defineEmits(['update:answers', 'next', 'prev'])
-const answers = ref(Array(5).fill(''))
+const answers = ref(Array(1).fill(''))
 const userStore = useUserStore()
 const email = userStore.email
 
