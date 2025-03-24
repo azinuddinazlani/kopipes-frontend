@@ -1,3 +1,55 @@
+<script setup>
+import { ref, computed } from 'vue'
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
+import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-vue-next'
+import Button from '../ui/button/Button.vue'
+import { Textarea } from '@/components/ui/textarea'
+import { useUserStore } from '@/stores/useUserStore'
+import api from '@/api'
+
+const { questions } = defineProps(['questions'])
+const emit = defineEmits(['update:answers', 'next', 'prev'])
+
+const answers = ref(Array(5).fill(''))
+const userStore = useUserStore()
+const email = userStore.email
+const isLoading = ref(false) // Loading state
+
+const fetchData = computed(() => ({
+  responses: [
+    {
+      question: 'Describe a situation where you had to think outside the box.',
+      response: answers.value[0],
+    },
+    { question: 'How do you typically organize your daily tasks?', response: answers.value[1] },
+    {
+      question: 'Tell us about a time when you had to work in a team.',
+      response: answers.value[2],
+    },
+    { question: 'How do you handle conflicts or disagreements?', response: answers.value[3] },
+    { question: 'Describe how you cope with stressful situations.', response: answers.value[4] },
+  ],
+}))
+
+const submitPersonalityTest = async () => {
+  isLoading.value = true // Start loading
+
+  try {
+    const response = await api.userPersonalityTest(email, fetchData.value)
+    console.log('API Response:', response)
+    emit('next') // Move to next step only after API is done
+  } catch (error) {
+    console.error('Error:', error)
+  } finally {
+    isLoading.value = false // Stop loading
+  }
+}
+
+const emitAnswers = () => {
+  emit('update:answers', answers.value)
+}
+</script>
+
 <template>
   <div class="wrapper">
     <Card class="card-wrapper">
@@ -20,8 +72,7 @@
                 <div class="title-row">
                   <h3 class="question-title">{{ question.trait }}</h3>
                   <div class="question-counter">
-                    Question
-                    <span class="counter-current">{{ index + 1 }}</span>
+                    Question <span class="counter-current">{{ index + 1 }}</span>
                   </div>
                 </div>
                 <p class="question-text">
@@ -36,7 +87,9 @@
                       rows="5"
                       @input="emitAnswers"
                     />
-                    <div class="word-count">{{ getWordCount(answers[index]) }}/500 words</div>
+                    <div class="word-count">
+                      {{ answers[index]?.split(/\s+/).length || 0 }}/500 words
+                    </div>
                   </div>
                 </div>
               </div>
@@ -44,94 +97,20 @@
           </div>
         </div>
       </CardContent>
+
       <CardFooter class="flex justify-between">
         <Button @click="$emit('prev')"> <ChevronLeft /> Previous </Button>
-        <Button @click="goToNext()"> Next <ChevronRight /></Button>
+        <Button @click="submitPersonalityTest" :disabled="isLoading">
+          <Loader2 v-if="isLoading" class="w-4 h-4 mr-2 animate-spin" />
+          <span v-if="isLoading">Please wait</span>
+          <span v-else class="flex items-center">Next <ChevronRight /></span>
+        </Button>
       </CardFooter>
     </Card>
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, computed } from 'vue'
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
-import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
-import Button from '../ui/button/Button.vue'
-import { Textarea } from '@/components/ui/textarea'
-import { useUserStore } from '@/stores/useUserStore'
-import api from '@/api'
-
-interface Question {
-  trait: string
-  text: string
-  placeholder: string
-}
-
-defineProps<{
-  questions: Question[]
-}>()
-
-const emit = defineEmits(['update:answers', 'next', 'prev'])
-const answers = ref(Array(5).fill(''))
-const userStore = useUserStore()
-const email = userStore.email
-
-const fetchData = computed(() => ({
-  responses: [
-    {
-      question:
-        'Describe a situation where you had to think outside the box. How did you approach it?',
-      response: answers.value[0],
-    },
-    {
-      question: 'How do you typically organize your daily tasks and responsibilities?',
-      response: answers.value[1],
-    },
-    {
-      question:
-        'Tell us about a time when you had to work in a team. How did you contribute to the group dynamic?',
-      response: answers.value[2],
-    },
-    {
-      question: 'How do you handle conflicts or disagreements with others? Give an example.',
-      response: answers.value[3],
-    },
-    {
-      question: 'Describe how you cope with stressful situations at work or in your personal life.',
-      response: answers.value[4],
-    },
-  ],
-}))
-
-const submitPersonalityTest = async () => {
-  try {
-    const response = await api.userPersonalityTest(email, fetchData.value)
-    console.log('User registered successfully!')
-    console.log('API Response:', response)
-  } catch (error) {
-    console.error('Error:', error)
-  }
-}
-
-const getWordCount = (text: string): number => {
-  return text ? text.trim().split(/\s+/).length : 0
-}
-
-const emitAnswers = () => {
-  emit('update:answers', answers.value)
-}
-
-const goToNext = () => {
-  emit('next') // Emits 'next' event to parent
-  submitPersonalityTest()
-}
-
-const goToPrev = () => {
-  emit('prev') // Emits 'prev' event to parent
-}
-</script>
-
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .wrapper {
   min-height: 100vh;
 
