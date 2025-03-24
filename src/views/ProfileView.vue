@@ -124,7 +124,11 @@
         <div class="space-y-3">
           <!-- Performance Card (Bigger) -->
           <div class="bg-white p-6 rounded-lg shadow h-auto">
-            <h2 class="text-lg font-semibold">Performance</h2>
+            <div class="flex flex-row justify-between">
+              <h2 class="text-lg font-semibold">Performance</h2>
+              <img class="ai-logo" src="@/img/ai-logo.svg" alt="Personality Test" />
+            </div>
+
             <div>
               <Radar :data="data" :options="options" />
             </div>
@@ -207,6 +211,10 @@ const assessments = [
   overflow-x: hidden;
   padding: 24px 0;
 
+  .ai-logo {
+    width: 2rem;
+  }
+
   .content-wrapper {
     margin: 0 5rem;
 
@@ -267,11 +275,6 @@ const assessments = [
         margin-block: 1rem;
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
-      }
-
-      .location {
-        display: flex;
         gap: 0.5rem;
       }
     }
