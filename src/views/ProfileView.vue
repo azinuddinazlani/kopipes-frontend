@@ -58,7 +58,7 @@
                 <li class="border-left" v-for="(x, i) in experience" :key="i">
                   <p class="font-semibold">{{ x.title }} - {{x.company}}</p>
                   <p class="text-gray-500">{{x.period}}</p>
-                  <p class="text-gray-600">{{ x.details[0] }}</p>
+                  <!-- <p class="text-gray-600">{{ x.details }}</p> -->
                 </li>
                 <!-- <li class="border-left">
                   <p class="font-semibold">Senior UX Designer - Apple Inc.</p>
@@ -107,6 +107,34 @@
               </div>
             </div>
           </div>
+
+        <!-- Applied Jobs -->
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h2 class="text-lg font-semibold">Personality</h2>
+          <div class="mt-2 space-y-2">
+            <div class="bg-gray-50 p-3 rounded">
+              <p>QS: {{ personality.qs }}</p>
+              <p>Ans: {{ personality.ans }}</p>
+              <p>Score: {{ personality.score }}</p>
+              <p>Clarity: {{ personality.score_clarity }}</p>
+<p>Completeness: {{ personality.score_completeness }}</p>
+<p>Professional: {{ personality.score_professional }}</p>
+<p>Relevance: {{ personality.score_relevance }}</p>
+<p>specificity: {{ personality.score_specify }}</p>
+<p>
+  Improvement:
+  <ul>
+    <li v-for="x in personality.improvement">- {{ x }}</li>
+  </ul>
+</p>
+<p>Traits:
+  <ul>
+    <li v-for="x in personality.traits">- {{ x }}</li>
+  </ul></p>
+<p>Feedback: {{ personality.feedback }}</p>
+            </div>
+          </div>
+        </div>
 
           <!-- Applied Jobs -->
           <div class="bg-white p-6 rounded-lg shadow">
@@ -206,7 +234,7 @@ const assessments = [
 
 
 ///
-import { onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useUserStore } from '@/stores/useUserStore'
 import api from '@/api/index'
 
@@ -215,6 +243,23 @@ const userStore = useUserStore()
 onMounted(async () => {
   const userDetailRes = await api.userDetail(userStore.email)
   userStore.setUserDetails(userDetailRes)
+  console.log(userStore.experience)
+
+  console.log(userDetailRes)
+
+  if (userDetailRes.about[0]) {
+    personality.value['qs'] = userDetailRes.about[0].question || ''
+    personality.value['ans'] = userDetailRes.about[0].answer || ''
+    personality.value['score'] = userDetailRes.about[0].score || 0
+    personality.value['score_clarity'] = userDetailRes.about[0].score_breakdown.clarity || 0
+    personality.value['score_completeness'] = userDetailRes.about[0].score_breakdown.completeness || 0
+    personality.value['score_professional'] =  userDetailRes.about[0].score_breakdown.professional_tone || 0
+    personality.value['score_relevance'] =  userDetailRes.about[0].score_breakdown.relevance || 0
+    personality.value['score_specify'] =  userDetailRes.about[0].score_breakdown.specificity || 0
+    personality.value['improvement'] =  userDetailRes.about[0].areas_for_improvement || []
+    personality.value['feedback'] =  userDetailRes.about[0].feedback || ''
+    personality.value['traits'] =  userDetailRes.about[0].personality_traits || []
+  }
 })
 
 const name = userStore.name ?? ''
@@ -225,6 +270,20 @@ const experience = userStore.experience ?? []
 const education = userStore.education ?? []
 const skills = userStore.skills ?? []
 // console.log(userStore.about)
+
+const personality = ref({
+  qs: 'Tell us',
+  ans: '',
+  score: 0,
+  score_clarity: 0,
+  score_completeness: 0,
+  score_professional: 0,
+  score_relevance: 0,
+  score_specify: 0,
+  improvement: [],
+  feedback: '',
+  traits: []
+})
 </script>
 
 <style lang="scss" scoped>

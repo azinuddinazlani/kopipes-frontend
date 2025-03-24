@@ -34,6 +34,7 @@ npm run build
 npm run lint
 ```
 
+```
 import { onMounted } from 'vue'
 import { useUserStore } from '@/stores/useUserStore'
 import api from '@/api/index'
@@ -50,3 +51,4 @@ onMounted(async () => {
     }))
   }
 })
+```

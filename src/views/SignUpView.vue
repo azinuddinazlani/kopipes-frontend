@@ -31,7 +31,7 @@
         <div class="title-wrapper">Welcome to <strong>Kopipes</strong></div>
 
         <div class="form-wrapper">
-          <Input placeholder="Email" v-model="userData.email" />
+          <Input placeholder="Email" type="email" v-model="userData.email" />
           <Input placeholder="Password" type="password" v-model="userData.password" />
 
           <div class="flex items-center space-x-2">

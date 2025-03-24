@@ -515,6 +515,10 @@ const personalInfo = reactive({
 onMounted(async () => {
   const userDetailRes = await api.userDetail(userStore.email)
   userStore.setUserDetails(userDetailRes)
+  // console.log(userStore)
+
+  if (userStore.name) { personalInfo.fullName = userStore.name }
+  if (userStore.location) { personalInfo.location = userStore.location }
 
   if (userStore.education) {
     educationList.value = userStore.education.map(edu => ({
@@ -537,7 +541,7 @@ onMounted(async () => {
     }))
   }
 
-  if (userStore.about[0].answer) {
+  if (userStore.about[0]?.answer) {
     personalityQuestions.value[0].answer = userStore.about[0].answer
   }
 })

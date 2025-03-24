@@ -2,8 +2,8 @@ import axios from 'axios'
 
 // Create an Axios instance with default settings
 const apiClient = axios.create({
-  // baseURL: 'https://kopipes-backend-1082564059873.asia-southeast1.run.app', // Set your API base URL here
-  baseURL: 'http://localhost:8000/', // Set your API base URL here
+  baseURL: 'https://kopipes-backend-1082564059873.asia-southeast1.run.app', // Set your API base URL here
+  // baseURL: 'http://localhost:8000/', // Set your API base URL here
   headers: {
     'Content-Type': 'application/json',
   },
@@ -64,8 +64,13 @@ export default {
 
   //
 
-  async jobListing(id = null) {
-    const endpoint = id ? `/jobs/?id=${id}` : '/jobs/'
+  async jobListing() {
+    return await this.postData('/jobs/')
+  },
+
+  async jobDesc(id, email = '') {
+    let endpoint = `/jobs/?id=${id}`
+    if (email) { endpoint += `&email=${email}` }
     return await this.postData(endpoint)
   },
 

@@ -50,11 +50,14 @@
 import { ref, onMounted } from 'vue'
 import { MapPin } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue'
+import { useUserStore } from '@/stores/useUserStore'
 
 import api from '@/api/index'
+const userStore = useUserStore()
 
 onMounted(async () => {
-  const jobList = await api.jobListing(95)
+  const email = userStore.email || ''
+  const jobList = await api.jobDesc(95, email)
 
   if (jobList[0]) {
     const jobdesc = jobList[0]
