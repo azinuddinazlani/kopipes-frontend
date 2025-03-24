@@ -35,15 +35,15 @@ const submitPersonalityTest = async () => {
   isLoading.value = true // Start loading
 
   try {
+    const personTestRes = await api.userPersonalityTest(email, fetchData.value)
+    console.log('API Response:', personTestRes)
+
     const userDetailRes = await api.userDetail(email)
     console.log('User Detail:', userDetailRes)
     userStore.setUserDetails(userDetailRes)
     console.log(userStore.userDetail)
 
     emit('next') // Move to next step only after API is done
-
-    const personTestRes = await api.userPersonalityTest(email, fetchData.value)
-    console.log('API Response:', personTestRes)
   } catch (error) {
     console.error('Error:', error)
   } finally {
