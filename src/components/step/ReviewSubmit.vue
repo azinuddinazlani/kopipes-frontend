@@ -16,7 +16,7 @@
                   <label class="block text-sm text-gray-700 mb-2">Full Name</label>
                   <input
                     type="text"
-                    v-model="personalInfo.fullName"
+                    v-model="personalInfo.name"
                     placeholder="John Doe"
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
@@ -43,7 +43,7 @@
                   <label class="block text-sm text-gray-700 mb-2">Location</label>
                   <input
                     type="text"
-                    v-model="personalInfo.location"
+                    v-model="personalInfo.address"
                     placeholder="Malaysia"
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
@@ -55,7 +55,7 @@
             <div class="space-y-6 pb-8 border-b border-gray-200">
               <div class="flex justify-between items-center">
                 <h2 class="text-xl font-semibold">Education History</h2>
-                <Button @click="showAddEducationModal = true">
+                <Button>
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
@@ -78,30 +78,24 @@
                   </thead>
                   <tbody>
                     <tr
-                      v-for="(education, index) in educationList"
+                      v-for="(education, index) in personalInfo.education"
                       :key="index"
                       class="border-t border-gray-200"
                     >
-                      <td class="px-6 py-4">{{ education.school }}</td>
+                      <td class="px-6 py-4">{{ education.institution }}</td>
                       <td class="px-6 py-4">{{ education.degree }}</td>
-                      <td class="px-6 py-4">{{ education.fieldOfStudy }}</td>
-                      <td class="px-6 py-4">{{ education.year }}</td>
+                      <td class="px-6 py-4">{{ education.major }}</td>
+                      <td class="px-6 py-4">{{ education.dates }}</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-4">
-                          <button
-                            @click="editEducation(index)"
-                            class="text-blue-600 hover:text-blue-800"
-                          >
+                          <button class="text-blue-600 hover:text-blue-800">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                               <path
                                 d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
                               />
                             </svg>
                           </button>
-                          <button
-                            @click="deleteEducation(index)"
-                            class="text-red-600 hover:text-red-800"
-                          >
+                          <button class="text-red-600 hover:text-red-800">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                               <path
                                 fill-rule="evenodd"
@@ -119,10 +113,10 @@
             </div>
 
             <!-- Skills Rating Section -->
-            <div class="space-y-6 pb-8 border-b border-gray-200">
+            <!-- <div class="space-y-6 pb-8 border-b border-gray-200">
               <div class="flex justify-between items-center">
                 <h2 class="text-xl font-semibold">Skills Rating</h2>
-                <Button @click="showAddSkillModal = true">
+                <Button>
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
@@ -169,20 +163,14 @@
                       </td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-4">
-                          <button
-                            @click="editSkill(index)"
-                            class="text-blue-600 hover:text-blue-800"
-                          >
+                          <button class="text-blue-600 hover:text-blue-800">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                               <path
                                 d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
                               />
                             </svg>
                           </button>
-                          <button
-                            @click="deleteSkill(index)"
-                            class="text-red-600 hover:text-red-800"
-                          >
+                          <button class="text-red-600 hover:text-red-800">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                               <path
                                 fill-rule="evenodd"
@@ -197,13 +185,13 @@
                   </tbody>
                 </table>
               </div>
-            </div>
+            </div> -->
 
             <!-- Work Experience Section -->
             <div class="space-y-6 pb-8 border-b border-gray-200">
               <div class="flex justify-between items-center">
                 <h2 class="text-xl font-semibold">Work Experience</h2>
-                <Button @click="showAddWorkModal = true">
+                <Button>
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
@@ -225,7 +213,7 @@
                   </thead>
                   <tbody>
                     <tr
-                      v-for="(work, index) in workExperienceList"
+                      v-for="(work, index) in personalInfo.jobs"
                       :key="index"
                       class="border-t border-gray-200"
                     >
@@ -234,20 +222,14 @@
                       <td class="px-6 py-4">{{ work.duration }}</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-4">
-                          <button
-                            @click="editWork(index)"
-                            class="text-blue-600 hover:text-blue-800"
-                          >
+                          <button class="text-blue-600 hover:text-blue-800">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                               <path
                                 d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
                               />
                             </svg>
                           </button>
-                          <button
-                            @click="deleteWork(index)"
-                            class="text-red-600 hover:text-red-800"
-                          >
+                          <button class="text-red-600 hover:text-red-800">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                               <path
                                 fill-rule="evenodd"
@@ -334,9 +316,7 @@
                   </div>
                 </div>
                 <div class="mt-6 flex justify-end space-x-3">
-                  <Button type="button" @click="showAddEducationModal = false" variant="secondary">
-                    Cancel
-                  </Button>
+                  <Button type="button" variant="secondary"> Cancel </Button>
                   <Button type="submit">
                     {{ editIndex === null ? 'Add' : 'Save' }}
                   </Button>
@@ -385,9 +365,7 @@
                   </div>
                 </div>
                 <div class="mt-6 flex justify-end space-x-3">
-                  <Button type="button" @click="showAddWorkModal = false" variant="secondary">
-                    Cancel
-                  </Button>
+                  <Button type="button" variant="secondary"> Cancel </Button>
                   <Button type="submit">
                     {{ editWorkIndex === null ? 'Add' : 'Save' }}
                   </Button>
@@ -424,7 +402,6 @@
                           v-for="star in 5"
                           :key="star"
                           type="button"
-                          @click="newSkill.rating = star"
                           class="focus:outline-none"
                         >
                           <svg
@@ -444,9 +421,7 @@
                   </div>
                 </div>
                 <div class="mt-6 flex justify-end space-x-3">
-                  <Button type="button" @click="showAddSkillModal = false" variant="secondary">
-                    Cancel
-                  </Button>
+                  <Button type="button" variant="secondary"> Cancel </Button>
                   <Button type="submit">
                     {{ editSkillIndex === null ? 'Add' : 'Save' }}
                   </Button>
@@ -459,190 +434,27 @@
 
       <CardFooter class="flex justify-between">
         <Button @click="$emit('prev')"> <ChevronLeft /> Previous </Button>
-        <Button @click="$emit('submit')">Submit<SendHorizontal /></Button>
+        <Button @click="handleSubmit">Submit<SendHorizontal /></Button>
       </CardFooter>
     </Card>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+// import { ref, reactive } from 'vue'
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
 import Button from '../ui/button/Button.vue'
 import { ChevronLeft, SendHorizontal } from 'lucide-vue-next'
+import { useUserStore } from '@/stores/useUserStore'
+import { useRouter } from 'vue-router'
 
-const personalInfo = reactive({
-  fullName: '',
-  email: '',
-  phone: '',
-  location: '',
-})
+const router = useRouter()
+const userStore = useUserStore()
 
-const educationList = ref([
-  {
-    school: 'Harvard University',
-    degree: "Bachelor's",
-    fieldOfStudy: 'Computer Science',
-    year: '2020-2024',
-  },
-])
+const personalInfo = userStore.resume_base64
 
-const showAddEducationModal = ref(false)
-const editIndex = ref(null)
-const newEducation = reactive({
-  school: '',
-  degree: '',
-  fieldOfStudy: '',
-  year: '',
-})
-
-const workExperienceList = ref([])
-const showAddWorkModal = ref(false)
-const editWorkIndex = ref(null)
-const newWork = reactive({
-  company: '',
-  position: '',
-  duration: '',
-})
-
-// const personalityQuestions = ref([
-//   {
-//     text: 'How would you describe your communication style?',
-//     placeholder: 'Describe how you typically communicate with others...',
-//     answer: '',
-//   },
-//   {
-//     text: 'What are your strengths in a team environment?',
-//     placeholder: 'Share your key strengths when working in teams...',
-//     answer: '',
-//   },
-//   {
-//     text: 'How do you handle stress and pressure?',
-//     placeholder: 'Explain your approach to managing stress...',
-//     answer: '',
-//   },
-//   {
-//     text: 'What motivates you in your work?',
-//     placeholder: 'Describe what drives you professionally...',
-//     answer: '',
-//   },
-//   {
-//     text: 'How do you approach problem-solving?',
-//     placeholder: 'Share your problem-solving methodology...',
-//     answer: '',
-//   },
-// ])
-
-const skillsList = ref([
-  {
-    name: 'JavaScript',
-    rating: 4,
-  },
-  {
-    name: 'Vue.js',
-    rating: 5,
-  },
-])
-
-const showAddSkillModal = ref(false)
-const editSkillIndex = ref(null)
-const newSkill = reactive({
-  name: '',
-  rating: 0,
-})
-
-// Methods
-const editEducation = (index) => {
-  editIndex.value = index
-  Object.assign(newEducation, educationList.value[index])
-  showAddEducationModal.value = true
-}
-
-const deleteEducation = (index) => {
-  if (confirm('Are you sure you want to delete this education entry?')) {
-    educationList.value.splice(index, 1)
-  }
-}
-
-const saveEducation = () => {
-  if (editIndex.value === null) {
-    educationList.value.push({ ...newEducation })
-  } else {
-    educationList.value[editIndex.value] = { ...newEducation }
-  }
-  closeModal()
-}
-
-const closeModal = () => {
-  showAddEducationModal.value = false
-  editIndex.value = null
-  Object.assign(newEducation, {
-    school: '',
-    degree: '',
-    fieldOfStudy: '',
-    year: '',
-  })
-}
-
-const editWork = (index) => {
-  editWorkIndex.value = index
-  Object.assign(newWork, workExperienceList.value[index])
-  showAddWorkModal.value = true
-}
-
-const deleteWork = (index) => {
-  if (confirm('Are you sure you want to delete this work experience?')) {
-    workExperienceList.value.splice(index, 1)
-  }
-}
-
-const saveWork = () => {
-  if (editWorkIndex.value === null) {
-    workExperienceList.value.push({ ...newWork })
-  } else {
-    workExperienceList.value[editWorkIndex.value] = { ...newWork }
-  }
-  closeWorkModal()
-}
-
-const closeWorkModal = () => {
-  showAddWorkModal.value = false
-  editWorkIndex.value = null
-  Object.assign(newWork, {
-    company: '',
-    position: '',
-    duration: '',
-  })
-}
-
-const editSkill = (index) => {
-  editSkillIndex.value = index
-  Object.assign(newSkill, skillsList.value[index])
-  showAddSkillModal.value = true
-}
-
-const deleteSkill = (index) => {
-  if (confirm('Are you sure you want to delete this skill?')) {
-    skillsList.value.splice(index, 1)
-  }
-}
-
-const saveSkill = () => {
-  if (editSkillIndex.value === null) {
-    skillsList.value.push({ ...newSkill })
-  } else {
-    skillsList.value[editSkillIndex.value] = { ...newSkill }
-  }
-  closeSkillModal()
-}
-
-const closeSkillModal = () => {
-  showAddSkillModal.value = false
-  editSkillIndex.value = null
-  Object.assign(newSkill, {
-    name: '',
-    rating: 0,
-  })
+const handleSubmit = () => {
+  router.push('/profile')
 }
 </script>
 

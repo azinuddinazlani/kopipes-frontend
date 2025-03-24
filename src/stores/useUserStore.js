@@ -16,7 +16,7 @@ export const useUserStore = defineStore('user', {
     employer_jobs: [],
     skill_assess: [],
     resume: null, // URL or file reference
-    resume_base64: null, // If storing as base64
+    resume_base64: {}, // If storing as base64
   }),
   actions: {
     setEmail(newEmail) {
