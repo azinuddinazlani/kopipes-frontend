@@ -1,47 +1,3 @@
-<!-- <template>
-  <div class="wrapper">
-    <div class="grid w-full max-w-sm items-center gap-1.5">
-      <Label for="name">Full Name</Label>
-      <Input id="name" type="name" placeholder="Enter your full name" />
-    </div>
-
-    <div class="grid w-full max-w-sm items-center gap-1.5">
-      <Label for="email">Email Address</Label>
-      <Input id="email" type="email" placeholder="Enter your email" />
-    </div>
-
-    <div class="skill-wrapper">
-      <div class="skill-add">
-        <span>Rate Your Skill</span>
-        <Button>Add Skill</Button>
-      </div>
-
-      <div class="skill-input">
-        <div class="grid w-full max-w-sm items-center gap-1.5">
-          <Input id="skillset" placeholder="Enter skill name" />
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script setup>
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
-</script>
-
-<style lang="scss" scoped>
-.wrapper {
-  .skill-wrapper {
-    .skill-add {
-      display: flex;
-      justify-content: space-between;
-    }
-  }
-}
-</style> -->
-
 <template>
   <div class="wrapper">
     <Card class="card-wrapper">
@@ -100,29 +56,32 @@ import { Button } from '@/components/ui/button'
 
           <!-- Skills List -->
           <div class="space-y-4">
-            <div v-if="localFormData.skills.length === 0" class="text-center text-gray-500 py-8">
+            <div
+              v-if="Object.keys(localFormData.skills).length === 0"
+              class="text-center text-gray-500 py-8"
+            >
               No skills added yet. Start adding your technical skills above.
             </div>
 
             <!-- Skill Items -->
             <div
-              v-for="(skill, index) in localFormData.skills"
-              :key="index"
+              v-for="(rating, skill) in localFormData.skills"
+              :key="skill"
               class="flex items-center justify-between p-4 border rounded bg-white hover:shadow-sm transition-shadow"
             >
               <div class="flex-1">
-                <h3 class="font-medium">{{ skill.name }}</h3>
+                <h3 class="font-medium capitalize">{{ skill }}</h3>
                 <div class="flex text-yellow-400">
                   <span v-for="star in 5" :key="star" class="text-xl">
-                    {{ star <= skill.rating ? '★' : '☆' }}
+                    {{ star <= rating ? '★' : '☆' }}
                   </span>
                 </div>
               </div>
               <div class="flex items-center gap-2">
-                <button @click="editSkill(index)" class="p-2 text-blue-500 hover:text-blue-700">
+                <button @click="editSkill(skill)" class="p-2 text-blue-500 hover:text-blue-700">
                   <span class="material-icons"><PenLine /></span>
                 </button>
-                <button @click="removeSkill(index)" class="p-2 text-red-500 hover:text-red-700">
+                <button @click="removeSkill(skill)" class="p-2 text-red-500 hover:text-red-700">
                   <span class="material-icons"><Trash2 /></span>
                 </button>
               </div>
@@ -170,44 +129,28 @@ import { Button } from '@/components/ui/button'
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, reactive, watch } from 'vue'
-import {
-  Card,
-  CardContent,
-  // CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import Input from '@/components/ui/input/Input.vue'
 import Button from '@/components/ui/button/Button.vue'
 import { ChevronRight, ChevronLeft, Trash2, PenLine } from 'lucide-vue-next'
+import api from '@/api'
+import { useUserStore } from '@/stores/useUserStore'
 
-interface Skill {
-  name: string
-  rating: number
-}
-
-interface FormData {
-  skills: Skill[]
-  [key: string]: any
-}
-
-const props = defineProps<{
-  formData: FormData
-}>()
-
+const props = defineProps(['formData'])
 const emit = defineEmits(['update:formData', 'next', 'prev'])
 
 const localFormData = reactive({
-  skills: [...(props.formData.skills || [])],
+  skills: props.formData.skills ? { ...props.formData.skills } : {},
 })
 
 const newSkill = ref('')
 const tempRating = ref(0)
-const editingSkill = ref<number | null>(null)
-const editingSkillData = ref<Skill>({ name: '', rating: 0 })
+const editingSkill = ref(null)
+const editingSkillData = ref({ name: '', rating: 0 })
+const userStore = useUserStore()
+const email = userStore.email // Get email from Pinia store
 
 // Suggested skills list
 const suggestedSkills = [
@@ -223,47 +166,77 @@ const suggestedSkills = [
   'TypeScript',
 ]
 
+// Add skill to object
 const addSkill = () => {
   if (newSkill.value && tempRating.value) {
-    localFormData.skills.push({
-      name: newSkill.value,
-      rating: tempRating.value,
-    })
+    const skillKey = newSkill.value.toLowerCase()
+    localFormData.skills[skillKey] = tempRating.value
+
+    console.log(`Added skill: ${skillKey} with rating: ${tempRating.value}`)
+    console.log('Updated skills object:', localFormData.skills)
+
     newSkill.value = ''
     tempRating.value = 0
   }
 }
 
-const removeSkill = (index: number) => {
-  localFormData.skills.splice(index, 1)
+// Remove skill
+const removeSkill = (skillName) => {
+  delete localFormData.skills[skillName.toLowerCase()]
+  console.log(`Removed skill: ${skillName}`)
+  console.log('Updated skills object:', localFormData.skills)
 }
 
-const editSkill = (index: number) => {
-  editingSkill.value = index
-  editingSkillData.value = { ...localFormData.skills[index] }
+// Edit skill
+const editSkill = (skillName) => {
+  editingSkill.value = skillName
+  editingSkillData.value = {
+    name: skillName,
+    rating: localFormData.skills[skillName],
+  }
 }
 
+// Save edited skill
 const saveEdit = () => {
   if (editingSkill.value !== null) {
-    localFormData.skills[editingSkill.value] = { ...editingSkillData.value }
+    localFormData.skills[editingSkill.value.toLowerCase()] = editingSkillData.value.rating
+    console.log(
+      `Updated skill: ${editingSkill.value} with rating: ${editingSkillData.value.rating}`,
+    )
+    console.log('Updated skills object:', localFormData.skills)
     cancelEdit()
   }
 }
 
+// Cancel edit
 const cancelEdit = () => {
   editingSkill.value = null
   editingSkillData.value = { name: '', rating: 0 }
 }
 
+// Watch for changes and update formData
 watch(localFormData, (newValue) => {
   emit('update:formData', newValue)
+  console.log('Form data updated:', newValue)
 })
 
-const handleNext = () => {
-  if (localFormData.skills.length > 0) {
-    emit('next')
+// Handle Next Button Click
+const handleNext = async () => {
+  console.log('submitting skills to api', localFormData.skills)
+  try {
+    if (Object.keys(localFormData.skills).length > 0) {
+      emit('next')
+    }
+    await api.userDetailUpdate(email, localFormData.skills)
+  } catch (error) {
+    console.error('Upload error:', error)
   }
 }
+
+// Watch skills object for changes
+watch(localFormData.skills, (newValue) => {
+  console.log('Skills updated:', newValue)
+})
 </script>
 
 <style scoped lang="scss">
@@ -274,6 +247,7 @@ const handleNext = () => {
 .wrapper {
   .card-wrapper {
     width: 100%;
+
     .img-wrapper {
       display: flex;
       justify-content: center;
