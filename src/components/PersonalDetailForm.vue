@@ -17,12 +17,16 @@ import PersonalityTest from './step/PersonalityTest.vue'
 
 const personalityQuestions = [
   {
-    trait: 'Openness to Experience',
-    text: 'Describe a situation where you had to think outside the box. How did you approach it?',
+    trait: 'About You',
+    text: 'Tell us about yourself. (e.g., your hobbies, interests, or past working experience)',
     placeholder: 'Share your experience...',
   },
 ]
-
+// {
+//   trait: 'Openness to Experience',
+//   text: 'Describe a situation where you had to think outside the box. How did you approach it?',
+//   placeholder: 'Share your experience...',
+// },
 // {
 //   trait: 'Conscientiousness',
 //   text: 'How do you typically organize your daily tasks and responsibilities?',
