@@ -21,27 +21,28 @@ const personalityQuestions = [
     text: 'Describe a situation where you had to think outside the box. How did you approach it?',
     placeholder: 'Share your experience...',
   },
-  {
-    trait: 'Conscientiousness',
-    text: 'How do you typically organize your daily tasks and responsibilities?',
-    placeholder: 'Describe your organization method...',
-  },
-  {
-    trait: 'Extraversion',
-    text: 'Tell us about a time when you had to work in a team. How did you contribute to the group dynamic?',
-    placeholder: 'Describe your team experience...',
-  },
-  {
-    trait: 'Agreeableness',
-    text: 'How do you handle conflicts or disagreements with others? Give an example.',
-    placeholder: 'Share how you manage conflicts...',
-  },
-  {
-    trait: 'Emotional Stability',
-    text: 'Describe how you cope with stressful situations at work or in your personal life.',
-    placeholder: 'Explain your stress management approach...',
-  },
 ]
+
+// {
+//   trait: 'Conscientiousness',
+//   text: 'How do you typically organize your daily tasks and responsibilities?',
+//   placeholder: 'Describe your organization method...',
+// },
+// {
+//   trait: 'Extraversion',
+//   text: 'Tell us about a time when you had to work in a team. How did you contribute to the group dynamic?',
+//   placeholder: 'Describe your team experience...',
+// },
+// {
+//   trait: 'Agreeableness',
+//   text: 'How do you handle conflicts or disagreements with others? Give an example.',
+//   placeholder: 'Share how you manage conflicts...',
+// },
+// {
+//   trait: 'Emotional Stability',
+//   text: 'Describe how you cope with stressful situations at work or in your personal life.',
+//   placeholder: 'Explain your stress management approach...',
+// },
 
 const handleAnswers = (newAnswers: string[]) => {
   console.log('Updated answers:', newAnswers)

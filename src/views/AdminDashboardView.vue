@@ -1,4 +1,10 @@
 <template>
+  <div class="wrapper">
+    <!-- Loading Overlay -->
+    <div v-if="isLoading" class="loading-overlay">
+      <div class="loading-spinner"></div>
+    </div>
+  </div>
   <div class="background">
     <div class="container py-10 mx-auto">
       <!-- <h1 class="dashboard-title font-bold mb-4">Admin Dashboard</h1> -->
@@ -175,7 +181,7 @@ const columns: ColumnDef<Candidate>[] = [
 
   {
     accessorKey: 'personality_score',
-    header: () => h('div', {}, 'Personality Score'),
+    header: () => h('div', {}, 'Experience Match'),
     cell: ({ row }) => {
       const score = row.getValue('personality_score')
       const colorVariant =
@@ -207,8 +213,26 @@ const table = useVueTable({
   getPaginationRowModel: getPaginationRowModel(),
 })
 
-onMounted(() => {
-  data.value = candidates
+const isLoading = ref(false)
+import api from '@/api/index'
+onMounted(async () => {
+  isLoading.value = true
+  const result = await api.jobListingAdmin()
+  const filteredResults = result.filter((item) => item.user_application !== '')
+  // console.log(filteredResults)
+
+  // data.value = candidates
+  if (filteredResults) {
+    data.value = filteredResults.map((item) => ({
+      applicant: item.user_application.user.name,
+      position: item.name,
+      skill_match: item.user_application.match_json.match_analysis.skills_match.score,
+      personality_score: item.user_application.match_json.match_analysis.experience_match.score,
+      overall_score: item.user_application.match_json.match_analysis.overall_match_score,
+    }))
+
+    isLoading.value = false
+  }
 })
 
 interface Candidate {
@@ -273,4 +297,39 @@ interface Candidate {
 .test {
   border: red solid 1px;
 }
+</style>
+
+<style lang="scss" scoped>
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ... existing styles ... */
 </style>

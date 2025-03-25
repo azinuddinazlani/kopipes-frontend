@@ -247,7 +247,6 @@ watch(localFormData.skills, (newValue) => {
 .wrapper {
   .card-wrapper {
     width: 100%;
-
     .img-wrapper {
       display: flex;
       justify-content: center;

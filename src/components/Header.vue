@@ -15,9 +15,9 @@
               <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/job-listing">
                 Jobs
               </NavigationMenuLink>
-              <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/test">
+              <!-- <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/test">
                 Test
-              </NavigationMenuLink>
+              </NavigationMenuLink> -->
               <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/submit">
                 Upload Resume
               </NavigationMenuLink>
@@ -40,18 +40,7 @@
               <NavigationMenuContent class="navigation-content">
                 <ul class="grid w-[218px] gap-3 p-4">
                   <li>
-                    <NavigationMenuLink
-                      as-child
-                      v-if="userType === 'seeker' || userType === 'Pending'"
-                    >
-                      <a
-                        href="/profile"
-                        class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                      >
-                        <div class="text-sm font-medium leading-none">Profile</div>
-                      </a>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink as-child v-else-if="userType === 'employer'">
+                    <NavigationMenuLink as-child>
                       <a
                         href="/profile"
                         class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"

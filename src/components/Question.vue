@@ -8,7 +8,7 @@
     <div class="question">{{ q.question }}</div>
 
     <div class="options-wrapper" v-for="option in q.options" :key="option.id">
-      <Checkbox :id="q.id.toString() + option.id.toString()" />
+      <Checkbox :id="q.qid.toString() + option.id.toString()" />
       <div class="grid gap-1.5 leading-none">
         <label
           :for="q.id.toString() + option.id.toString()"
@@ -62,9 +62,41 @@ import {
   PaginationPrev,
 } from '@/components/ui/pagination'
 
-const questions = [
+import api from '@/api/index'
+import { useUserStore } from '@/stores/useUserStore'
+import { ref, onMounted } from 'vue'
+
+const userStore = useUserStore()
+
+onMounted(async () => {
+  const response = await api.skillGetQuestions(userStore.email)
+  console.log(response)
+
+  if (response) {
+    questions.value = response.map((qs, index) => ({
+      id: index + 1,
+      qid: qs.id,
+      question: qs.question,
+      options: qs.option
+        .slice(1, -1) // Remove the outer curly braces
+        .split(',') // Split into array of options
+        .map((opt) => {
+          const [id, value] = opt.replace(/"/g, '').split(': ')
+          return {
+            id: id,
+            option: value,
+          }
+        }),
+    }))
+
+    console.log(questions)
+  }
+})
+
+const questions = ref([
   {
     id: 1,
+    qid: 1,
     question: 'What is the differences between "let" and "const" in JavaScript?',
     options: [
       {
@@ -88,6 +120,7 @@ const questions = [
 
   {
     id: 2,
+    qid: 2,
     question: 'What is animal is Tom from Tom and Jerry',
     options: [
       {
@@ -111,6 +144,7 @@ const questions = [
 
   {
     id: 3,
+    qid: 3,
     question: 'Continue the sentence: "Lorem ipsum dolor sit amet, ___________"',
     options: [
       {
@@ -135,7 +169,7 @@ const questions = [
       },
     ],
   },
-]
+])
 </script>
 
 <style lang="scss" scoped>

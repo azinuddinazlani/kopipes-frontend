@@ -44,10 +44,10 @@ const userStore = useUserStore()
 onMounted(async () => {
   const userDetailRes = await api.userDetail(userStore.email)
     const response = await api.skillGetQuestions(userStore.email)
-
+  
   if (response) {
     questions.value = response.map(qs => ({
-
+      
     }))
   }
 })

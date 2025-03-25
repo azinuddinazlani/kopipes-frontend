@@ -44,7 +44,7 @@ const handleUserTypeSelection = async (userType) => {
     console.log('API Response:', response)
     userStore.setUserType(userType)
     // router.push('/')
-    window.location.href = '/'
+    window.location.href = userType === 'seeker' ? '/submit' : '/'
 
     // if (userType === 'employer') {
     //   console.log('Redirecting to the employer dashboard...')

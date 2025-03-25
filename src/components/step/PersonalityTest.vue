@@ -10,7 +10,7 @@ import api from '@/api'
 const { questions } = defineProps(['questions'])
 const emit = defineEmits(['update:answers', 'next', 'prev'])
 
-const answers = ref(Array(5).fill(''))
+const answers = ref(Array(1).fill(''))
 const userStore = useUserStore()
 const email = userStore.email
 const isLoading = ref(false) // Loading state
@@ -18,16 +18,21 @@ const isLoading = ref(false) // Loading state
 const fetchData = computed(() => ({
   responses: [
     {
-      question: 'Describe a situation where you had to think outside the box.',
+      question:
+        'Tell us about yourself. (e.g., your hobbies, interests, or past working experience).',
       response: answers.value[0],
     },
-    { question: 'How do you typically organize your daily tasks?', response: answers.value[1] },
-    {
-      question: 'Tell us about a time when you had to work in a team.',
-      response: answers.value[2],
-    },
-    { question: 'How do you handle conflicts or disagreements?', response: answers.value[3] },
-    { question: 'Describe how you cope with stressful situations.', response: answers.value[4] },
+    // {
+    //   question: 'Describe a situation where you had to think outside the box.',
+    //   response: answers.value[0],
+    // },
+    // { question: 'How do you typically organize your daily tasks?', response: answers.value[1] },
+    // {
+    //   question: 'Tell us about a time when you had to work in a team.',
+    //   response: answers.value[2],
+    // },
+    // { question: 'How do you handle conflicts or disagreements?', response: answers.value[3] },
+    // { question: 'Describe how you cope with stressful situations.', response: answers.value[4] },
   ],
 }))
 
