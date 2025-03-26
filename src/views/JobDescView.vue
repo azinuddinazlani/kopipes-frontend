@@ -6,69 +6,187 @@
     </div>
   </div>
   <div class="container-wrapper">
-    <div class="job-header-wrapper">
-      <div class="wrapper">
-        <h2>{{ jobTitle }}</h2>
-        <div class="apply-btn">Apply Now</div>
-      </div>
-      <p class="company">{{ company }}</p>
-      <p class="location"><MapPin />{{ location }}</p>
-      <!-- <p class="email"><img src="@\img\joblist-mail.svg" />{{ email }}</p> -->
-    </div>
-
-    <div class="content-wrapper">
-      <div class="cv-match-section">
-        <div class="score-circle">
-          <span class="score">{{ overall_score }}%</span>
+    <div class="grid grid-cols-12 gap-12">
+      <!-- Left Column - Made narrower -->
+      <div class="col-span-6">
+        <!-- Job Header -->
+        <div class="job-header-wrapper">
+          <div class="wrapper">
+            <h2>{{ jobTitle }}</h2>
+            <div class="apply-btn">Apply Now</div>
+          </div>
+          <p class="company">{{ company }}</p>
+          <p class="location"><MapPin />{{ location }}</p>
+          <!-- <p class="email"><img src="@\img\joblist-mail.svg" />{{ email }}</p> -->
         </div>
-        <div class="matching-details">
-          <h3>How well is your CV matching?</h3>
-          <div class="matching-criteria">
-            <div class="criteria-item">
-              <span class="icon-success">✓</span>
-              <span>{{ skill_score }}% skills matching</span>
+
+        <!-- Role Details -->
+        <div class="content-role mt-8">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">About the Role</h3>
+          <div class="description text-gray-600">{{ jobDescription }}</div>
+        </div>
+
+        <div class="content-responsibilities mt-8">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">Key Responsibilities</h3>
+          <ul class="list-disc pl-5 space-y-2 text-gray-600">
+            <li v-for="(responsibility, index) in responsibilities" :key="index">
+              {{ responsibility }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="content-req mt-8">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">Requirements</h3>
+          <ul class="list-disc pl-5 space-y-2 text-gray-600">
+            <li v-for="(requirement, index) in requirements" :key="index">
+              {{ requirement }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="content-preferred mt-8">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">Preferred Qualifications</h3>
+          <ul class="list-disc pl-5 space-y-2 text-gray-600">
+            <li v-for="(qualification, index) in preferredQualifications" :key="index">
+              {{ qualification }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right Column - Made wider -->
+      <div class="col-span-6">
+        <div class="cv-match-section bg-white rounded-2xl shadow-2xl p-10 sticky top-4">
+          <div class="flex justify-between">
+            <div class="space-y-6 w-full pr-10">
+              <div>
+                <h3 class="text-3xl font-semibold text-gray-800">Resume Match Score</h3>
+                <p class="text-gray-600 mt-4">Based on the job requirements</p>
+              </div>
+
+              <!-- Matching Details -->
+              <div class="mt-8 border-t border-gray-200 pt-6">
+                <div class="border-b border-gray-200 pb-6 space-y-4">
+                  <div class="flex items-center gap-2">
+                    <div class="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
+                    <span class="text-gray-600">{{ skill_score }}% skills matching</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div class="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
+                    <span class="text-gray-600">{{ experience_score }}% experience matching</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div class="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
+                    <span class="text-gray-600">{{ education_score }}% education matching</span>
+                  </div>
+                </div>
+
+                <!-- Experience Analysis Section -->
+                <div class="mt-6">
+                  <nav class="flex w-full border-b border-gray-200">
+                    <button
+                      @click="activeTab = 'experience'"
+                      :class="[
+                        'px-10 py-4 font-medium',
+                        activeTab === 'experience'
+                          ? 'text-blue-600 border-b-2 border-blue-600'
+                          : 'text-gray-500',
+                      ]"
+                    >
+                      Experience Analysis
+                    </button>
+                    <button
+                      @click="activeTab = 'improvements'"
+                      :class="[
+                        'px-10 py-4 font-medium',
+                        activeTab === 'improvements'
+                          ? 'text-blue-600 border-b-2 border-blue-600'
+                          : 'text-gray-500',
+                      ]"
+                    >
+                      Improvements
+                    </button>
+                  </nav>
+
+                  <!-- Tab Content -->
+                  <div class="mt-8">
+                    <!-- Experience Tab -->
+                    <div v-if="activeTab === 'experience'" class="grid grid-cols-2 gap-5">
+                      <!-- Experience Keywords -->
+                      <div>
+                        <h4 class="text-gray-900 font-medium mb-4">Experience Keywords</h4>
+                        <div class="space-y-3">
+                          <div
+                            v-if="experience_match"
+                            class="bg-green-50 rounded-lg p-3 flex justify-between items-center"
+                          >
+                            <span class="text-green-700">{{ experience_match }}</span>
+                            <span class="text-green-700 text-sm">Match</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Missing Experience -->
+                      <div>
+                        <h4 class="text-gray-900 font-medium mb-4">Missing Experience</h4>
+                        <div class="space-y-3">
+                          <div
+                            v-if="experience_gaps"
+                            class="bg-red-50 rounded-lg p-3 flex justify-between items-center"
+                          >
+                            <span class="text-rose-700">{{ experience_gaps }}</span>
+                            <span class="text-rose-700 text-sm">Required</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Improvements Tab -->
+                    <div v-if="activeTab === 'improvements'" class="grid grid-cols-2 gap-5 mt-6">
+                      <!-- Skills Match -->
+                      <div>
+                        <h4 class="text-gray-900 font-medium mb-4">Skills Match</h4>
+                        <div class="space-y-3">
+                          <div
+                            v-for="(skill, index) in skills_match"
+                            :key="index"
+                            class="bg-green-50 rounded-lg p-3 flex justify-between items-center"
+                          >
+                            <span class="text-green-700">{{ skill }}</span>
+                            <span class="text-green-700 text-sm">Match</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Skills Gaps -->
+                      <div>
+                        <h4 class="text-gray-900 font-medium mb-4">Skills Gaps</h4>
+                        <div class="space-y-3">
+                          <div
+                            v-if="skills_gaps"
+                            class="bg-red-50 rounded-lg p-3 flex justify-between items-center"
+                          >
+                            <span class="text-rose-700">{{ skills_gaps }}</span>
+                            <span class="text-rose-700 text-sm">Required</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="criteria-item">
-              <span class="icon-success">✓</span>
-              <span>{{ experience_score }}% experience matching</span>
-            </div>
-            <div class="criteria-item">
-              <span class="icon-success">✓</span>
-              <span>{{ education_score }}% education matching</span>
+
+            <!-- Score Circle -->
+            <div class="relative shrink-0">
+              <div
+                class="w-32 h-32 rounded-full border-8 border-sky-100 flex items-center justify-center"
+              >
+                <span class="text-[28px] font-semibold text-blue-600">{{ overall_score }}%</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="content-role">
-        <h3>About the Role</h3>
-        <div class="description">{{ jobDescription }}</div>
-      </div>
-
-      <div class="content-responsibilities">
-        <h3>Key Responsibilities</h3>
-        <ul>
-          <li v-for="(responsibility, index) in responsibilities" :key="index">
-            {{ responsibility }}
-          </li>
-        </ul>
-      </div>
-
-      <div class="content-req">
-        <h3>Requirements</h3>
-        <ul>
-          <li v-for="(requirement, index) in requirements" :key="index">
-            {{ requirement }}
-          </li>
-        </ul>
-      </div>
-
-      <div class="content-preferred">
-        <h3>Preferred Qualifications</h3>
-        <ul>
-          <li v-for="(qualification, index) in preferredQualifications" :key="index">
-            {{ qualification }}
-          </li>
-        </ul>
       </div>
     </div>
   </div>
@@ -146,10 +264,18 @@ const skill_score = ref(0)
 const experience_score = ref(0)
 const education_score = ref(0)
 const overall_score = ref(0)
+const education_match = ref('')
+const education_gaps = ref('')
+const experience_match = ref('')
+const experience_gaps = ref('')
+const skills_match = ref([])
+const skills_gaps = ref('')
+const activeTab = ref('experience')
+
 onMounted(async () => {
   isLoading.value = true
   api.jobDesc(route.query.id, userStore.email || '').then((jobList) => {
-    // console.log(jobList)
+    // console.log(jobList[0])
 
     isLoading.value = false
     if (jobList[0]) {
@@ -170,6 +296,22 @@ onMounted(async () => {
       education_score.value =
         jobdesc.user_application.match_json.match_analysis.education_match.score
       overall_score.value = jobdesc.user_application.match_json.match_analysis.overall_match_score
+
+      education_match.value =
+        jobdesc.user_application.match_json.match_analysis.education_match
+          .matched_requirements[0] || ''
+      education_gaps.value =
+        jobdesc.user_application.match_json.match_analysis.education_match.gaps[0] || ''
+      experience_match.value =
+        jobdesc.user_application.match_json.match_analysis.experience_match
+          .relevant_experience[0] || ''
+      experience_gaps.value =
+        jobdesc.user_application.match_json.match_analysis.experience_match.missing_experience[0] ||
+        ''
+      skills_match.value =
+        jobdesc.user_application.match_json.match_analysis.skills_match.matched_skills || []
+      skills_gaps.value =
+        jobdesc.user_application.match_json.match_analysis.skills_match.missing_skills[0] || ''
     }
   })
 })
@@ -181,7 +323,7 @@ $secondary-color: #555;
 $background: #f9f9f9;
 
 .container-wrapper {
-  max-width: 1000px;
+  max-width: 1400px; /* Increased from 1200px */
   margin: 2rem auto;
   padding: 1.5rem;
   border-color: red;
@@ -308,7 +450,9 @@ $background: #f9f9f9;
     }
   }
 }
+</style>
 
+<style lang="scss" scoped>
 .loading-overlay {
   position: fixed;
   top: 0;
@@ -338,5 +482,17 @@ $background: #f9f9f9;
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* ... existing styles ... */
+
+.cv-match-section {
+  box-shadow:
+    0 10px 15px rgba(0, 0, 0, 0.1),
+    0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.test {
+  border: 1px solid red;
 }
 </style>
