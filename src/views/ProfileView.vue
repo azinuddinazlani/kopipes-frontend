@@ -48,7 +48,7 @@
 
         <!-- Upload Resume Button -->
         <div></div>
-        <Button>+ Upload Resume</Button>
+        <Button @click="handleNavigate">+ Upload Resume</Button>
       </div>
 
       <!-- Combined Content Container -->

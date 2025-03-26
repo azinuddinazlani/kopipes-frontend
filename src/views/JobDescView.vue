@@ -13,7 +13,7 @@
         <div class="job-header-wrapper">
           <div class="wrapper">
             <h2>{{ jobTitle }}</h2>
-            <div class="apply-btn">Apply Now</div>
+            <Button class="apply-btn" @click="handleApplyJob">Apply Now</Button>
           </div>
           <p class="company">{{ company }}</p>
           <p class="location"><MapPin />{{ location }}</p>
@@ -197,12 +197,13 @@ import { ref, onMounted } from 'vue'
 import { MapPin } from 'lucide-vue-next'
 import Button from '@/components/ui/button/Button.vue'
 import { useUserStore } from '@/stores/useUserStore'
-import { useRoute, useRouter } from 'vue-router' // Add this
+import { useRoute, useRouter } from 'vue-router'
+import { message } from 'ant-design-vue'
 
 import api from '@/api/index'
 const userStore = useUserStore()
-const route = useRoute() // Add this line
-const router = useRouter() // Add this
+const route = useRoute()
+const router = useRouter()
 const isLoading = ref(false)
 
 if (!route.query.id) {
@@ -271,6 +272,10 @@ const experience_gaps = ref('')
 const skills_match = ref([])
 const skills_gaps = ref('')
 const activeTab = ref('experience')
+
+const handleApplyJob = () => {
+  message.success('Application submitted successfully!')
+}
 
 onMounted(async () => {
   isLoading.value = true
@@ -341,10 +346,7 @@ $background: #f9f9f9;
     .apply-btn {
       border-radius: 25px;
       padding: 0.5rem 3rem;
-      background-color: #000;
-      color: #fff;
       font-weight: 700;
-      cursor: pointer;
     }
     .wrapper {
       display: flex;
