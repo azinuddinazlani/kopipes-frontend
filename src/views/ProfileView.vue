@@ -250,6 +250,8 @@ import { useUserStore } from '@/stores/useUserStore'
 import { computed } from 'vue'
 import { ref, onMounted } from 'vue'
 import api from '@/api/index'
+import Performance from '@/components/profile/Performance.vue'
+import Assessment from '@/components/profile/Assessment.vue'
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend)
 const router = useRouter()
@@ -258,13 +260,15 @@ const resumeInfo = userStore.resume_base64
 // const userInfo = userStore
 // const { data, options } = chartConfig
 
-const scores = [
-  userStore.about[0].score,
-  userStore.about[1].score,
-  userStore.about[2].score,
-  userStore.about[3].score,
-  userStore.about[4].score,
-]
+const scores = userStore.about?.length
+  ? [
+      userStore.about[0].score_breakdown.relevance || 0,
+      userStore.about[0].score_breakdown.clarity || 0,
+      userStore.about[0].score_breakdown.specificity || 0,
+      userStore.about[0].score_breakdown.professional_tone || 0,
+      userStore.about[0].score_breakdown.completeness || 0,
+    ]
+  : [0, 0, 0, 0, 0]
 
 const isLoading = ref(false)
 const appliedJobs = ref([

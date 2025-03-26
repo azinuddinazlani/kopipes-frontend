@@ -2,7 +2,7 @@
   <div class="space-y-6">
     <h2 class="text-lg font-semibold">Performance</h2>
     <div class="radar-container">
-      <Radar :data="data" :options="options" />
+      <Radar :data="chartDataComputed" :options="chartOptions" />
     </div>
 
     <!-- Personality Section -->
@@ -84,7 +84,19 @@
 <script setup>
 import { Radar } from 'vue-chartjs'
 import { MessageCircleMore, Sparkles, Tag } from 'lucide-vue-next'
-import * as chartConfig from '@/data/chartConfig.js'
+// import * as chartConfig from '@/data/chartConfig.js'
+import { useUserStore } from '@/stores/useUserStore'
+import { computed, defineProps } from 'vue'
+// import {
+//   Chart as ChartJS,
+//   RadialLinearScale,
+//   PointElement,
+//   LineElement,
+//   Filler,
+//   Tooltip,
+//   Legend,
+// } from 'chart.js'
+import { data as chartData, options as chartOptions } from '@/data/chartConfig.js'
 
 const props = defineProps({
   personality: {
@@ -92,8 +104,28 @@ const props = defineProps({
     required: true,
   },
 })
+// const { data, options } = chartConfig
 
-const { data, options } = chartConfig
+const userStore = useUserStore()
+const scores = userStore.about?.length
+  ? [
+      userStore.about[0].score_breakdown.relevance || 0,
+      userStore.about[0].score_breakdown.clarity || 0,
+      userStore.about[0].score_breakdown.specificity || 0,
+      userStore.about[0].score_breakdown.professional_tone || 0,
+      userStore.about[0].score_breakdown.completeness || 0,
+    ]
+  : [0, 0, 0, 0, 0]
+
+const chartDataComputed = computed(() => ({
+  labels: chartData.labels, // Keep labels the same
+  datasets: [
+    {
+      ...chartData.datasets[0], // Copy existing dataset properties
+      data: scores || [0, 0, 0, 0, 0], // Use user data, default to zeros
+    },
+  ],
+}))
 </script>
 
 <style lang="scss" scoped>
