@@ -1,10 +1,9 @@
 <template>
-  <div class="wrapper">
-    <!-- Loading Overlay -->
+  <!-- <div class="wrapper">
     <div v-if="isLoading" class="loading-overlay">
       <div class="loading-spinner"></div>
     </div>
-  </div>
+  </div> -->
   <div class="job-card-container">
     <div class="job-card">
       <div class="card-content">
@@ -125,7 +124,11 @@
             </div>
             <div class="match-label">{{ job.matchLabel }}</div>
             <!-- Apply Button -->
-            <button class="apply-btn" @click="handleApply(job.id)">GET SCORE</button>
+            <Button class="apply-btn" @click="handleApply(job.id)" :disabled="isLoading">
+              <Loader2 v-if="isLoading" class="w-4 h-4 mr-2 animate-spin" />
+              <span v-if="isLoading">GENERATING</span>
+              <span v-else class="flex items-center">GET SCORE</span>
+            </Button>
           </div>
         </div>
       </div>
@@ -137,6 +140,8 @@
 import { ref, computed } from 'vue'
 import { useUserStore } from '@/stores/useUserStore'
 import api from '@/api'
+import Button from './ui/button/Button.vue'
+import { Loader2 } from 'lucide-vue-next'
 
 const userStore = useUserStore()
 const isLoading = ref(false)

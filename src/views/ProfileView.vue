@@ -252,6 +252,7 @@ import { ref, onMounted } from 'vue'
 import api from '@/api/index'
 import Performance from '@/components/profile/Performance.vue'
 import Assessment from '@/components/profile/Assessment.vue'
+import Jobs from '@/components/profile/Jobs.vue'
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend)
 const router = useRouter()
