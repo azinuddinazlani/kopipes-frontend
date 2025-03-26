@@ -225,9 +225,21 @@ const handleNext = async () => {
   console.log('submitting skills to api', localFormData.skills)
   try {
     if (Object.keys(localFormData.skills).length > 0) {
+      // Convert skill ratings to strings
+      const formattedSkills = {
+        skills: Object.fromEntries(
+          Object.entries(localFormData.skills).map(([key, value]) => [key, String(value)]),
+        ),
+      }
+
+      console.log('Formatted skills:', formattedSkills)
+
+      // Submit the formatted skills to the API
+      await api.userDetailUpdate(email, formattedSkills)
+
+      // Emit the next event after successful submission
       emit('next')
     }
-    await api.userDetailUpdate(email, localFormData.skills)
   } catch (error) {
     console.error('Upload error:', error)
   }
