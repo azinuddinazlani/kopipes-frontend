@@ -190,6 +190,10 @@ const handleApply = (jobId) => {
     isLoading.value = false
     // console.log(response.match_analysis.overall_match_score)
   })
+
+  api.userDetails(userEmail).then((response) => {
+    userStore.setUserDetails(response)
+  })
   console.log('Applied to job', jobId, userEmail)
 }
 </script>
