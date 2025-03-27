@@ -19,7 +19,7 @@
                 Test
               </NavigationMenuLink> -->
               <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/submit">
-                Upload Resume
+                Upload
               </NavigationMenuLink>
               <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/admin/dashboard">
                 Admin Dashboard

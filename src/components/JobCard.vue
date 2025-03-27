@@ -118,8 +118,11 @@
                 />
               </svg>
               <div class="progress-text">
-                <span class="score">{{ job.matchScore }}</span>
-                <span class="percent">%</span>
+                <span class="score" v-if="job.matchScore"
+                  >{{ job.matchScore }}<span class="percent">%</span></span
+                >
+
+                <span class="score" v-else><img src="@/img/ai-logo.svg" /></span>
               </div>
             </div>
             <div class="match-label">{{ job.matchLabel }}</div>
