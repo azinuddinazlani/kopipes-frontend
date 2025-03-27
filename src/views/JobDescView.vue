@@ -58,7 +58,7 @@
       <div class="col-span-6">
         <div class="cv-match-section bg-white rounded-2xl shadow-2xl p-10 sticky top-4">
           <div class="flex justify-between">
-            <div class="space-y-6 w-full pr-10">
+            <div class="space-y-6 w-full">
               <div>
                 <h3 class="text-3xl font-semibold text-gray-800">Resume Match Score</h3>
                 <p class="text-gray-600 mt-4">Based on the job requirements</p>
@@ -66,24 +66,37 @@
 
               <!-- Matching Details -->
               <div class="mt-8 border-t border-gray-200 pt-6">
-                <div class="border-b border-gray-200 pb-6 space-y-4">
-                  <div class="flex items-center gap-2">
-                    <div class="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
-                    <span class="text-gray-600">{{ skill_score }}% skills matching</span>
+                <div class="border-b border-gray-200 pb-6 space-y-4 flex grid grid-cols-2">
+                  <div class="flex justify-between flex-col">
+                    <div class="flex items-center gap-2">
+                      <div class="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
+                      <span class="text-gray-600">{{ skill_score }}% skills matching</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <div class="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
+                      <span class="text-gray-600">{{ experience_score }}% experience matching</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <div class="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
+                      <span class="text-gray-600">{{ education_score }}% education matching</span>
+                    </div>
                   </div>
-                  <div class="flex items-center gap-2">
-                    <div class="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
-                    <span class="text-gray-600">{{ experience_score }}% experience matching</span>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <div class="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
-                    <span class="text-gray-600">{{ education_score }}% education matching</span>
+
+                  <!-- Score Circle -->
+                  <div class="relative shrink-0">
+                    <div
+                      class="w-32 h-32 rounded-full border-8 border-sky-100 flex items-center justify-center"
+                    >
+                      <span class="text-[28px] font-semibold text-blue-600"
+                        >{{ overall_score }}%</span
+                      >
+                    </div>
                   </div>
                 </div>
 
                 <!-- Experience Analysis Section -->
                 <div class="mt-6">
-                  <nav class="flex w-full border-b border-gray-200">
+                  <nav class="flex w-full border-b border-gray-200 justify-evenly">
                     <button
                       @click="activeTab = 'experience'"
                       :class="[
@@ -111,7 +124,7 @@
                   <!-- Tab Content -->
                   <div class="mt-8">
                     <!-- Experience Tab -->
-                    <div v-if="activeTab === 'experience'" class="grid grid-cols-2 gap-5">
+                    <div v-if="activeTab === 'experience'" class="gap-5">
                       <!-- Experience Keywords -->
                       <div>
                         <h4 class="text-gray-900 font-medium mb-4">Experience Keywords</h4>
@@ -135,14 +148,14 @@
                             class="bg-red-50 rounded-lg p-3 flex justify-between items-center"
                           >
                             <span class="text-rose-700">{{ experience_gaps }}</span>
-                            <span class="text-rose-700 text-sm">Required</span>
+                            <!-- <span class="text-rose-700 text-sm">Required</span> -->
                           </div>
                         </div>
                       </div>
                     </div>
 
                     <!-- Improvements Tab -->
-                    <div v-if="activeTab === 'improvements'" class="grid grid-cols-2 gap-5 mt-6">
+                    <div v-if="activeTab === 'improvements'" class="gap-5 mt-6">
                       <!-- Skills Match -->
                       <div>
                         <h4 class="text-gray-900 font-medium mb-4">Skills Match</h4>
@@ -167,22 +180,13 @@
                             class="bg-red-50 rounded-lg p-3 flex justify-between items-center"
                           >
                             <span class="text-rose-700">{{ skills_gaps }}</span>
-                            <span class="text-rose-700 text-sm">Required</span>
+                            <!-- <span class="text-rose-700 text-sm">Required</span> -->
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <!-- Score Circle -->
-            <div class="relative shrink-0">
-              <div
-                class="w-32 h-32 rounded-full border-8 border-sky-100 flex items-center justify-center"
-              >
-                <span class="text-[28px] font-semibold text-blue-600">{{ overall_score }}%</span>
               </div>
             </div>
           </div>
