@@ -120,8 +120,14 @@
           <Button @click="$emit('prev')" class="px-4 py-2 bg-primary text-white rounded">
             <ChevronLeft /> Previous
           </Button>
-          <Button @click="handleNext" class="px-4 py-2 bg-primary text-white rounded">
+          <!-- <Button @click="handleNext" class="px-4 py-2 bg-primary text-white rounded">
             Next <ChevronRight />
+          </Button> -->
+
+          <Button @click="handleNext" :disabled="isLoading">
+            <Loader2 v-if="isLoading" class="w-4 h-4 mr-2 animate-spin" />
+            <span v-if="isLoading">Please wait</span>
+            <span v-else class="flex items-center">Next <ChevronRight /></span>
           </Button>
         </CardFooter>
       </div>
@@ -134,7 +140,7 @@ import { ref, reactive, watch } from 'vue'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import Input from '@/components/ui/input/Input.vue'
 import Button from '@/components/ui/button/Button.vue'
-import { ChevronRight, ChevronLeft, Trash2, PenLine } from 'lucide-vue-next'
+import { ChevronRight, ChevronLeft, Trash2, PenLine, Loader2 } from 'lucide-vue-next'
 import api from '@/api'
 import { useUserStore } from '@/stores/useUserStore'
 
@@ -151,6 +157,7 @@ const editingSkill = ref(null)
 const editingSkillData = ref({ name: '', rating: 0 })
 const userStore = useUserStore()
 const email = userStore.email // Get email from Pinia store
+const isLoading = ref(false) // Loading state
 
 // Suggested skills list
 const suggestedSkills = [
@@ -222,6 +229,7 @@ watch(localFormData, (newValue) => {
 
 // Handle Next Button Click
 const handleNext = async () => {
+  isLoading.value = true // Start loading
   console.log('submitting skills to api', localFormData.skills)
   try {
     if (Object.keys(localFormData.skills).length > 0) {
@@ -242,6 +250,8 @@ const handleNext = async () => {
     }
   } catch (error) {
     console.error('Upload error:', error)
+  } finally {
+    isLoading.value = false // Stop loading
   }
 }
 

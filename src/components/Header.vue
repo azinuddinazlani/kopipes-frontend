@@ -21,9 +21,9 @@
               <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/submit">
                 Upload
               </NavigationMenuLink>
-              <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/admin/dashboard">
+              <!-- <NavigationMenuLink :class="navigationMenuTriggerStyle()" href="/admin/dashboard">
                 Admin Dashboard
-              </NavigationMenuLink>
+              </NavigationMenuLink> -->
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>

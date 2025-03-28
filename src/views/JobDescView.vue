@@ -126,7 +126,7 @@
                     <!-- Experience Tab -->
                     <div v-if="activeTab === 'experience'" class="gap-5">
                       <!-- Experience Keywords -->
-                      <div>
+                      <!-- <div>
                         <h4 class="text-gray-900 font-medium mb-4">Experience Keywords</h4>
                         <div class="space-y-3">
                           <div
@@ -137,7 +137,7 @@
                             <span class="text-green-700 text-sm">Match</span>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
 
                       <!-- Missing Experience -->
                       <div>
@@ -157,7 +157,7 @@
                     <!-- Improvements Tab -->
                     <div v-if="activeTab === 'improvements'" class="gap-5 mt-6">
                       <!-- Skills Match -->
-                      <div>
+                      <!-- <div>
                         <h4 class="text-gray-900 font-medium mb-4">Skills Match</h4>
                         <div class="space-y-3">
                           <div
@@ -169,7 +169,7 @@
                             <span class="text-green-700 text-sm">Match</span>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
 
                       <!-- Skills Gaps -->
                       <div>
