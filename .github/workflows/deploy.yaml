@@ -1,4 +1,4 @@
-name: Deploy to Preview Channel
+name: Deploy to Vercel
 
 on:
   push:
@@ -6,29 +6,27 @@ on:
       - main
 
 jobs:
-  build_and_preview:
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@master
-      - name: Installing project dependencies
-        working-directory: ./
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Choose your preferred Node.js version
+
+      - name: Install dependencies
         run: npm install
-      - name: Building the project
-        working-directory: ./
+
+      - name: Build project
         run: npm run build
 
-      - run: npm install -g firebase-tools
-
-      - name: 'Authenticate with Google Cloud'
-        uses: 'google-github-actions/auth@v1'
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
         with:
-          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
-
-      - run: firebase use gaia-capstone04-prd
-      - run: firebase deploy --only hosting
+          vercel-token: ${{ vars.VERCEL_TOKEN }}
+          vercel-org-id: ${{ vars.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ vars.VERCEL_PROJECT_ID }}
+          working-directory: ./
+          vercel-args: '--prod' # Remove this if you want to deploy to preview
